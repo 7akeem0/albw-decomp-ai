@@ -1,0 +1,2 @@
+#include "range.h"
+struct Obj{void*head;u32 pad;u32 sub8[2],sub10[2];};struct S{Obj*object;f32 rate;};struct A{u8 pad[0x20];s32 index;u8 pad24[0x50-0x24];s32 arg50;};extern "C" void func_00133790(Obj*,s32);extern "C" void func_0069021C(void*,s32,u32*,u32*,f32);void target(S*p,A*a){func_00133790(p->object,a->arg50);Obj*o=p->object;void*h=o->head;s32 n=a->index;u32*x=o->sub8;u32*y=o->sub10;func_0069021C(h,n,x,y,p->rate);}

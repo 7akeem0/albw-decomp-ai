@@ -1,0 +1,2 @@
+#include "range.h"
+struct S{u32 head,sub;};extern "C" bool func_0067629C(u32*,u32*);extern "C" u32 func_00676530(u32*);u32 target(S*p,bool nonblocking){if(nonblocking){u32 out;if(func_0067629C(&p->sub,&out))return out;return 0;}return func_00676530(&p->sub);}

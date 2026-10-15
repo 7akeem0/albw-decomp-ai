@@ -1,0 +1,10 @@
+typedef unsigned int u32;
+typedef int s32;
+typedef long long s64;
+typedef float f32;
+typedef signed char s8;
+typedef short s16;
+typedef unsigned char u8;
+typedef unsigned short u16;
+struct S { u32 n; S* a; S* b; S() { a = (S*)((char*)this + 4); n = 0; b = a; } };
+S s;

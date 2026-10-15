@@ -1,0 +1,4 @@
+#include "range.h"
+struct Child2{virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void v10();virtual void v11();virtual void v12();virtual void v13();virtual void v14();virtual void v15();virtual void v16();virtual void v17();virtual void v18();virtual void v19();virtual void v20();virtual void v21();virtual void v22();virtual void v23();virtual void v24();virtual void v25();virtual void v26();virtual void v27();virtual void target();u8 pad[0x1e9-4];u8 active;};
+struct S2{u8 pad[0x10];Child2*children[15];Child2* at(u32 i){Child2* volatile* a=(Child2* volatile*)children;return a[i];}};
+void func_0014A310(S2*p){for(u32 i=0;i<15;++i){if(p->children[i]->active)p->at(i)->target();}}

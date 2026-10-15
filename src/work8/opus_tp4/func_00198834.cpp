@@ -1,0 +1,25 @@
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef short s16;
+typedef unsigned int u32;
+typedef int s32;
+typedef float f32;
+extern "C" void func_002DFF7C(void*);
+extern "C" u32 func_0019B04C(u32);
+extern "C" void func_004C43E0(void*, void*);
+extern u32 ro_006931FC;
+extern void* data_00706E20;
+extern "C" void func_00198834(char* self, u32 a1, u32 a2, f32 f){u32 y2=a2;
+    char buf[0x2c8];
+    *(u32*)(buf + 0x20) = 0; *(u32*)(buf + 0x24) = 0; *(u32*)(buf + 0x1c) = 0;
+    *(u32*)(buf + 0x48) = 0; *(u32*)(buf + 0x4c) = 0; *(u32*)(buf + 0x2c0) = 0;
+    func_002DFF7C(buf);
+    *(u32*)buf = func_0019B04C(ro_006931FC);
+    *(u32*)(buf + 4) = *(u32*)(self);
+    *(u32*)(buf + 8) = *(u32*)(self + 4);
+    *(u32*)(buf + 0xc) = *(u32*)(self + 8);
+    *(u32*)(buf + 0x4c) = y2;
+    *(u32*)(buf + 0x20) = a1;
+    *(f32*)(buf + 0x44) = f;
+    func_004C43E0(data_00706E20, buf);
+}

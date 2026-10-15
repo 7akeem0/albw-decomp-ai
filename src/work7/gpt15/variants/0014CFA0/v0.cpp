@@ -1,0 +1,2 @@
+#include "../../range.h"
+extern "C" void func_001B6C04(void*);extern "C" void func_004B948C(void*,void*);struct S{u8 pad10[0x10];void*receiver;u8 pad14[0x38-0x14];u32 count,capacity;void**data;u8 pad44[0xc4-0x44];u8 flag;};extern "C" void func_0014CFA0(S*p){func_001B6C04(p);void*receiver=p->receiver;if(receiver){void**it=p->data;void**end=it+p->count;while(it!=end){func_004B948C(receiver,*it);++it;}}p->flag=1;}

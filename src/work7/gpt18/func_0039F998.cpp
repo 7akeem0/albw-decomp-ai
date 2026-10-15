@@ -1,0 +1,2 @@
+#include "range.h"
+struct Mtx{f32 data[12];};struct C{char pad[0x80];Mtx matrix;char gap[0x164-0xb0];u32 flags;};struct O{u32 word;C*child;};struct Q{char pad[0x600];void*model;};extern const Mtx*func_0053ED3C(void*);extern void func_001151EC(Mtx*,const Mtx*);extern void func_004CEAF0(C*);void f(O*p,const Q*q){C*c=p->child;Mtx*m=&c->matrix;c->flags|=0x40000000;func_001151EC(m,func_0053ED3C(q->model));func_004CEAF0(p->child);}

@@ -1,0 +1,2 @@
+#include "range.h"
+struct Child{virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual s32 value();};struct S{u8 pad[0xc];f32 scale;u8 pad10[0x24-0x10];Child*child;u8 pad28[0x38-0x28];f32 offset;};f32 target(S*p){s32 n=p->child?p->child->value():0;return p->offset+n*p->scale;}

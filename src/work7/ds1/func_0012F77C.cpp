@@ -1,0 +1,30 @@
+typedef unsigned char u8;
+typedef unsigned int u32;
+
+extern "C" void* func_0010CEE0(u32, void*, u32);
+extern "C" void* func_0010DA7C(void*, void*, u32);
+extern "C" void* func_00132A20(void*);
+extern "C" char ro_006EF5A8[];
+
+struct G {
+    void* m0;
+    void* m4;
+};
+
+extern "C" G data_0070B960;
+
+void* func_0012F77C(void* heap) {
+    if (data_0070B960.m0 != 0) return data_0070B960.m0;
+    u8* p = (u8*)func_0010CEE0(0x2c34, heap, 4);
+    u8* q = p + 4;
+    if (q != 0) {
+        void* hh = heap;
+        u32 kk = 3;
+        q = (u8*)func_0010DA7C(q, hh, kk);
+        *(void**)q = ro_006EF5A8;
+    }
+    data_0070B960.m4 = q;
+    void* res = p ? func_00132A20(p) : 0;
+    data_0070B960.m0 = res;
+    return res;
+}

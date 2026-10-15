@@ -1,0 +1,10 @@
+typedef unsigned int u32;
+typedef int s32;
+typedef long long s64;
+typedef float f32;
+typedef signed char s8;
+typedef short s16;
+typedef unsigned char u8;
+typedef unsigned short u16;
+struct Z { u32 v[4]; Z() { v[0]=1; v[1]=0x6c078967u; v[2]=0x714acb41u; v[3]=0x48077044u; } };
+Z a;

@@ -1,0 +1,2 @@
+#include "range.h"
+struct Base{virtual void v();char*buf;u32 max;Base(char*,s32);};struct Fixed:Base{char buffer[30];void clear();Fixed():Base(buffer,30){clear();}virtual void v();};void Fixed::clear(){buf[0]=0;}struct D:Fixed{D();virtual void v();};D::D(){}

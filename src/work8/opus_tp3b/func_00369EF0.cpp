@@ -1,0 +1,2 @@
+#include "../../work7/gpt15/range.h"
+struct Base_001B6E04{virtual void v();u8 pad[0x34];Base_001B6E04();};struct Array{s32 count,capacity;void**data;Array():count(0),capacity(0),data(0){}void func_0010B3EC(s32,void*);};struct Fixed:Array{void*storage[3];Fixed():Array(){func_0010B3EC(3,storage);}};struct Mid:Base_001B6E04{u32 m38;Mid():m38(0){}};struct S:Mid{Fixed array;u8 pad54[0x78-0x54];u32 m78;S();virtual void v();};S::S():Mid(),array(),m78(0){}

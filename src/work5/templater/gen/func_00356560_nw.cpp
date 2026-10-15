@@ -1,0 +1,5 @@
+typedef unsigned char u8; typedef signed char s8; typedef unsigned short u16; typedef short s16;
+typedef unsigned int u32; typedef int s32; typedef float f32;
+struct S_356560 { char padA5C[0xA5C]; char m; };
+ void callee_356560(void*, int);
+void f_356560(S_356560* p) { callee_356560(&p->m, 9); }

@@ -1,0 +1,2 @@
+#include "../../range.h"
+struct Info{u8 pad23[0x23];u8 kind;};struct S{u8 pad2D0[0x2d0];Info*info;u8 pad2D4[0x34c-0x2d4];void*receiver;};extern "C" void func_004D0194(void*,s32);extern "C" void func_004D0268(void*,s32);extern "C" void func_0014E818(S*p,s32 first,s32 second){if(!p->info||p->info->kind==2)return;void*receiver=p->receiver;if(!receiver)return;if(first>0)func_004D0194(receiver,first);if(second>0)func_004D0268(receiver,second);}

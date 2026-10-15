@@ -1,0 +1,4 @@
+typedef unsigned char u8; typedef signed char s8; typedef unsigned short u16; typedef short s16;
+typedef unsigned int u32; typedef int s32; typedef float f32;
+struct S_56BA04 { char pad10[0x10]; s32 m; };
+char* f_56BA04(S_56BA04* p) { return (char*)p + p->m; }

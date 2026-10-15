@@ -1,0 +1,2 @@
+#include "range.h"
+struct O{u8 pad[0x8e0];u32 sub;}; struct S{u32 pad;O* owner;};extern "C" float func_0058AC38(O*);extern "C" void func_003C2464(u32*,int,float);void target(S*p){O*o=p->owner;func_003C2464(&o->sub,(int)func_0058AC38(o),0.0f);}

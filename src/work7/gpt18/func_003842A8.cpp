@@ -1,0 +1,2 @@
+#include "range.h"
+struct Sub{void func_003842C0(s32,s32,bool);u32 v;};struct Child{char pad[0x8c0];Sub sub;void call(s32 a,s32 b,bool c){sub.func_003842C0(a,b,c);}};struct O{char pad[0x48];Child* child;};void func_003842A8(O*p){p->child->call(106,10,true);}

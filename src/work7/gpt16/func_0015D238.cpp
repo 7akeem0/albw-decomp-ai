@@ -1,0 +1,2 @@
+#include "range.h"
+extern void func_0036B758(void*);extern void func_0015AD54(void*,s32,s32,f32);extern void func_0015D0E0(void*);void f15D238(Obj15D*p){func_0036B758(p->sube60);func_0015AD54(p,16,-1,0.0f);func_0015D0E0(p);}

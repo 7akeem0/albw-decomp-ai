@@ -1,0 +1,3 @@
+#include "ladder_types.h"
+// Original vt 006C8FC8; primaryD1 001510A4; memberD1 004EE540.
+struct Primary_004D9D28{virtual ~Primary_004D9D28();virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void v10();virtual void v11();virtual void v12();virtual void v13();virtual void v14();virtual void v15();virtual void v16();char pad4[0x31c];};struct Secondary_004D9D28{virtual ~Secondary_004D9D28(){};char pad4[0x11c];};struct Member_004D9D28{u32 data;~Member_004D9D28();};struct Owner_004D9D28:Primary_004D9D28,Secondary_004D9D28{Member_004D9D28 member;virtual ~Owner_004D9D28();};Owner_004D9D28::~Owner_004D9D28(){}

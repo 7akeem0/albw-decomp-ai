@@ -1,0 +1,10 @@
+typedef unsigned char u8; typedef signed char s8; typedef unsigned short u16; typedef short s16;
+typedef unsigned int u32; typedef int s32; typedef float f32;
+
+struct S0_54DDF4;
+struct S1_54DDF4;
+struct M_54DDF4;
+struct M_54DDF4 { void g(); };
+struct S1_54DDF4 { char pad18[0x18]; M_54DDF4 m18; };
+struct S0_54DDF4 { char pad2D0[0x2D0]; S1_54DDF4* m2D0; };
+void f_54DDF4(S0_54DDF4* p) { p->m2D0->m18.g(); }

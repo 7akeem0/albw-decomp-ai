@@ -1,0 +1,2 @@
+#include "../../range.h"
+struct Elem{u8 value;u8 pad[7];};struct Obj{s32 count;Elem elements[1];};struct S{u8 padC[12];ResourceEntry16<Obj>*entries;u8 pad10[28-0x10];s32 index;};Elem*element(Obj*o,s32 i,u32 offset){u32 displacement=offset+i*8;return (Elem*)((u32)o+displacement);}u8 func_0011E6EC(S*p,s32 i){if(p->index==-1)return 255;Obj*obj=p->entries[p->index].object;if(obj->count<=i)return 255;Elem*e=element(obj,i,4);if(e)return e->value;return 255;}

@@ -1,0 +1,2 @@
+#include "range.h"
+struct C{virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void v10();virtual void v11();virtual void v12();virtual void v13(); virtual bool test(bool);};struct O{char pad[0x328];C*child;char gap[0x34c-0x32c];u8 active;};void f(O*p){if(p->active&&p->child->test(false))p->active=0;}

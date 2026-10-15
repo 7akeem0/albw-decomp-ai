@@ -1,0 +1,2 @@
+#include "../../range.h"
+struct Player{u8 pad24[0x24];u32*angle;};extern "C" Player*data_0070FB60;extern "C" void func_0013DC0C(void*);extern "C" void func_0052E32C(Player*,Vec3*);struct Triple{u32 a,b,c;};extern "C" const Triple*func_005568BC(Player*);struct S{u8 pad3D0[0x3d0];Vec3 position;u8 pad3DC[12];u32 angle;u8 pad3EC[0x554-0x3ec];Triple saved;};extern "C" void func_0013D0A4(S*p){func_0013DC0C(p);func_0052E32C(data_0070FB60,&p->position);p->angle=*data_0070FB60->angle;p->saved=*func_005568BC(data_0070FB60);}

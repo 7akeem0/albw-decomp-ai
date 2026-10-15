@@ -1,0 +1,2 @@
+#include "range.h"
+struct S{u8 pad[0x10];f32 scale,offset;};struct R{u32 value;};extern "C" R*func_0067E848(S*);f32 target(S*p){u32 n=func_0067E848(p)->value>>12;f32 b=p->offset;f32 a=p->scale;return b+n*a;}

@@ -1,0 +1,2 @@
+#include "../../range.h"
+struct Config{u8 pad[0x16];u16 flags;};struct Controller{u8 data[0x24];void func_002317C0(f32);};struct State{void func_00656CA4(s32);};struct S{u8 pad[0x14];Config*config;u8 pad18[0x44-0x18];Controller control;State state;};void func_0012CB60(S*p){u16 f=p->config->flags;if(f&8){p->control.func_002317C0(1.0f);p->state.func_00656CA4(1);}else if(f&2)p->state.func_00656CA4(1);}

@@ -1,0 +1,5 @@
+#include "range.h"
+struct OFB0 {u8 pad[0x8c1];u8 mode;u8 gap;u8 flag;};
+u8* func_003A3304(OFB0*p,u32 i){switch(i){case 1:return (u8*)p+0x8b0;case 2:return (u8*)p+0x30c;case 3:return (u8*)p+0x2cc;case 4:return (u8*)p+0x454;case 5:return (u8*)p+0x414;case 6:return (u8*)p+0x358;case 7:return (u8*)p+0x394;case 8:return (u8*)p+0x3d4;case 9:return (u8*)p+0x554;case 10:return (u8*)p+0x6f8;case 11:return (u8*)p+0x5e8;case 12:return (u8*)p+0x834;case 13:return (u8*)p+0x598;case 14:return (u8*)p+0x598;case 15:return (u8*)p+0x598;case 16:return (u8*)p+0x598;case 17:return (u8*)p+0x598;case 18:return (u8*)p+0x598;case 19:return (u8*)p+0x598;case 20:return (u8*)p+0x598;case 21:return (u8*)p+0x870;case 22:return (u8*)p+0x870;case 23:return (u8*)p+0x598;case 24:return (u8*)p+0x598;case 25:return (u8*)p+0x598;case 26:return (u8*)p+0x598;case 27:return (u8*)p+0x598;case 28:return (u8*)p+0x598;default:return 0;}}
+extern "C" void func_003A2FB0(OFB0*p,u8 n){u8*q=func_003A3304(p,p->mode);if(q)q[12]=n;p->flag=n;}
+

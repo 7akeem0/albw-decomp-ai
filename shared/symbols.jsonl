@@ -1,0 +1,288 @@
+{"t": "05:18:46", "addr": "0066E7A0", "name": "StateMgr::ChangeState(s8) [weak/inline -> callers never tail-call]", "agent": "agent6/lead", "notes": ""}
+{"t": "05:18:46", "addr": "00201234", "name": "checkDerivedRuntimeTypeInfoStatic (sead RTTI, weak)", "agent": "agent7/lead", "notes": ""}
+{"t": "05:18:46", "addr": "0061EEF0", "name": "Obj::UpdateImpl(bool) [weak]", "agent": "agent8/lead", "notes": ""}
+{"t": "05:18:46", "addr": "00100174", "name": "__cxa_guard_acquire (Thumb, called via blx)", "agent": "lead", "notes": ""}
+{"t": "05:18:46", "addr": "0018FBA8", "name": "Hookshot::Hookshot() ctor", "agent": "agent1", "notes": ""}
+{"t": "05:18:46", "addr": "0059C230", "name": "NpcHilda TU static initializer", "agent": "agent1", "notes": ""}
+{"t": "05:18:46", "addr": "0011558C", "name": "nn::math MTX34 inverse (hand-written VFP asm, keep as asm)", "agent": "agent4", "notes": ""}
+{"t": "05:21:03", "addr": "00115D70", "name": "Vec3 operator*(const Vec3& v, float s) -> returns Vec3 by value (r0=ret, r1=v, s0=s)", "agent": "3", "notes": "non-inline, called via bl; callers copy result via ldm/stm into dest"}
+{"t": "05:21:04", "addr": "00115C54", "name": "Vec3 operator+(const Vec3& a, const Vec3& b) -> Vec3 by value", "agent": "3", "notes": "non-inline"}
+{"t": "05:21:04", "addr": "00115C70", "name": "Vec3 operator-(const Vec3& a, const Vec3& b) -> Vec3 by value", "agent": "3", "notes": "non-inline"}
+{"t": "05:21:04", "addr": "00115E10", "name": "Vec3 cross(const Vec3& a, const Vec3& b) -> Vec3 by value", "agent": "3", "notes": "x=a.y*b.z-a.z*b.y ..."}
+{"t": "05:21:04", "addr": "0010F1F8", "name": "sead::ListNode::erase_() {prev@0,next@4}", "agent": "3", "notes": "unlink + zero; OffsetList::erase inlines it then count-- at list+8; list+0xC = node offset"}
+{"t": "05:21:04", "addr": "001FE680", "name": "HitResult-like struct ctor (0x30 bytes): float=0, Vec3=bss_7A9260, Vec3=bss_7A9260, 5 words=0", "agent": "3", "notes": "bss_007A9260 is probably Vec3::zero"}
+{"t": "05:27:41", "addr": "00115C54", "name": "Vec3::setAdd(const Vec3&,const Vec3&) this=out", "agent": "2", "notes": "vadd 3 floats"}
+{"t": "05:27:41", "addr": "00115C70", "name": "Vec3::setSub(const Vec3&,const Vec3&) this=out", "agent": "2", "notes": ""}
+{"t": "05:27:42", "addr": "00115D70", "name": "Vec3::setMul(const Vec3&,float) this=out", "agent": "2", "notes": ""}
+{"t": "05:27:42", "addr": "00115DC8", "name": "Vec3::normalize() returns len in s0", "agent": "2", "notes": ""}
+{"t": "05:27:42", "addr": "00114608", "name": "__aeabi_f2lz (float->s64, softfp r0)", "agent": "2", "notes": "ARMCC doesn't fold (s64)const"}
+{"t": "05:27:42", "addr": "002D55D0", "name": "StateBase::changeState(int) [non-weak, tail-callable] writes s16 at this+4", "agent": "2", "notes": "player state component"}
+{"t": "05:27:42", "addr": "0053EE30", "name": "Frame::getFrame() float (anim frame ctrl at anim+0x3c/+0x5c)", "agent": "2", "notes": ""}
+{"t": "05:27:42", "addr": "0053EDAC", "name": "Frame::getEnd() float", "agent": "2", "notes": ""}
+{"t": "05:27:42", "addr": "0053EDBC", "name": "Frame::isEnd() bool", "agent": "2", "notes": ""}
+{"t": "05:27:42", "addr": "004A3788", "name": "EffHandle::kill() (handle = {ptr,id}, valid if ptr->f1c==id)", "agent": "2", "notes": ""}
+{"t": "05:27:42", "addr": "004EA104", "name": "SoundMgr::play(const sead::SafeString&, int) on *data_00711F50", "agent": "2", "notes": ""}
+{"t": "05:27:42", "addr": "00352128", "name": "EffMgr::create(EffHandle*, const char* name) at player+0x324", "agent": "2", "notes": ""}
+{"t": "05:28:38", "addr": "007A9260", "name": "const Vec3 sead::Vector3f::zero (bss, dyn-init) - declare extern const", "agent": "7", "notes": "copies reload each time only if declared const"}
+{"t": "05:34:49", "addr": "0010BAB4", "name": "operator new(u32 size, std::nothrow_t) - nothrow passed BY VALUE (r1 = garbage/any reg)", "agent": "6", "notes": "declare: namespace std{struct nothrow_t{}; extern const nothrow_t nothrow;} void* operator new(unsigned int, std::nothrow_t) throw(); then new (std::nothrow) T(...). Gives 'ldr r1,[sp,#X]' (uninit) or random mov r1 before bl."}
+{"t": "05:34:49", "addr": "00689894", "name": "s32 sead::BufferedSafeStringBase<char>::copy(const SafeString& src, s32 len=-1) (out-of-line)", "agent": "6", "notes": "called as fixedStr.copy(SafeString(\"lit\")) -> r0=&str, r1=&tmp{vt 0x6F5988, ptr}, r2=-1"}
+{"t": "05:34:49", "addr": "00674F4C", "name": "EnemyBase::EnemyBase(const ActorParam* p, s32 numStates, ActorA* owner) (soldier base ctor; owner->m354=&mStateMgr, mStateMgr at +0x90C, mOwner +0x920)", "agent": "6", "notes": "caller 0x1B11F8 passes (param, 12, this) -> 'mov r3,r0' before the bl"}
+{"t": "05:34:49", "addr": "00588BE4", "name": "s32 Actor::getActorId() { return m2D0->m8; } (non-inline)", "agent": "6", "notes": "compared against extern const s32 ids at ro 0x69389C.. (0x20F..0x21A)"}
+{"t": "05:35:04", "addr": "0022141C", "name": "Boss(?) ctor (cState_Stay..cState_Die, 25 states; 'hand_l','rotor' joints) : EnemyBase(arg, &bss_007467F0)", "agent": "4", "notes": "base ctor 0x4FD464(this,arg,param); StateMgr at +0x8C0; X callback at +0x8E8 (base ctor 0x36C884(this_x, owner, 1), vtbl 0x6E71DC, PMF at +0x100)"}
+{"t": "05:35:04", "addr": "004FD464", "name": "EnemyBase::EnemyBase(EnemyArg*, ParamTable*) (derived size >= 0x8BC)", "agent": "4", "notes": "called by 0x22141C with r2=&bss_007467F0"}
+{"t": "05:35:04", "addr": "00564A78", "name": "int Model::findJoint(const SafeString& name) (m40C model; returns joint idx, mtx = m24->m14[idx], 48-byte Mtx34)", "agent": "4", "notes": "used for 'hand_l','rotor'"}
+{"t": "05:35:04", "addr": "0054D964", "name": "Obj4* Actor::getObj(int i) (pos at +4, update=0x4356B4)", "agent": "4", "notes": "same as agent2 getObj"}
+{"t": "05:37:08", "addr": "00100118", "name": "__aeabi_vec_ctor_nocookie_nodtor(arr, ctor, size, n) (Thumb, blx; returns arr - ARMCC knows it, derives this from r0)", "agent": "7", "notes": "member arrays of class type + array new"}
+{"t": "05:37:08", "addr": "0010BA78", "name": "operator new[](u32 size) throw() - default heap, align 4 (called with tag)", "agent": "7", "notes": "StateMgr initialize Func arrays"}
+{"t": "05:37:08", "addr": "0010CEE0", "name": "operator new[](u32 size, Heap* heap, s32 align) throw()", "agent": "7", "notes": "Buffer<FixedSafeString<24>>::allocBuffer with cookie"}
+{"t": "05:37:08", "addr": "0065D9FC", "name": "StateMgrBase::changeState(s32) (out-of-line)", "agent": "7", "notes": "called as mgr.changeState(0/1) in enemy ctors"}
+{"t": "05:37:08", "addr": "003C30DC", "name": "Enemy sub-object base ctor (this, Actor* owner, Vec3* pos, int, float, float) - at Enemy+0x8E0, derived vtbl 0x6E9108", "agent": "7", "notes": "0x216CDC passes (this,&pos,0,4.0f,0.5f)"}
+{"t": "05:38:57", "addr": "0028D580", "name": "Anim::play(int id, bool a, bool b, AnimBlend blend) [5th arg = 4-byte struct by value]", "agent": "5", "notes": "two slots on model +0x3C/+0x5C"}
+{"t": "05:38:57", "addr": "004EA104", "name": "SoundMgr::playSE(const sead::SafeString&, int) ; SoundMgr* = data_00711F50", "agent": "5", "notes": ""}
+{"t": "05:38:57", "addr": "00587F74", "name": "SoundMgr::playSE2(const sead::SafeString&, int) (data_711F50)", "agent": "5", "notes": ""}
+{"t": "05:38:57", "addr": "0052FBA0", "name": "ActorMgr::find(u32 handle) -> Actor*; mgr = (*data_00706E20)+0x3DBBC", "agent": "5", "notes": ""}
+{"t": "05:38:57", "addr": "0028C8EC", "name": "Model::setSpeed(u32) (u32->float, model+0x2C)", "agent": "5", "notes": ""}
+{"t": "05:38:57", "addr": "0019C330", "name": "Player::startAnim(\"Go\") out-of-line copy of inline startAnim(name){if(m344) m344->start(name);} ; start=0x4A1B9C returns 12-byte struct by sret", "agent": "5", "notes": ""}
+{"t": "05:38:57", "addr": "0068C690", "name": "s32 angleFromVec(const Vec3&) (atan2-like, result+0x80000000 = facing)", "agent": "5", "notes": ""}
+{"t": "05:38:57", "addr": "002D7168", "name": "PlayerStateX::onMsg(const Msg&) switch on msg+2 (0x7E..0x90) [agent5, ~82%]", "agent": "5", "notes": "work2/agent5/func_002D7168.cpp"}
+{"t": "05:39:18", "addr": "00111A64", "name": "sead::Random::getU32() (this = (*data_007124F0)+0x660)", "agent": "3", "notes": "caller does (u64)r*max>>32 via umull"}
+{"t": "05:39:18", "addr": "006640EC", "name": "StateReq/StateMgr changeState(this=actor+0x8c8, s32) [weak: never tail-called]", "agent": "3", "notes": "MediumGanon"}
+{"t": "05:39:18", "addr": "002ECAFC", "name": "MediumGanon::updateAttack() state switch 8..18", "agent": "3", "notes": "78.7% sim"}
+{"t": "05:39:47", "addr": "002CC800", "name": "TurtleMother::TurtleMother(ActorParam*) ctor (NpcBase<T>, 11 states, 2 bcl models)", "agent": "8", "notes": "65.2% sim; work2/agent8/func_002CC800.cpp"}
+{"t": "05:39:47", "addr": "00623368", "name": "NpcBase<T>::NpcBase(ActorParam*, s32 initState, s32 /*-1*/, const NpcInitParam&) [StateMgr at +0x960, s32 +0x984]", "agent": "8", "notes": "calls 0x4C18E0 grand-base ctor; vt primary/secondary(+0x320)"}
+{"t": "05:39:47", "addr": "0010A794", "name": "StateMgrBase::StateMgrBase()", "agent": "8", "notes": ""}
+{"t": "05:39:47", "addr": "0010BEC4", "name": "StateMgrBase::setStateName(s32 idx, const sead::SafeString& name)", "agent": "8", "notes": "out-of-line"}
+{"t": "05:39:47", "addr": "0010BAB4", "name": "operator new(u32 size, NoThrowTag) - ignores r1, current heap, align 4", "agent": "8", "notes": "see KB #22"}
+{"t": "05:39:47", "addr": "0010BA78", "name": "operator new[](u32 size) - current heap, align 4", "agent": "8", "notes": ""}
+{"t": "05:39:47", "addr": "0010CEE0", "name": "operator new[](u32 size, Heap* heap, s32 align)", "agent": "8", "notes": "heap 0 = current"}
+{"t": "05:39:47", "addr": "00111A20", "name": "sead::BufferedSafeStringBase<char>::formatV(const char* fmt, va_list)", "agent": "8", "notes": "vsnprintf into buffer"}
+{"t": "05:39:47", "addr": "001151D8", "name": "Mtx33 from Mtx34 rotation part: getRot(Mtx33* out, const Mtx34* in)", "agent": "8", "notes": ""}
+{"t": "05:39:47", "addr": "00584B94", "name": "FlagMgr::check(s32 id) on *data_0070B728 (event/save flag)", "agent": "8", "notes": ""}
+{"t": "05:39:48", "addr": "00582250", "name": "RailMgr::getRails() on *data_0070C8E0 -> PtrArray* (rail = at(param->m29C); points PtrArray at rail+0x20, pos at point+0x18)", "agent": "8", "notes": ""}
+{"t": "05:39:48", "addr": "004EDC9C", "name": "Model::Model() (0x48-byte bcl model holder)", "agent": "8", "notes": "new(nothrow)"}
+{"t": "05:39:48", "addr": "004EDB28", "name": "Model::load(const sead::SafeString& bclPath)", "agent": "8", "notes": ""}
+{"t": "05:39:48", "addr": "004A7F00", "name": "ModelMgr(*data_00709D28)::regist(Model*, s32)", "agent": "8", "notes": ""}
+{"t": "05:39:48", "addr": "00564A78", "name": "Res7A0::find(const sead::SafeString& name) -> handle (actor res at this+0x7A0)", "agent": "8", "notes": ""}
+{"t": "05:40:29", "addr": "00206FBC", "name": "EnemyKyoro::EnemyKyoro(EnemyArg*) ctor (states cState_Wait..cState_UniqueDie, 12)", "agent": "1", "notes": "65.2% sim; work2/agent1/func_00206FBC.cpp; base ctor 0x4FD464(this,arg,&bss_739DF4); StateMgr at +0x8BC"}
+{"t": "05:40:29", "addr": "00520FC0", "name": "Vec3* getPlayerPos() (returns (*data_0070FB60)->m1C; member of actor base, ignores this)", "agent": "1", "notes": ""}
+{"t": "05:40:29", "addr": "0065D4EC", "name": "StateMgr changeState(s32) variant (sm, idx)", "agent": "1", "notes": "called after state registration in 0x206FBC"}
+{"t": "05:40:29", "addr": "004FD464", "name": "EnemyBase::EnemyBase(EnemyArg*, EnemyParam*) (2 vtables, secondary at +0x320, primary 31 slots)", "agent": "1", "notes": ""}
+{"t": "05:40:29", "addr": "0010BDF0", "name": "FixedSafeString<24>::FixedSafeString() ctor (passed to __aeabi_vec_ctor)", "agent": "1", "notes": ""}
+{"t": "05:41:49", "addr": "001B11F8", "name": "Soldier::Soldier(const ActorParam*) - Heishi/Taros/Moriblin enemy ctor (50.7% sim)", "agent": "6", "notes": "work2/agent6/func_001B11F8.cpp; kinds 0..9 by actor id 0x20F..0x21A"}
+{"t": "07:59:33", "addr": "00115DAC", "name": "Vec3::setScaleAdd(float scale, const Vec3& a, const Vec3& b)", "agent": "GPT", "notes": "Verified callee disassembly: r0 output; r1 a; r2 b; s0 scale; computes output = b + a*scale in three VMLA instructions. Name/signature inferred from sead Vector3 declaration only. This is scaled-add, not lerp."}
+{"t": "09:06:08", "addr": "0053F910", "name": "Actor::checkStateFlag2() const -> bool (inferred descriptive name)", "agent": "GPT", "notes": "Callee is 32 bytes: signed state index from actor+0x42; index *16 into data_007111A8; load flags at row+4; test mask2; normalize to0/1. Prior local draft called its return int/frame; actual behavior is a Boolean query. Exact original name unknown."}
+{"t": "09:33:16", "addr": "002D4460", "name": "StateSlot::commitPendingState() (inferred descriptive name)", "agent": "GPT", "notes": "12-byte element in Cls+0x694 array (3 entries). Callee tests s8 pending at+6 for -2/-1, s8 mode at+4, calls owner pointer+0 via0x1DDAF0, can copy pending+6 to current+5, then sets pending=-2 and clears bytes+8/+9. Exact original class/method names unknown; member update call matches ABI."}
+{"t": "09:58:37", "addr": "001DDA48", "name": "bool Cls::onHandleMsg(const Msg& m) - find(m.m28), IsDerivedFrom<T>(typeinfo data_726388) -> m720=m.m14", "agent": "agent4", "notes": "MATCHED work4/agent4/func_001DDA48.cpp; callback via ro 0x6A3278; Msg: u32 +0x14, u32 handle +0x28"}
+{"t": "09:58:37", "addr": "002D4188", "name": "Obj::setFlag(bool v) { m4->func_004CF478(v, 0); } (non-weak, tail-called)", "agent": "agent4", "notes": "called on Cls+0x630..0x690 pointer members"}
+{"t": "09:59:02", "addr": "001DF43C", "name": "Player::~Player (D1)", "agent": "agent8", "notes": "vtable ro_6D1A88 (21 primary slots, 2nd base @0x320 vt+0x5c); calls func_0014A0E8(SoundMgr,0) then tail base dtor 0x1510A4"}
+{"t": "10:01:05", "addr": "001DC804", "name": "Cls::vf (virtual @vtbl 0x6D1ACC slot) -> inlined Cls::func_001DE0E8(int,int)", "agent": "agent1", "notes": "MATCH work4/agent1/func_001DC804.cpp"}
+{"t": "10:01:05", "addr": "001DE0E8", "name": "Cls::setModelParams(int a,int b): m600 0x28C3E8 + 25 parts 0x2D41B0", "agent": "agent1", "notes": "MATCH work4/agent1/func_001DC804.cpp (agent6's claim)"}
+{"t": "10:01:05", "addr": "0028C318", "name": "Model600::setFlagC9(bool) strb m+0xc9; 0x4CF478(m14,v,0)", "agent": "agent1", "notes": ""}
+{"t": "10:03:39", "addr": "001DC928", "name": "Cls::updateModelFlagC9ByEvent(bool on): m600->setFlagC9(...) depending on event kind", "agent": "agent1", "notes": "MATCH work4/agent1/func_001DC928.cpp"}
+{"t": "10:03:39", "addr": "004B083C", "name": "bool isEventKind8or38(): data_709DF8 && kind(s8 +0x18) in {8,0x26}", "agent": "agent1", "notes": ""}
+{"t": "10:05:14", "addr": "001DE09C", "name": "bool Cls::recoverTick() { bool dead=mLife.isDead(); mLife.tick(!dead); return true; }", "agent": "agent6", "notes": "MATCH"}
+{"t": "10:05:14", "addr": "001DE0CC", "name": "bool Cls::addLife(s32 delta) { mLife.add(delta,true); return true; }", "agent": "agent6", "notes": "MATCH"}
+{"t": "10:05:14", "addr": "00149BD4", "name": "Life::add(s32 delta, bool) (u8 cur/max/tick at Cls+0x598)", "agent": "agent6", "notes": "clamps 0..max; 2nd arg unused"}
+{"t": "10:05:14", "addr": "00149CA4", "name": "Life::tick(bool heal)", "agent": "agent6", "notes": ""}
+{"t": "10:05:14", "addr": "001DE128", "name": "bool ClsOwner::damage(s32,bool) { return m10->damage(a,b,true); } (falls into 0x1DE134)", "agent": "agent6", "notes": "linker branchnop"}
+{"t": "10:05:15", "addr": "001DE134", "name": "bool Cls::damage(s32 delta, bool b, bool heal)", "agent": "agent6", "notes": "MATCH work4/agent6/func_001DE134.cpp"}
+{"t": "10:05:15", "addr": "001DE370", "name": "void ClsOwner::setPos(const Vec3&, u32) { m10->setPos(..); } (falls into 0x1DE378)", "agent": "agent6", "notes": "linker branchnop"}
+{"t": "10:05:15", "addr": "001DE378", "name": "void Cls::setPos(const Vec3& pos, u32 w)", "agent": "agent6", "notes": "MATCH"}
+{"t": "10:05:15", "addr": "001DE958", "name": "void Cls::onShieldGuard()", "agent": "agent6", "notes": "MATCH; SE_PL_Shield_GARD"}
+{"t": "10:05:15", "addr": "0053ED74", "name": "Mtx34* Model::getJointMtx() (m10->m24->m14 + m94*48)", "agent": "agent6", "notes": ""}
+{"t": "10:05:15", "addr": "004A1B9C", "name": "AnimResult(12B sret) AnimCtrl::start(const char* name)", "agent": "agent6", "notes": "takes const char*, not SafeString"}
+{"t": "10:05:15", "addr": "004EA9E4", "name": "SoundMgr::playSE(const SafeString&, const Vec3* pos) on *data_00711F50", "agent": "agent6", "notes": ""}
+{"t": "10:05:15", "addr": "004C6654", "name": "TutorialMgr(*data_00709F30)::notify(s32 id)", "agent": "agent6", "notes": "guessed name"}
+{"t": "10:05:56", "addr": "001DC844", "name": "Cls::setHidden(bool on): m6bb=on; m600 0x28C02C(!on),(false); m604 0x2D16D0; parts 0x2D4188; m60c 0x151148(!on); tail 0x1DC928(!on)", "agent": "agent1", "notes": "99.1% (linker nop) work4/agent1/func_001DC844.cpp"}
+{"t": "10:07:09", "addr": "001DC3C4", "name": "bool Cls::releaseHeld(int a, bool b): handle m620 -> HandleObjT vf slot23(m2cc,a); if b 0x1E48E4(o); m620=0", "agent": "agent1", "notes": "MATCH work4/agent1/func_001DC3C4.cpp"}
+{"t": "10:07:28", "addr": "001DD530", "name": "void Cls::updatePartFlags() - m630[] parts setFlag by actor state (switch m614->m84)", "agent": "agent4", "notes": "84.6% work4/agent4/func_001DD530.cpp; inlines findSlot 0x1DDAF0; tail from 0x1DC9C8"}
+{"t": "10:07:33", "addr": "002D4188", "name": "Part::setFlag(s8 v) { m4->func_004CF478(v, 0); } (non-weak, tail-called; param is s8 not bool)", "agent": "agent4", "notes": "called on Cls::m630[] parts; orig passes p->m1c ^ 1 via ldrsb;eor"}
+{"t": "10:08:34", "addr": "001DF478", "name": "SaveData::init(s32 id)", "agent": "agent8", "notes": "0xE00 save block: memclr sub-blocks (named void* local -> __aeabi_memclr), id 0xdead => Random, CRC 0x4A143C at 0xDFC"}
+{"t": "10:08:34", "addr": "001DF5C4", "name": "SndObj::setValue124(f32 v, s32 frames)", "agent": "agent8", "notes": "m124=v; if(holder->isValid()) interp[2]->set(max(frames,0),v)"}
+{"t": "10:08:34", "addr": "001DF624", "name": "SndObj::start(s32, const SafeString& name, ModelHolder*)", "agent": "agent8", "notes": "id=SoundMgr 0x587FCC(name); -1 => false; else tail 0x1E0364"}
+{"t": "10:08:34", "addr": "001DF8C4", "name": "SndObj::consumeFlag10A()", "agent": "agent8", "notes": "s8 fields m108/m10A (base reg this+0x100)"}
+{"t": "10:08:34", "addr": "001DFA10", "name": "SndObj::update()", "agent": "agent8", "notes": "delay counter @0xF4, 5 interps calc (vslot 2), tail-calls next fn 0x1DFB30"}
+{"t": "10:08:34", "addr": "0057D86C", "name": "ModelHolder::isValid() const", "agent": "agent8", "notes": "return mModel != 0 (out-of-line)"}
+{"t": "10:08:34", "addr": "0010C7F8", "name": "Interp::setTarget(s32 frames, f32 target)", "agent": "agent8", "notes": "polymorphic interp; cur@4 target@8 step@0xC frames@0x10"}
+{"t": "10:08:34", "addr": "001164F4", "name": "__aeabi_memclr", "agent": "agent8", "notes": "r0 ptr, r1 size"}
+{"t": "10:08:34", "addr": "00110490", "name": "__aeabi_memclr4", "agent": "agent8", "notes": "r0 ptr (4-aligned), r1 size"}
+{"t": "10:08:45", "addr": "001DDAF0", "name": "StateSlot* Player::findSlot(s32 id) (loop over m694[3], current byte +5)", "agent": "agent5", "notes": "94.4%; loop not unrolled -> Counter class index"}
+{"t": "10:08:45", "addr": "001DDB38", "name": "void Player::setVisible(bool) m600->0x4CF828(b); m630[0..24]->0x2D41D4(b)", "agent": "agent5", "notes": "MATCH"}
+{"t": "10:08:45", "addr": "001DDB70", "name": "void Player::setSplash(bool on, s32 kind) EffHandle m6d4 'Splash'(0xc)/'SplashSand'(6)", "agent": "agent5", "notes": "88.2%"}
+{"t": "10:08:46", "addr": "001DDCCC", "name": "void Player::setFlag6BD(bool) {m6bd=b;}", "agent": "agent5", "notes": "1DDCC4/1DDCD4 are PlayerMgr wrappers (other TU)"}
+{"t": "10:08:46", "addr": "001DDCDC", "name": "bool Player::tryAddItem(s32 kind) (kind 0x12..0x19 -> 5..10 into m40c table via slots 1,2)", "agent": "agent5", "notes": "MATCH"}
+{"t": "10:08:46", "addr": "001DDDF0", "name": "bool Player::setTarget(const Vec3* pos, s32 kind, f32 f) -> m70c/m718/m6bf (always returns false)", "agent": "agent5", "notes": "61.6%"}
+{"t": "10:11:11", "addr": "001DD3A0", "name": "bool Cls::func_001DD3A0() - m440==3 ? count actors(key ro_69313C)>=3 : find(m62c)!=0", "agent": "agent3", "notes": "MATCHED work4/agent3/func_001DD3A0.cpp"}
+{"t": "10:11:11", "addr": "001DD48C", "name": "bool Cls::damage(s32 delta, int b) - Life@0x598 add (0x149BD4); m6c1 = invincible", "agent": "agent3", "notes": "MATCHED work4/agent3/func_001DD48C.cpp"}
+{"t": "10:11:11", "addr": "001DD450", "name": "bool Cls::func_001DD450(int v) - if(life.cur) 0x149B68(&life,v,1,1)", "agent": "agent3", "notes": "MATCHED"}
+{"t": "10:11:11", "addr": "001DCF58", "name": "void Cls::updateRunEffect() - start/fade 'Run' effect handle m6dc", "agent": "agent3", "notes": "88.9% work4/agent3/func_001DCF58.cpp"}
+{"t": "10:11:11", "addr": "001DD1D8", "name": "void Cls::updateCamera() - m6bf ? follow m70c around model mtx : 0x28C920(m600,0,&m3d0,0.15,0.5)", "agent": "agent3", "notes": "63% work4/agent3/func_001DD1D8.cpp"}
+{"t": "10:11:12", "addr": "001DD0C8", "name": "void Cls::func_001DD0C8(int a,int b,int c) - set anim/skeleton ids on model, m604->m28, 25 parts; DynamicCast(find(m620))->vf26()", "agent": "agent3", "notes": "MATCHED"}
+{"t": "10:11:12", "addr": "004A1B9C", "name": "EffRet Anim344::start(const char* name) (sret 12B; first 8 = EffHandle)", "agent": "agent3", "notes": ""}
+{"t": "10:11:37", "addr": "001DCDA4", "name": "Cls::func_001DCDA4() (reached via fall-through from Mgr711010::func_001DCD9C, m14->...)", "agent": "agent2", "notes": "MATCH"}
+{"t": "10:11:37", "addr": "001DCF28", "name": "Cls::setPartsFlag(u8) - m630[i]->m18 for 25 parts", "agent": "agent2", "notes": "MATCH"}
+{"t": "10:11:37", "addr": "001DCD60", "name": "bool Cls::func_001DCD60(s32* angle) = func_00552FDC(m604) && func_005531F8(m604, angle)", "agent": "agent2", "notes": "MATCH"}
+{"t": "10:11:38", "addr": "001DCE44", "name": "bool Cls::func_001DCE44(int a, int b) - try player state 0x67 / 0x68|0x69 via m614->m48", "agent": "agent2", "notes": "64.9%"}
+{"t": "10:11:38", "addr": "001DC9C8", "name": "void Cls::func_001DC9C8() - sync model m600 (speed, rot, pos, scale) and parts", "agent": "agent2", "notes": "64.5%"}
+{"t": "10:12:07", "addr": "001DC4C8", "name": "void Cls::warpToGround(u32 w): actor-overlap test, ray query 0x4A8030 with delegate 0x1DDA48, else safe pos 0x3425C4; setPos 0x1DE378", "agent": "agent1", "notes": "49% work4/agent1/func_001DC4C8.cpp"}
+{"t": "10:12:07", "addr": "004A8030", "name": "bool ColMgr::rayQuery(RayQuery* q, int mode) on *data_00709D28", "agent": "agent1", "notes": "RayQuery layout in KB"}
+{"t": "10:13:45", "addr": "001DCF58", "name": "void Cls::updateRunEffect() - start/fade 'Run' effect handle m6dc", "agent": "agent3", "notes": "MATCHED work4/agent3/func_001DCF58.cpp"}
+{"t": "10:14:40", "addr": "001E01C4", "name": "SndObj::reset()", "agent": "agent1", "notes": "MATCH work4/agent1/func_001E01C4.cpp"}
+{"t": "10:14:40", "addr": "001E02B4", "name": "bool SndObj::start(s32 a, const sead::SafeString& name) -> id lookup 0x587FCC, then 0x1E0364(a,id,&mOwnHolder)", "agent": "agent1", "notes": "MATCH"}
+{"t": "10:15:01", "addr": "001E0098", "name": "SndObj::start(s32 a, s32 id, ModelHolder* holder)", "agent": "agent8", "notes": "m111=changed; mE0=id; holder default this+0x20; m30=0x409100(a,holder,id,0); if !m108: SE start via 0x379AEC/0x588174 flags 0x40/0x20 -> 0x379B4C/0x3223B8; returns m30==0"}
+{"t": "10:15:01", "addr": "001E0090", "name": "SndObj::start(s32 a, s32 id)", "agent": "agent8", "notes": "start(a,id,&mOwnHolder) - falls through into 0x1E0098 (linker branch-nop)"}
+{"t": "10:15:02", "addr": "001E0040", "name": "SndObj::setF0(u32 v)", "agent": "agent8", "notes": "tail calls 0x1DFB30 when mF0==0 && mE8==0"}
+{"t": "10:15:02", "addr": "001E007C", "name": "SndObj::getModelSub()", "agent": "agent8", "notes": "mHolder->mModel as base subobject at +0x30 (null-checked cast)"}
+{"t": "10:15:02", "addr": "001E003C", "name": "(literal pool of 0x1E0018)", "agent": "agent8", "notes": "not a function: word 0x0400000B"}
+{"t": "10:15:02", "addr": "001E0018", "name": "Obj::setKind(u32 v)", "agent": "agent8", "notes": "if (v > 0x4000001) if (v < 0x400000b) { m40=v; m34|=2; }"}
+{"t": "10:15:57", "addr": "001E0634", "name": "SndObj::setVolume(f32 v, s32 frames)", "agent": "agent1", "notes": "MATCH"}
+{"t": "10:15:58", "addr": "001E06AC", "name": "u32 Obj::exchange(s32 i, u32 v) on u32 array wrapper at +0x1FD4", "agent": "agent1", "notes": "MATCH"}
+{"t": "10:16:55", "addr": "001DDAF0", "name": "Slot* Cls::findSlot(s32 id) - exact recipe KB#97", "agent": "agent4", "notes": "verified 100% by agent4 (work4/agent4/v/fs_1DDAF0.cpp); owner agent5"}
+{"t": "10:17:07", "addr": "001DC9C8", "name": "void Cls::func_001DC9C8() - sync model m600 (speed, rot, pos, scale) and parts", "agent": "agent2", "notes": "79.6%"}
+{"t": "10:17:08", "addr": "001DD1D8", "name": "void Cls::updateCamera() - m6bf ? follow m70c around model mtx : 0x28C920(m600,0,&m3d0,0.15,0.5)", "agent": "agent3", "notes": "85.1% work4/agent3/func_001DD1D8.cpp"}
+{"t": "10:17:23", "addr": "001DEA54", "name": "Cls::Cls(ActorParam* p) (Player ctor)", "agent": "agent7", "notes": "vt ro_6D1A88 (+0x5c 2nd base @0x320); base ActorBase(p) 0x150E40 size 0x40C; full member list in work4/shared_include/cls_1DE.h comment; 97.8% work4/agent7/func_001DEA54.cpp"}
+{"t": "10:17:23", "addr": "002D43C8", "name": "Part::Part(Core* owner) (Cls+0x630 part base ctor)", "agent": "agent7", "notes": "0x1C bytes: vt 0x6DD698, m4=0, m8=owner, 3x4B array ctor 0x3E6760 at +0xC, u8 m18=0; owner = &Cls::m40c"}
+{"t": "10:17:23", "addr": "002D4404", "name": "Item12::init(Cls* owner, s8 idx)", "agent": "agent7", "notes": "Cls+0x694 StateSlot init: m0=owner, s8 m4=idx, m5 = idx 0:0 / 1:-1 / 2:8"}
+{"t": "10:17:24", "addr": "001E45E0", "name": "Sub5AC::reset() (Cls+0x5AC)", "agent": "agent7", "notes": "u8 m0..m3=0, f32 m4=1, m8=0, mC=0, m10=1, u32 m14=0; Cls ctor: inline ctor {m14=0; reset();}"}
+{"t": "10:17:24", "addr": "00149D2C", "name": "Life::Life() (Cls+0x598)", "agent": "agent7", "notes": "cur=max=0x34, tick=0"}
+{"t": "10:17:24", "addr": "001E6898", "name": "Sub6E4::Sub6E4() (Cls+0x6E4, 0x28 bytes)", "agent": "agent7", "notes": "u32 0, f32 x3 0, u32 x3 0, f32 0, u8 x7 0, u8 m27=1"}
+{"t": "10:17:24", "addr": "0014D9B4", "name": "Pair20::Pair20(f32 a) (part vt 0x6E6C78 +0x20)", "agent": "agent7", "notes": "{a, 0.0f}"}
+{"t": "10:17:50", "addr": "001E0AF4", "name": "Mgr1E0::flushGroup(): groups[5-m1fa0] PtrArray each->v8, clear, m4->v10", "agent": "agent1", "notes": "MATCH"}
+{"t": "10:17:50", "addr": "001E0B94", "name": "void* Mgr1E0::query(s32 a, s32 idx) with conditional lock on +0x1FB4", "agent": "agent1", "notes": "49.4%"}
+{"t": "10:18:00", "addr": "0053F9C0", "name": "s8 Actor::getC0() const { return mc0 /*s8 @+0xC0*/; } (out-of-line; armlink --inline replaces bl with its ldrsb)", "agent": "agent4", "notes": "callers 0x1DD530 (x2), 0x1DC9C8; preceded by forwarder 0x53F9B8 {ldr r0,[r0,#0x14]; b getC0}"}
+{"t": "10:18:00", "addr": "001DD530", "name": "void Cls::updatePartFlags() - m630[] parts setFlag by actor state (switch m614->m84)", "agent": "agent4", "notes": "MATCHED work4/agent4/func_001DD530.cpp; inlines findSlot 0x1DDAF0; tail from 0x1DC9C8"}
+{"t": "10:18:29", "addr": "001E0364", "name": "SndObj::startImpl(s32 a, s32 id, ModelHolder* holder)", "agent": "agent8", "notes": "SE info 0x588194 (lo8 -> mE8/mEC, bits8-13 -> h->m2c, bits17-22 -> h->m2e); 0x588250 skip; get/create SE 0x379AEC/0x379B4C, flags 0x588174 &0x20/&0x80; resets m100..m134; returns !m10B || !m30"}
+{"t": "10:20:43", "addr": "001DEA54", "name": "Cls::Cls(ActorParam* p) (Player ctor)", "agent": "agent7", "notes": "MATCH work4/agent7/func_001DEA54.cpp; vt ro_6D1A88 (+0x5c 2nd base @0x320); base ActorBase(p) 0x150E40 size 0x40C; layout in cls_1DE.h comment"}
+{"t": "10:23:24", "addr": "001DE420", "name": "Player::calc() (inferred descriptive name; matched)", "agent": "GPT", "notes": "100% MATCH334/334 with work4/gpt/func_001DE420.cpp and include/player_calc_types.h. Player class identification and vtable slot7 supported by agent8 KB73; exact original method spelling is not known. Updates handle, three state slots, motion chase, components, life warning and player/rider flags."}
+{"t": "10:23:48", "addr": "001E449C", "name": "Actor1E4::~Actor1E4 (D1, vt ro_6E0B24)", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:23:48", "addr": "001E4BBC", "name": "Actor1E4::~Actor1E4 (identical copy, 2nd derived class)", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:23:48", "addr": "001E48E4", "name": "ActorBase::setFlag2() m2e0|=2", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:23:48", "addr": "001E4018", "name": "Actor1E4::ensureObj480(s32 i)", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:23:48", "addr": "001E4AE4", "name": "Actor1E4::trySetDead(s32 v) m4F1/m4DC", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:23:48", "addr": "001E43DC", "name": "Actor1E4::setCtl490Speed(f32)", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:23:49", "addr": "001E43F8", "name": "Actor1E4::setCtl48CSpeed(f32)", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:23:49", "addr": "001E4318", "name": "Actor1E4::resetAnim490()", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:23:49", "addr": "001E4378", "name": "Actor1E4::resetAnim48C()", "agent": "agent8", "notes": "work4/agent8/actor1e4.h"}
+{"t": "10:24:23", "addr": "0025D9E8", "name": "TaskBase::TaskBase(void* arg, const char* name)", "agent": "agent4", "notes": "TaskMainGame ctors 0x1E31E8/0x1E3228 (vt ro_6D1DB4)"}
+{"t": "10:24:23", "addr": "001E31E8", "name": "TaskMainGame::TaskMainGame(void* arg)", "agent": "agent4", "notes": "MATCH"}
+{"t": "10:24:51", "addr": "001E57E8", "name": "ActorBase-derived D1 dtor (member +0x410 dtor 0x4EE540, base dtor 0x1510A4)", "agent": "agent2", "notes": "MATCH"}
+{"t": "10:24:51", "addr": "001E5F9C", "name": "ActorBase-derived D1 dtor (member +0x410 dtor 0x4EE540, base dtor 0x1510A4)", "agent": "agent2", "notes": "MATCH"}
+{"t": "10:24:52", "addr": "001E5B70", "name": "Obj::setVelZ(f32 z) { m3dc = Vec3(0,0,z); }", "agent": "agent2", "notes": "MATCH"}
+{"t": "10:24:52", "addr": "001E5B00", "name": "ResHolder::~ResHolder() {u32 m0; Res* m4} release via 0x58FA08", "agent": "agent2", "notes": "MATCH"}
+{"t": "10:26:00", "addr": "001E6680", "name": "bool Sub6E4::getPos(Vec3* out) const (Cls+0x6E4; m0 owner PtrArray num@+0x20 ptrs@+0x28, idx s8 m20, elem+0x18 Vec3)", "agent": "agent5", "notes": "MATCH"}
+{"t": "10:26:00", "addr": "001E66D8", "name": "u32 Sub6E4::getParam(s32 j) const (idx s8 m21, elem+0x44[j])", "agent": "agent5", "notes": "MATCH"}
+{"t": "10:26:00", "addr": "001E686C", "name": "void Sub6E4::init(const Vec3& pos) m14=0x40000000 (90deg), m18=0x38E38E3 (5deg), m4=pos", "agent": "agent5", "notes": "MATCH"}
+{"t": "10:28:24", "addr": "001E4414", "name": "Actor6D1E2C::Actor6D1E2C(ActorParam*) ctor, base 0x324A30", "agent": "agent8", "notes": ""}
+{"t": "10:28:24", "addr": "001E4B08", "name": "Actor6D1EEC::Actor6D1EEC(ActorParam*, bool) ctor, base 0x324A30", "agent": "agent8", "notes": ""}
+{"t": "10:28:24", "addr": "001E4A5C", "name": "Actor6D1EEC::onArrive(s32, const Vec3* pos) (m480 Link 0x37C358)", "agent": "agent8", "notes": ""}
+{"t": "10:28:24", "addr": "001E461C", "name": "Actor::checkX(s32,s32) virtual: slot25 or base 0x4ECDE8", "agent": "agent8", "notes": ""}
+{"t": "10:28:24", "addr": "001E4BE4", "name": "bool isInRangeXZ(s32 kind, const Vec3* pos) uses *data_70FB60", "agent": "agent8", "notes": ""}
+{"t": "10:28:25", "addr": "00556CA8", "name": "f32 Mgr70FB60::getRange() (returns float)", "agent": "agent8", "notes": ""}
+{"t": "10:28:54", "addr": "001E8E48", "name": "Sys1C8::~Sys1C8() (D1, base sead::IDisposer)", "agent": "agent6", "notes": "MATCH"}
+{"t": "10:28:54", "addr": "001E89AC", "name": "Sys1C8::unwindAll() (pop every ring item: vf08 exit, back()->vf14)", "agent": "agent6", "notes": "69%"}
+{"t": "10:28:54", "addr": "004A1520", "name": "sead::IDisposer::~IDisposer()", "agent": "agent6", "notes": ""}
+{"t": "10:42:33", "addr": "001CFEF4", "name": "Kokko::changeAnim(s32 id, f32 blend)", "agent": "agent1", "notes": "Kokko actor (state fns 0x1D0xxx)"}
+{"t": "10:42:33", "addr": "00150A84", "name": "ActorBase::playSE(const sead::SafeString&, s32)", "agent": "agent1", "notes": "SE_Kokko_V_ANGLY"}
+{"t": "10:42:33", "addr": "001507D8", "name": "ActorBase::playSE2(const sead::SafeString&, s32)", "agent": "agent1", "notes": "SE_Kokko_V_LIFTED"}
+{"t": "10:42:33", "addr": "001D1598", "name": "Kokko::calcLiftScale() m5cc = Max(0.25*(pos.y-m5c8-0)/2+1, 1)", "agent": "agent1", "notes": "unfolded consts"}
+{"t": "10:42:56", "addr": "001D4948", "name": "const Vec3& A3::syncPos() { m45c = m44c; return m45c; }", "agent": "agent3", "notes": "MATCH, see KB"}
+{"t": "10:42:56", "addr": "001D4AE8", "name": "void A3::playAnim4BC(u32 id, f32 rate)", "agent": "agent3", "notes": "inline AnimReq(id,10,false) -> 0x16898C(m4bc, req); [0].setFrame(0); [0].m10=rate"}
+{"t": "10:42:56", "addr": "001D4854", "name": "void A3::playAnim410(u32 id, f32 rate)", "agent": "agent3", "notes": "if(!m4c5){0x4CF478(m40c,1,0); 0x151148(m458,1); same as 1D4AE8 on m410}"}
+{"t": "10:42:56", "addr": "001D47B4", "name": "bool A3::rayTo(Vec3 end)", "agent": "agent3", "notes": "rayQuery from m3d0 to end, mask 0x78, mode 0x33"}
+{"t": "10:42:56", "addr": "002C11E8", "name": "AnimReq::AnimReq(u32 id, u32 arg, bool flag) (0x5C)", "agent": "agent3", "notes": "FixedBuf<AnimEntry,3> + m54 + u8 m58; push(entry(id))"}
+{"t": "10:44:09", "addr": "0051D2F4", "name": "chaseAngle(s32* cur, s32 target, f32 rate, s32 a, s32 b) (rate is the 3rd arg: literal pool order proves it)", "agent": "agent2", "notes": "called from Kokko 0x1D2614"}
+{"t": "10:44:09", "addr": "0065C598", "name": "StateMgr::changeState(s32) (Kokko m4FC; never tail-called -> weak)", "agent": "agent2", "notes": ""}
+{"t": "10:44:09", "addr": "003529A0", "name": "Req24::Req24(u32 a, ActorBaseB* b) out-of-line ctor (0x24 B: base 0x4A20EC, m18=-1,m1c=-1,m20=0)", "agent": "agent2", "notes": "used with BaseB::func_002C41BC(const Req24&, s32) in 0x1D3DBC"}
+{"t": "10:45:09", "addr": "001D9CA8", "name": "void spawnActor30(const Vec3& pos, u32 arg, bool on)", "agent": "agent5", "notes": "SpawnParam 0x2c4 + ActorMgr 0x4C4AF4; MATCH work5/agent5/func_001D9CA8.cpp"}
+{"t": "10:45:09", "addr": "002DFF7C", "name": "void SpawnParam::reset()", "agent": "agent5", "notes": "memclr4 0x2c4, m50..m56=-1 (s16), m10=bss_7A9254 Vec3"}
+{"t": "10:45:09", "addr": "001D87DC", "name": "void Obj1D8::playAnimReq(s32 id, f32 rate)", "agent": "agent5", "notes": "builds 0x5C AnimReq inline on stack, func_0016898C(m410,req); called by state fns 1D8910/1D8984/1D941C"}
+{"t": "10:45:42", "addr": "001DBE4C", "name": "void Cls::setPosNoRefresh(const Vec3& pos, u32 w)", "agent": "agent6", "notes": "MATCH work5/agent6/func_001DBE4C.cpp; twin of setPos 0x1DE378 without 0x341240/0x1DC9C8"}
+{"t": "10:45:42", "addr": "001DB87C", "name": "void Cls::save(SaveData* d)", "agent": "agent6", "notes": "MATCH; skips if (*data_712468)->m25; 0x25538C(&m40c), Life::save 0x149C08, d->mc8..ca = slot[0/2/1].m5"}
+{"t": "10:45:42", "addr": "001DBC9C", "name": "void Cls::load(SaveData* d)", "agent": "agent6", "notes": "MATCH; 0x2554A0(&m40c), Life::load 0x149C2C, slots setItem 0x2D455C with s8 idx clamp"}
+{"t": "10:45:42", "addr": "001DBD5C", "name": "void Cls::resetM3dc() {m3dc=0; m6c1=1;}", "agent": "agent6", "notes": "MATCH; reached via NOPped forwarder 0x1DBD54 (Mgr *data_70FB60 ->m10)"}
+{"t": "10:45:43", "addr": "001DB504", "name": "Fwd8::Fwd8() {vt ro_6D1A70; m4=0}", "agent": "agent6", "notes": "MATCH; 8-byte forwarder object, slots 1DB4F4 m4->vf6(a,b), 1DB4E4 m4->vf7(a)"}
+{"t": "10:45:43", "addr": "001DA348", "name": "void Obj::getOffsetPos(Vec3* out, const Vec3& base, bool back)", "agent": "agent6", "notes": "55%; sincos 0x115154(&s,&c,m3e8), dir (s*.65, m43c, c*.65)"}
+{"t": "10:46:17", "addr": "001D6738", "name": "s32 rupeeValue(s32 i) switch 1/5/20/50/100/300", "agent": "agent4", "notes": "work5/agent4/func_001D6738.cpp MATCH"}
+{"t": "10:46:17", "addr": "001D6DE4", "name": "Obj1D6::state enter: startAnim(WaterCrown); changeState(7)", "agent": "agent4", "notes": "work5/agent4/func_001D6DE4.cpp MATCH"}
+{"t": "10:46:17", "addr": "001D64D4", "name": "Obj1D6::state enter: m540=m3d4; m4f8.start(60); playSE(SE_Rupee_APPEAR_KU)", "agent": "agent4", "notes": "work5/agent4/func_001D64D4.cpp MATCH"}
+{"t": "10:46:17", "addr": "001D66C0", "name": "Obj1D6::virtual override (s32 a): if(!a && s8 m4d8==3) m548.start(3); Base37C 0x37C6F0(a)", "agent": "agent4", "notes": "work5/agent4/func_001D66C0.cpp MATCH"}
+{"t": "10:46:24", "addr": "001FE6C8", "name": "Big::Big() (0x3DC8-byte object, Cls+0x5F4)", "agent": "agent7", "notes": "75.3%; header work5/shared_include/big3dc8_a7.h"}
+{"t": "10:46:24", "addr": "001FE4C0", "name": "Big::reset(): m3BA4=Handle(0); m3BA8=-1", "agent": "agent7", "notes": "MATCH"}
+{"t": "10:46:25", "addr": "001FE4E0", "name": "Elem9C::Elem9C() (0x9C elem of Big FixedArr x2)", "agent": "agent7", "notes": "MATCH"}
+{"t": "10:46:25", "addr": "001FE9E4", "name": "Obj9E4::request(u32 id,u32 arg): m30=1; 0x16898C(mC, Req5C(id,arg,false))", "agent": "agent7", "notes": "MATCH; header work5/shared_include/anim9e4_a7.h"}
+{"t": "10:46:25", "addr": "002C11E8", "name": "Req5C::Req5C(u16 id,u32 arg,bool) (0x5C anim request)", "agent": "agent7", "notes": "out-of-line ctor, used as temp"}
+{"t": "10:46:25", "addr": "0010B3EC", "name": "PtrArrayImpl::setBuffer(s32 max, void* buf)", "agent": "agent7", "notes": "if(max>0 && buf){num=0;max;ptrs=buf}"}
+{"t": "10:46:25", "addr": "006874EC", "name": "OffList::OffList() {prev=next=this, count=0, offset=-1}", "agent": "agent7", "notes": "sead OffsetList-like"}
+{"t": "10:47:04", "addr": "0065D120", "name": "StateMgr::changeState(int) [enemy +0x8dc; declare weak]", "agent": "agent8", "notes": "never tail-called by its callers in 0x200xxx"}
+{"t": "10:47:04", "addr": "0058A7D4", "name": "Random* getRandom(Actor*) (result is 'this' of getU32 0x111A64)", "agent": "agent8", "notes": ""}
+{"t": "10:47:04", "addr": "0068C690", "name": "s32 angleFromVec(const Vec3&)", "agent": "agent8", "notes": ""}
+{"t": "10:47:50", "addr": "001CFB38", "name": "Kokko::func_1CFB38(s32 id) (tail-called with 0xddf)", "agent": "agent1", "notes": ""}
+{"t": "10:47:50", "addr": "001D0150", "name": "Kokko::changeAnim2(s32 id, f32 a, f32 b)", "agent": "agent1", "notes": ""}
+{"t": "10:49:21", "addr": "001D41D4", "name": "void A3::countUpAndCheck() (vfunc)", "agent": "agent3", "notes": "MATCH; Ctr m47c step(), event kind 2..5/22..23 -> 0x14EEC8(this, zero, Vec3(0,0.3,0), 0xddf), m450 && *m450 -> m2d7=1"}
+{"t": "10:49:21", "addr": "001D54BC", "name": "void A3::snapToMgrPos() (vfunc)", "agent": "agent3", "notes": "67.7%: m474=mgr->m10, m3d0/m468 copies + bss table offsets, m3e8=0x40000000, m498=angle(m474-m3d0), m4c1=5, playAnim410/4BC(0,1), 0x28FBC8(*0x70FB60, m2cc)"}
+{"t": "10:52:35", "addr": "00504D48", "name": "u32 create(Mgr* *data_70BC28, const CreateArg& a) (0x50-byte arg, see 1FEFBC)", "agent": "agent7", "notes": ""}
+{"t": "10:53:45", "addr": "001FF174", "name": "Obj9E4::update() (anim mC end test -> vf1(m18,m1c))", "agent": "agent7", "notes": "MATCH"}
+{"t": "10:53:46", "addr": "001FF08C", "name": "Obj9E4::update14() (anim m14 end -> restart14(m20))", "agent": "agent7", "notes": "MATCH"}
+{"t": "10:53:46", "addr": "001FEFBC", "name": "ObjEFBC::create(const SafeString& name): m4 = 0x504D48(*data_70BC28, CreateArg)", "agent": "agent7", "notes": "MATCH"}
+{"t": "10:55:01", "addr": "001D575C", "name": "void A3::probeSides() (vfunc)", "agent": "agent3", "notes": "88.2%: x = playerPos(0x588F08 on *0x708998)->x +-8 depending on side, rayTo twice, m468 = result, Timer m4a8.start(35)"}
+{"t": "10:55:42", "addr": "001DB26C", "name": "SwordBeam::SwordBeam(ActorParam*)", "agent": "agent6", "notes": "vt ro_6D19A8; not matched yet; layout in KB"}
+{"t": "10:55:42", "addr": "001DB220", "name": "bool SwordBeam::onDisappear(Msg*)", "agent": "agent6", "notes": "MATCH; PMF in ro_6A2C64+8"}
+{"t": "10:55:43", "addr": "001DB5B4", "name": "bool Cls::spawnFollower(u32 angle)", "agent": "agent6", "notes": "MATCH work5/agent6/func_001DB5B4.cpp"}
+{"t": "10:55:43", "addr": "001DA26C", "name": "void SwordBeam::updateMtx() { m4a8 = T(m424)*R(0,m3e8,0)*S(m418); }", "agent": "agent6", "notes": "85.5%"}
+{"t": "10:56:58", "addr": "001FFD34", "name": "Obj9E4::Obj9E4() (vt ro_6D2478, 0xA0 bytes)", "agent": "agent7", "notes": "72.1%"}
+{"t": "10:56:58", "addr": "001FE514", "name": "Elem9C::operator=(const Elem9C&) (implicit, 9 Vec3 w/ user op=)", "agent": "agent7", "notes": "MATCH"}
+{"t": "10:58:17", "addr": "0052FBDC", "name": "Actor* ActorMgr::find(s32 id(s16 from actor+0x5e), s32 zero) on (*data_00706E20)+0x3DBBC", "agent": "agent8", "notes": "used by 0x20045C"}
+{"t": "10:58:17", "addr": "00115154", "name": "sinCos(f32* sin, f32* cos, u32 angleIdx)", "agent": "agent8", "notes": "0x200EBC: r0=&sin(sp+4), r1=&cos(sp), r2=angle"}
+{"t": "11:06:11", "addr": "002ECAFC", "name": "MediumGanon::updateAttack() (inferred descriptive name; matched)", "agent": "GPT", "notes": "100% MATCH585/585 with work4/gpt/func_002ECAFC.cpp and include/ganon_types.h; switch covers attack states8..18. Final source uses Parts cosine lookup, four-float interpolation boundaries and Scalar-return scaledStep. Exact original C++ class/helper spellings remain unknown."}
+{"t": "14:53:35", "addr": "00202C08", "name": "BombZako-family D1 dtor (base vt ro_6EDB00, 31 slots)", "agent": "agent9", "notes": "MATCH; Base dtor body calls empty inline fn"}
+{"t": "14:53:35", "addr": "00203F1C", "name": "Base6EDB00-derived D1 dtor", "agent": "agent9", "notes": "MATCH"}
+{"t": "14:53:35", "addr": "004F898C", "name": "f32 getGravity() (returns 0.12f)", "agent": "agent9", "notes": "no args used"}
+{"t": "14:53:35", "addr": "004F8964", "name": "void applyGravity(f32* vy, bool clamp, f32 g)", "agent": "agent9", "notes": "vy -= g; clamp at -0.2 if clamp"}
+{"t": "14:53:36", "addr": "0065D264", "name": "StateMgr::changeState (BombZako @0x8bc)", "agent": "agent9", "notes": "never tail-called -> weak"}
+{"t": "14:54:27", "addr": "00205D08", "name": "En204::~En204() D1 (inline EnemyBase dtor, vt ro_6EDB00)", "agent": "agent10", "notes": "~100 twins; EnemyBase needs member with empty inline dtor"}
+{"t": "14:54:27", "addr": "004FDDB4", "name": "EnemyBase::~EnemyBase() D1 (vt ro_6EDB00, 31 primary slots, 2nd base @0x320)", "agent": "agent10", "notes": ""}
+{"t": "14:59:46", "addr": "00203138", "name": "BombZako::calc (vfunc, StateMgr execute + gravity)", "agent": "agent9", "notes": "MATCH"}
+{"t": "14:59:46", "addr": "00203F34", "name": "En203B state exec (chase player, cs(7) when lost)", "agent": "agent9", "notes": "MATCH"}
+{"t": "15:02:38", "addr": "0021319C", "name": "GueldMan::setModelVisible(bool) - nodes GueldMan1/GueldMan1_face/GueldMan2", "agent": "agent16", "notes": "m40c model, 0x584C14 findNode, 0x4CEA18 setVisible(model,bool,node)"}
+{"t": "15:02:38", "addr": "002135D0", "name": "GueldMan::playDamageSE()", "agent": "agent16", "notes": "life m508<=0 -> SE_GueldMan_V_DIE else V_DAMAGE"}
+{"t": "15:02:38", "addr": "002137C0", "name": "s32 GueldMan::onHit(s32 kind)", "agent": "agent16", "notes": "state 7 only; returns kind otherwise"}
+{"t": "15:04:38", "addr": "00115D88", "name": "Vec3::setDiv(const Vec3& a, f32 s) this=out (out=a/s)", "agent": "agent12", "notes": "used 0x209B84/0x209CFC"}
+{"t": "15:04:38", "addr": "0065D630", "name": "StateMgr<En208>::changeState(int) (weak, StateMgr at En208+0x8bc)", "agent": "agent12", "notes": "enemy 0x208xxx"}
+{"t": "15:04:38", "addr": "004F944C", "name": "f32 enemyConstVy() returns -1e-5f", "agent": "agent12", "notes": "m3dc.y = f()"}
+{"t": "15:04:39", "addr": "0037E4D0", "name": "Turn9AC::update(s32 angleDelta) (obj at En208+0x9ac)", "agent": "agent12", "notes": ""}
+{"t": "15:06:04", "addr": "00206FBC", "name": "En206::En206 (ctor, vt ro_6D2764, StateMgr@0x8bc)", "agent": "agent11", "notes": "header work5/shared_include/en206_a11.h"}
+{"t": "15:06:04", "addr": "00207898", "name": "En206::~En206 D1 (Model@0x94c dtor 0x4EDD04)", "agent": "agent11", "notes": ""}
+{"t": "15:06:04", "addr": "0065D630", "name": "StateMgr changeState(s32) variant (sm, idx) [En207 class]", "agent": "agent11", "notes": "declare weak"}
+{"t": "15:10:01", "addr": "00210CAC", "name": "En210::~En210 (D1, vt ro_6D284C)", "agent": "agent15", "notes": "enemy 'Deviland'/'Doodlebug', StateMgr +0x8BC changeState 0x65D774"}
+{"t": "15:10:01", "addr": "0065D774", "name": "StateMgr<En210>::changeState(int) (weak)", "agent": "agent15", "notes": ""}
+{"t": "15:11:05", "addr": "0020CAD8", "name": "DeguRock::stateSpinCheck (playSE SE_DeguRock_SPIN_START)", "agent": "agent14", "notes": "class vt ~ro_6D2854, StateMgr@0x8BC"}
+{"t": "15:46:03", "addr": "001E0B94", "name": "void* Mgr1E0::query(const char* path, s32 idx)", "agent": "GPT", "notes": "Pass4 MATCH41/41; descriptive query name, path type follows agent1 caller research. work4/gpt/swap/func_001E0B94.cpp. Conditional lock, query result pointer +0xE4."}
+{"t": "18:04:32", "addr": "0041C81C", "name": "void* Manager::instance() local static manager getter", "agent": "gpt19", "notes": "Confirmed static guard and returns7A87D8; used by41D5C0 ctor"}
+{"t": "18:10:45", "addr": "0058EB4C", "name": "Secondary-base +0x38 D1 destructor thunk (descriptive)", "agent": "gpt21", "notes": "MATCH work7/gpt21/func_0058EB4C.cpp. Complete object Primary+Secondary; 41 primary virtual slots; vtable offsetAC; base D1 target4B9AA0."}
+{"t": "18:20:42", "addr": "00689A2C", "name": "BufferedSafeString<char>::ctor(char* buffer,s32 capacity) (inferred)", "agent": "gpt30", "notes": "MATCH14/14; buffer4 capacity8; polymorphic inline base and named buffer pointer."}
+{"t": "18:22:53", "addr": "0053F998", "name": "Actor::checkStateFlag80() const -> bool (descriptive)", "agent": "gpt21", "notes": "Exact32B source work7/gpt21/func_0053F998.cpp: signed16 index42*16 into data7111A8,flags4 mask80; returns0or1. Clarifies prior generic int declaration."}
+{"t": "18:22:57", "addr": "0068C794", "name": "bool chaseRateClamped(float* value,float target,float rate,float minimum,float maximum) (inferred)", "agent": "gpt30", "notes": "MATCH19/19; weak callee688C34."}
+{"t": "18:22:57", "addr": "00688C34", "name": "bool chase(float* value,float target,float step) (inferred)", "agent": "gpt30", "notes": "Disassembly supports pointer plus two hardfp float arguments; completion bool."}
+{"t": "18:25:08", "addr": "002D55D0", "name": "StateData* StateBase::changeState(s32) [nonweak]", "agent": "gpt17", "notes": "Verified2D55D0 returns this+8 or null for -1/-2, writes s16 at+4. 28FBD0 calls with8C and stores incoming word at returned pointer+8. Header work7/gpt17/range.h; StateData field meanings unknown."}
+{"t": "18:45:15", "addr": "0068906C", "name": "float normalizeTo(Vec3* out,const Vec3* in) (inferred)", "agent": "gpt30", "notes": "MATCH23/23; returns input length; preserves output for length<=0."}
+{"t": "18:47:29", "addr": "004B9A10", "name": "Base450::Base450(bool), task base with19 primary slots/secondary+38", "agent": "gpt27", "notes": "Call from450134 MATCH; base body constructor1B6E04,secondary10DA7C;flag+70"}
+{"t": "18:47:29", "addr": "0049C008", "name": "Base48A::~Base48A() D1, threadlike state78 and secondary18", "agent": "gpt27", "notes": "Call from48A2A0 MATCH; ignoresincomingr1, primary17slots, state78 reload after4 assignment, disposer4A1520 tail"}
+{"t": "18:48:42", "addr": "0010AC24", "name": "void recordDiagnostic(u32 result, u32 pc) (descriptive)", "agent": "gpt15", "notes": "MATCH48B12/12. Sets shared12B record79CCA8: active byte1=0, tag16@2=CACA, kindbyte0=0, PCword8=inputr1, resultword4=inputr0, then tails104560(record). Callers may supply unused third sign argument; function consumes onlyr0/r1."}
+{"t": "18:48:42", "addr": "0079CCA8", "name": "DiagnosticRecord12 {u8 kind,active;u16 tag;u32 result,pc;}", "agent": "gpt15", "notes": "Layout/store semantics from10AC24 exact48B reconstruction work7/gpt15/variants/0010AC24/v0.cpp; names descriptive."}
+{"t": "18:49:24", "addr": "00408B94", "name": "Base409::Base409(), polymorphic11C-byte parent", "agent": "gpt27", "notes": "409DAC ctor MATCH externalbasecall; m0vptr,m4zero,m8zero,m110zero,m114zero,m118-1,byteC2F,D0"}
+{"t": "18:49:24", "addr": "00413648", "name": "Member409::Member409(), 44-byte view resets words38/3C/40", "agent": "gpt27", "notes": "409DAC externalmemberctor atowner+120; C1 returned-this subtraction matches40B"}
+{"t": "19:31:48", "addr": "00587F74", "name": "bool SoundMgr::playByName(const SafeString&, SoundHandle* optional) (descriptive)", "agent": "gpt21", "notes": "MATCH44B; child40 query25BDA4; r2 saved optional handle passed to25B6A8 which attaches object+10 and callback; previous int thirdarg description corrected."}
+{"t": "19:41:24", "addr": "0054CE64", "name": "u32 queryPlayerSlotMask(PlayerProxy21*, s32 kind) (descriptive)", "agent": "gpt21", "notes": "MATCH48B: signed current kind in slots1/2 at player+694, returns16 or8 or0; uses r0/r1/r2, permits owner inr3 in same-TU callers."}
+{"t": "19:52:29", "addr": "001E4A5C", "name": "bool Actor6D1EEC::onArrive(s32,const Vec3*) (inferred descriptive)", "agent": "gpt25", "notes": "28B110 exact56B override preserves false on failed base; returns true afterstate7 andflag2clear."}
+{"t": "20:24:16", "addr": "003E3AB4", "name": "Mgr::toggle() state byte m76@0x76 + list@0x64, CS lock/unlock", "agent": "ds5", "notes": "MATCH work7/ds5/func_003E3AB4.cpp"}
+{"t": "03:39:05", "addr": "00102E40", "name": "u32 func_00102E40(u32 request, u8* optionalOut)", "agent": "sol1", "notes": "ABI confirmed: r1 saved, optionally cleared at entry, byte result stored through it on success. r0 low byte is eventually transported by1058EC. Added missing null second argument in003E4D3C."}
+{"t": "03:39:05", "addr": "0010F1DC", "name": "void listInsertBefore(void* node, void* inserted) (descriptive)", "agent": "sol1", "notes": "28B: old=node.prev; node.prev=inserted; inserted.next=node; inserted.prev=old; if(old)old.next=inserted. Pointer ABI r0/r1 confirmed; names descriptive."}
+{"t": "03:39:05", "addr": "0049F688", "name": "void* listPopBack(void* list) (descriptive)", "agent": "sol1", "notes": "List fields head0/tail4/signed count8; returns0 when count<=0, else unlinks tail, clears both node links and decrements count. Returned pointer is node, not owner."}
+{"t": "03:39:05", "addr": "00322274", "name": "void addNodeByOffset(void* owner, s32 nodeOffset) (descriptive)", "agent": "sol1", "notes": "Owner list starts8; offset stored at14. node=owner+storedOffset+nodeOffset; checks existing links, then10F1DC(owner+8,node) and increments count atowner+10. Descriptive signature, not recovered original name."}
+{"t": "03:39:05", "addr": "0016656C", "name": "void appendUniqueWord(void* collection, u32 value) (descriptive)", "agent": "sol1", "notes": "Collection count18/capacity1C/data20; scans for value, appends if absent and capacity available. r1 is a full word;00471F24 passes self pointer bits. Return value is unused there."}
+{"t": "03:39:05", "addr": "00231488", "name": "void func_00231488(void* control, float value)", "agent": "sol1", "notes": "Hard-float s0 consumed by VSTR at entry+1C after owner/index validation.0045235C now passes3.f; omitting float loses required VLDR/call ABI."}
+{"t": "03:39:06", "addr": "002317C0", "name": "void func_002317C0(void* control, float value)", "agent": "sol1", "notes": "Hard-float entry VMOVs1,s0; branchy kind dispatch consumes value.00459388 calls all three switch arms with1.f."}
+{"t": "03:39:06", "addr": "0025B6A8", "name": "void attachObject(void* handle, void* object) (descriptive)", "agent": "sol1", "notes": "r1 saved to r5, old object detached, new pointer stored at handle+10 and registered with1DFE74.004EC988 must pass lookup result as second argument."}
+{"t": "03:39:06", "addr": "0066C0CC", "name": "void stateChange(void* manager, s32 nextState) (descriptive)", "agent": "sol1", "notes": "r1 preserved across exit callback; SXTB before3931EC, then new-state callback via PMF table. State byte4, owner14, init table18, exit table20. Descriptive ABI signature."}
+{"t": "03:39:58", "addr": "0049F688", "name": "void* listUnlinkNodeAt4(void* list) (descriptive)", "agent": "sol1", "notes": "Returns list word at+4 when signed count+8>0; unlinks node using links at0/4, clears both links, decrements count. Head/tail naming is intentionally not inferred from this isolated routine; corrects earlier sol1 popBack label."}
+{"t": "03:39:58", "addr": "00322274", "name": "void addObjectLink(void* listOwner, void* object) (descriptive)", "agent": "sol1", "notes": "Corrects earlier sol1 offset-argument label: R1 input is object pointer. Node address = object + *(s32*)(listOwner+14), with NO addition of listOwner. List root atowner+8; insert10F1DC then incrementowner+10. Checks node links before insertion."}

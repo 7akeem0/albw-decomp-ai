@@ -1,0 +1,2 @@
+#include "../../range.h"
+extern "C" void func_00108DF8();extern "C" void func_00108B98();extern "C" u32 func_0010B240();extern "C" void func_0010873C(u32,u32,u32);extern "C" void func_00108F4C();inline void diagnose(u32 r,u32 pc){u32 sign=r>>31;if(sign)func_0010873C(r,pc,sign);}extern "C" void func_00108FF0(){func_00108DF8();func_00108B98();diagnose(func_0010B240(),__current_pc());func_00108F4C();}

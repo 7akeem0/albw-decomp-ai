@@ -1,0 +1,10 @@
+# one hex address per line (+ note): table entries that are NOT function starts
+1FA87C internal basic block of 0x1EA96C (gpt7 triage: no prologue/return, entered from 0x1FA780)
+114A98 internal block of 0x1146F8 (FP lib asm), entered only by beq at 114A4C (opus, lead-verified)
+114AA4 internal block of 0x1146F8 (FP lib asm), entered only by bmi at 114A44 (opus, lead-verified)
+391554 epilogue pop{r4,pc} of 0x3914D4, entered by its own beq at 39153C (opus, lead-verified)
+690048 case block of 0x68FDFC switch (jump table 68FFF0..690004) (opus, lead-verified)
+690054 internal block of 0x68FDFC entered at 68FE68, uses caller frame (opus, lead-verified)
+5380C0 internal block of 0x537F54 (blt at 5380A8, pops its frame) (opus, lead-verified)
+258870 shrink-wrapped else-arm of 0x258830 (bne at 258850) (opus, lead-verified)
+350004 internal block of 0x34F96C: entered by beq at 34FFD4, branches back to 34FFEC/34FFF0 (H8 report, lead-verified)

@@ -1,0 +1,56 @@
+ 
+typedef unsigned char undefined; typedef unsigned char undefined1; typedef unsigned short undefined2;
+typedef unsigned int undefined3; typedef unsigned int undefined4; typedef unsigned long long undefined5;
+typedef unsigned long long undefined6; typedef unsigned long long undefined7;
+typedef unsigned long long undefined8; typedef unsigned char byte; typedef unsigned int uint;
+typedef unsigned short ushort; typedef unsigned char uchar; typedef unsigned long ulong;
+typedef long long longlong; typedef unsigned long long ulonglong; typedef int int3; typedef unsigned int uint3;
+typedef long long int5; typedef long long int6; typedef long long int7; typedef unsigned long long uint5;
+typedef unsigned long long uint6; typedef unsigned long long uint7; typedef long double float10;
+typedef unsigned char bool; typedef unsigned short wchar16; typedef unsigned short char16;
+typedef unsigned int dword; typedef unsigned short word; typedef unsigned long long qword;
+typedef int code(); typedef unsigned char unkbyte; typedef unsigned int unkuint;
+
+
+#pragma diag_warning 513,144,167,147,120,191,1293,174,177,550,940,1
+#pragma diag_suppress 513,144,167,147,120,191,1293,174,177,550,940,1
+extern char G_00693118[];
+extern char G_0069311C[];
+extern char G_0069382C[];
+extern char G_00706E20[];
+extern char G_0070FB60[];
+extern int FUN_0052fba0();
+extern int FUN_005568e8();
+extern int FUN_00556e64();
+extern int FUN_00588be4();
+
+void FUN_0016f814(int param_1,int *param_2)
+
+{
+
+  int perm_arr90[2];
+  
+  perm_arr90[0] = FUN_005568e8(*((int *)G_0070FB60));
+  if (*param_2 == perm_arr90[0]) {
+    perm_arr90[0] = FUN_00556e64(*((int *)G_0070FB60));
+    if (perm_arr90[0] != 0) {
+      return;
+    }
+  }
+  else {
+    perm_arr90[0] = FUN_0052fba0(*((int *)G_00706E20) + 0x3dbbc);
+    perm_arr90[1] = perm_arr90[0]; if (perm_arr90[1] == 0) {
+      return;
+    }
+    perm_arr90[0] = FUN_00588be4();
+    if ((perm_arr90[0] == *((int *)G_00693118)) || (perm_arr90[0] == *((int *)G_0069311C))) {
+      *(undefined1 *)(param_1 + 0x38) = 1;
+    }
+    if (perm_arr90[0] != *((int *)G_0069382C)) {
+      return;
+    }
+  }
+  *(undefined1 *)(param_1 + 0x37) = 1;
+  return;
+}
+

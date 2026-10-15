@@ -1,0 +1,11 @@
+# game data and the compiler are never committed: supply your own
+code.bin
+*.bin
+tools/armcc/
+# build and check outputs
+*.o
+check_log.jsonl
+__pycache__/
+*.pyc
+# local secrets, never committed
+.env*
