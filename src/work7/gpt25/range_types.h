@@ -1,12 +1,6 @@
 #ifndef GPT25_RANGE_TYPES_H
 #define GPT25_RANGE_TYPES_H
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned int u32;
-typedef int s32;
-typedef float f32;
+#include "albw_types.h"
 struct Flag32 {
     u32 v;
     void change(u32 mask, bool on) { if (on) v |= mask; else v &= ~mask; }

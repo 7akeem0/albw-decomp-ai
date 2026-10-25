@@ -5,14 +5,7 @@
 // Sub-object at +0xA7C (methods 0x36B708 / 0x36B758 / 0x36BA20 / 0x36BE78 / 0x36C408).
 #ifndef A14_EN20C_H
 #define A14_EN20C_H
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
-typedef unsigned long long u64;
+#include "albw_types.h"
 
 namespace sead {
 class SafeString {

@@ -1,13 +1,7 @@
 #ifndef GPT21_RANGE_H
 #define GPT21_RANGE_H
 // Recovered partial types for ladder list 7; descriptive names only.
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned int u32;
-typedef int s32;
-typedef float f32;
+#include "albw_types.h"
 struct Vec3 { f32 x,y,z; };
 struct VecCopy {
     f32 x,y,z;

@@ -2,14 +2,7 @@
 // state PMF table around ro_00695F44.., StateMgr at +0x8bc with changeState 0x65D630).
 #ifndef A11_EN207_H
 #define A11_EN207_H
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
-typedef unsigned long long u64;
+#include "albw_types.h"
 
 namespace sead {
 class SafeString {

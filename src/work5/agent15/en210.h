@@ -4,14 +4,7 @@
 // Same family as agent8/9/10 enemies (work5/shared_include/en200.h, work5/agent9/en202.h, work5/agent10/en204.h).
 #ifndef A15_EN210_H
 #define A15_EN210_H
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
-typedef unsigned long long u64;
+#include "albw_types.h"
 
 namespace sead {
 class SafeString {

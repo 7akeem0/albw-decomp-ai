@@ -1,13 +1,6 @@
 // agent9 round 5: enemy class "BombZako" (SE_BombZako_*) whose state fns live at 0x202C20-0x203F1C
 // (state PMF table ro 0x6957F8..0x695848; vtable around ro_6D2598, D1 dtor 0x203F1C, base vt ro_6EDB00)
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
-typedef unsigned long long u64;
+#include "albw_types.h"
 
 namespace sead {
 class SafeString {

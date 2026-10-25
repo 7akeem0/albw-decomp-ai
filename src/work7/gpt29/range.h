@@ -1,12 +1,6 @@
 #ifndef GPT29_RANGE_H
 #define GPT29_RANGE_H
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned int u32;
-typedef int s32;
-typedef float f32;
+#include "albw_types.h"
 struct Vec2 { f32 x, y; Vec2(f32 a, f32 b):x(a),y(b){} };
 struct Vec3 { f32 x, y, z; };
 struct Flag32 { u32 v; void change(u32 m,bool on){ if(on) v|=m; else v&=~m; } void set(u32 m){change(m,true);} void reset(u32 m){change(m,false);} };

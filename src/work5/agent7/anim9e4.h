@@ -1,9 +1,5 @@
 // agent7 round 5: object with three anim players (mC/m10/m14) at 0x1FE9E4..0x1FEA74
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef unsigned char u8;
-typedef float f32;
+#include "albw_types.h"
 struct Req5C {
     Req5C(u16 id, u32 arg, bool flag);   // 0x2C11E8, out-of-line, 0x5C bytes
     u32 m[0x5C / 4];

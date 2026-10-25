@@ -1,12 +1,6 @@
 #ifndef GPT26_RANGE_H
 #define GPT26_RANGE_H
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned int u32;
-typedef int s32;
-typedef float f32;
+#include "albw_types.h"
 struct Vec3 {
     f32 x, y, z;
     void setZero() { for (int i=0;i<3;++i) (&x)[i]=0.0f; }

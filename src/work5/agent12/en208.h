@@ -2,14 +2,7 @@
 // (state PMF tables ro 0x695DF4..0x696234, vtable around ro_006D28A0). Same family as en200.h / en204.h / en202.h.
 #ifndef A12_EN208_H
 #define A12_EN208_H
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
-typedef unsigned long long u64;
+#include "albw_types.h"
 
 namespace sead {
 class SafeString {

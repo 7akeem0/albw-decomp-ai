@@ -1,8 +1,4 @@
-typedef unsigned int u32;
-typedef int s32;
-typedef signed char s8;
-typedef unsigned char u8;
-typedef float f32;
+#include "albw_types.h"
 struct Vec3 { f32 x,y,z; Vec3(){} Vec3(f32 a,f32 b,f32 c):x(a),y(b),z(c){} void set(f32 a,f32 b,f32 c){x=a;y=b;z=c;} };
 struct Timer { u32 cur,max; f32 rate;
  void start(u32 n,u32 c=0){max=n;if(n)rate=1.0f/n;else rate=0;cur=c;}

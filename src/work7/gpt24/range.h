@@ -1,12 +1,6 @@
 #ifndef GPT24_RANGE_H
 #define GPT24_RANGE_H
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
+#include "albw_types.h"
 struct Vec3_24 { f32 x, y, z; };
 struct Flag32_24 {
     u32 v;

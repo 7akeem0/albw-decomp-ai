@@ -1,12 +1,5 @@
 // agent8 round 5: enemy actor class whose vfuncs live at 0x200000-0x202000 (vtable around ro_00695470..0x695530)
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
-typedef unsigned long long u64;
+#include "albw_types.h"
 
 namespace sead {
 class SafeString {

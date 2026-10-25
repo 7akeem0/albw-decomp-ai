@@ -1,10 +1,6 @@
 #ifndef GPT27_RANGE_H
 #define GPT27_RANGE_H
-typedef unsigned char u8; typedef signed char s8;
-typedef unsigned short u16; typedef signed short s16;
-typedef unsigned int u32; typedef signed int s32;
-typedef unsigned long long u64; typedef signed long long s64;
-typedef float f32;
+#include "albw_types.h"
 struct Vec2 { f32 x,y; };
 struct Vec3 { f32 x,y,z; };
 struct Pair { u32 a,b; };

@@ -2,14 +2,7 @@
 // base EnemyBase vtable ro_006EDB00 / D1 0x4FDDB4). Same family as agent8's En (work5/shared_include/en200.h).
 #ifndef A10_EN204_H
 #define A10_EN204_H
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
-typedef unsigned long long u64;
+#include "albw_types.h"
 
 namespace sead {
 class SafeString {

@@ -1,12 +1,6 @@
 #ifndef DS3_H
 #define DS3_H
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned int u32;
-typedef int s32;
-typedef float f32;
+#include "albw_types.h"
 
 struct Control2317 { u16 current, max; u32 pad4, param; };
 

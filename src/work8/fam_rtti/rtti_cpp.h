@@ -1,12 +1,6 @@
 /* fam_rtti: sead RTTI + DynamicCast helpers (C++), used when guard/ro are hoisted out of a loop */
 #include "sead_rtti.h"
-typedef unsigned int u32;
-typedef unsigned short u16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef short s16;
-typedef int s32;
-typedef float f32;
+#include "albw_types.h"
 template <class D, class T> inline bool IsDerivedFrom(const T* o)
 {
     const sead::RuntimeTypeInfo::Interface* ti = D::getRuntimeTypeInfoStatic();

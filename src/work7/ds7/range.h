@@ -1,13 +1,7 @@
 #ifndef DS7_RANGE_H
 #define DS7_RANGE_H
 // Recovered partial types for ladder list 7 (addresses 0x53f098-0x60a368).
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned int u32;
-typedef int s32;
-typedef float f32;
+#include "albw_types.h"
 
 // Allocation tag used by the 0x10BAB4 operator new (nothrow-style, tag ignored).
 struct NoThrow {};

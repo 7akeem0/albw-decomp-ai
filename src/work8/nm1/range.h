@@ -1,12 +1,6 @@
 #ifndef GPT16_RANGE_H
 #define GPT16_RANGE_H
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned int u32;
-typedef int s32;
-typedef float f32;
+#include "albw_types.h"
 struct Vec3 { f32 x,y,z; void setAdd(const Vec3&,const Vec3&); void setSub(const Vec3&,const Vec3&); };
 // Address-based names denote recovered views, not original SDK names.
 struct Actor150 {
