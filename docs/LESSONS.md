@@ -228,3 +228,23 @@ helper recovered correctly helps every function that uses it.
   (stm has no offset encoding — offsets come only from base advance). When
   armcc instead 3-merges into one stm with `add base,#8`, your inferred layout
   is probably wrong.
+
+- 0010D370 (MI ctor, 14/16): `D : B1, S` with B1 = 12-byte polymorphic
+  primary {vptr,x,y} (inlined ctor), S = 0010DECC's class (out-of-line ctor at
+  self+12, size 0x20C), members f1/f2 at +0x218/+0x21C zero-initialized.
+  Everything matches EXCEPT the post-call vptr-pair allocation: target
+  `ldr r1,[pool2=Dvt]; add r2,r1,#0x20` (forward order), armcc emits
+  `ldr r2,[pool2]; add r1,r2,#0x20` (reverse order) in EVERY variant: plain
+  6-virtual B1, B1-with-virtual-dtor, explicit base calls, body assignments,
+  S with 3 virtuals, D overriding B1::v1, B1 ctor out-of-line, no_inline S
+  ctor, --no_exceptions/--rtti/--vectorize, -O2 (different shape: pool reuse
+  in r1 but self-add + pre-indexed no-WB store + wrong order), -O3 -Ospace,
+  and ALL builds b561/b713/b791/b844/b894/b921/b1440/b1454. D adding a new
+  virtual or virtual dtor APPENDS a vtable slot (secondary offset becomes
+  0x24/0x28) and inlines S's ctor — wrong shape. armcc regalloc assigns
+  registers at definition in reverse-definition order for this pair; no tested
+  source form flips it. The target's pool→r1/add→r2 regpair DOES occur in a
+  different context: 0010C51C's inline base-ctor `stm r0,{r1,r2}` (two
+  adjacent vptrs at +0/+4, two near-empty polymorphic bases) — not
+  transferable to a most-derived vptr-pair store after a BL.
+  Scratch: $TMPDIR/mitest/{t1-t5,v1,v2,w1,w2,w5,m1,m2,x4,x5,x6}.cpp.
