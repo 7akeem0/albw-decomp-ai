@@ -30,7 +30,22 @@ All numbers below were measured with the byte-exact checker on this game.
 - `--apcs=/fpic` never emits a tail call. It also makes global data addresses pc-relative.
 - A `weak` declaration of a callee stops tail calls to it. About 500 matches still need this. Their callees are never
   tail-called anywhere in the game, so the original headers probably declared something that has the same effect.
-  We could not find a non-weak declaration that reproduces it.
+  We could not find a non-weak declaration that reproduces it. A systematic sweep of candidate constructs
+  (2026-10-25, armcc -S, target shape `BL callee` + `POP` instead of tail `B`) eliminated: `__declspec(noinline)`
+  (with or without `--apcs=/interwork`), discarded int return, variadic callee, `__softfp`, `--exceptions`,
+  `--no_rtti`, `--Ospace`, `--no_inline`, `--no_autoinline`, `--no_early_inlining`, `--split_ldm`, `--no_split_ldm`,
+  `--lower_ropi`, `--pointer_alignment=1`, `--shared`, `--no_rtti_data`, `--vfe`/`--no_vfe`,
+  `__attribute__((interwork))` (ignored, warning #1207-D), `__interwork` keyword (does not compile), same-TU
+  `__declspec(noinline) __inline` definition (emits a non-weak EXPORT but still tail-calls), `#pragma no_inline` +
+  `__inline`, a large `__inline` body (fully inlined instead), a call inside an `if` block, an empty inline dtor
+  local, and a dead-store dtor — none stop the tail call. Partial effects with the wrong shape:
+  `__attribute__((noreturn))` callee gives `BL` but deletes the epilogue `POP`; a try/catch around the call gives
+  `BL` but adds catch-handler machinery; a real call after the target call gives `BL`+`POP` but the trailing call
+  is itself tail-called. One coupled effect remains unexplained: in func_0011F95C (manual dynamic_cast), a weak
+  callee also turns the `__cxa_guard_release` call site into `mov r0,r0` while leaving its literal load intact;
+  removing the release call without weak makes the diff worse. Do not re-test these; remaining hypotheses are
+  (a) the original headers genuinely declared these callees weak (CTR-SDK hookables), which would make `weak`
+  a faithful reconstruction, or (b) an unguessed build-system property (per-TU --via files, post-link patching).
 - Temporaries and named locals give different code (store pairing, slot reuse). Stack frame offsets follow the
   declaration order.
 - Constructors and destructors return `this`, and chains reuse the returned register. An inlined member destructor

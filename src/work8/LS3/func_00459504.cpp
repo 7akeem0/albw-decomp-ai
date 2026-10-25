@@ -41,13 +41,13 @@ extern "C" void func_00459504(void* self) {
 
     void** tablePtr = &data_007124F0;
     void* tableOwner = *tablePtr;
-    __schedule_barrier();
+    
     u32 index = *((u8*)self + 0x70);
     u8* table = (u8*)tableOwner + 0x10;
     u32 nineIndex = index + index * 8;
     u32 twentyFiveIndex = nineIndex + index * 16;
     u8* entry = table + twentyFiveIndex * 16;
-    __schedule_barrier();
+    
     u8 active = *(volatile u8*)((u8*)self + 0x224);
     u32 checkAddr = (u32)entry + 0x10;
     if (active == 0) goto regular;

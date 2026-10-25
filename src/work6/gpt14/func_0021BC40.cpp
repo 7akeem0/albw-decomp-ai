@@ -93,7 +93,7 @@ struct StateMgr {
     Func* mEnter;        // +0x18
     Func* mExec;         // +0x1c
     Func* mExit;         // +0x20
-    void changeState(int s) __attribute__((weak));   // 0x65D8B8 (class A: 0x65D774)
+    void changeState(int s) ;   // 0x65D8B8 (class A: 0x65D774)
 };
 
 struct Model;

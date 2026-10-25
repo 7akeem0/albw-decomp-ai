@@ -54,7 +54,7 @@ return true;
 };
 
 struct StateMgr {
-void changeState(int s) __attribute__((weak));
+void changeState(int s) ;
 };
 
 void func_00115C70(Vec3* out, const Vec3& a, const Vec3& b);  
@@ -151,7 +151,7 @@ void En::f() {
     { Vec3* p = &m4e4;
 p->x = 1.0f;
 p->y = 1.0f;
-__schedule_barrier();
+
 p->z = 1.0f; }
     if (m508 <= 0) mState.changeState(7);
 else mState.changeState(0);
