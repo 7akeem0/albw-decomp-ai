@@ -1,83 +1,8 @@
 // agent16 round 5: "GueldMan" enemy (SE_GueldMan_*) whose state fns live at 0x212F18-0x214000
 // (state PMF table ro 0x69690C..; vtable around ro_6D2B58; changeState 0x65D8B8 never tail-called -> weak)
 // and its sibling class A at 0x212108-0x212F18 (state table ro 0x6962E8..; changeState 0x65D774).
-typedef unsigned int u32;
-typedef int s32;
-typedef unsigned short u16;
-typedef short s16;
-typedef unsigned char u8;
-typedef signed char s8;
-typedef float f32;
-typedef unsigned long long u64;
+#include "albw_common.h"
 
-namespace sead {
-class SafeString {
-public:
-    SafeString(const char* s) : mStringTop(s) {}
-    virtual void assureTerminationImpl_() const;
-    const char* mStringTop;
-};
-}
-
-struct Vec3 {
-    f32 x, y, z;
-    Vec3() {}
-    Vec3(f32 a, f32 b, f32 c) : x(a), y(b), z(c) {}
-    void set(f32 a, f32 b, f32 c) { x = a; y = b; z = c; }
-    void setSub(const Vec3& a, const Vec3& b);   // 0x115C70
-    void set(const Vec3& o) { x = o.x; y = o.y; z = o.z; }
-};
-
-struct Timer {
-    u32 cur;
-    u32 max;
-    f32 rate;
-#ifdef TIMER_CREF
-    void start(const u32& n, const u32& c = 0) {
-#else
-    void start(u32 n, u32 c = 0) {
-#endif
-        max = n;
-        if (n) rate = 1.0f / n;
-        else rate = 0.0f;
-        cur = c;
-    }
-    bool step() {
-        Timer t = *this;
-        if (t.cur < t.max) { cur = t.cur + 1; return true; }
-        return false;
-    }
-    bool step2b() {
-        if (cur < max) { cur++; return true; }
-        return false;
-    }
-    bool step3() {
-        Timer t = *this;
-        if (t.max > t.cur) { cur = t.cur + 1; return true; }
-        return false;
-    }
-    bool step2() {
-        if (max > cur) { cur++; return true; }
-        return false;
-    }
-};
-
-struct BitFlag32 {
-    u32 v;
-#ifdef BF_OOL
-    void set(u32 m);      // define non-inline in the TU (BF_OOL_DEFS) -> no bic merging
-    void reset(u32 m);
-#else
-    // agent15 KB #184: the if is resolved after constant combining -> separate orr/bic per call
-    void change(u32 m, bool on) { if (on) v |= m; else v &= ~m; }
-    void set(u32 m) { change(m, true); }
-    void reset(u32 m) { change(m, false); }
-#endif
-    bool isOn(u32 m) const { return (v & m) != 0; }
-};
-#ifdef BF_OOL
-#define BF_OOL_DEFS void BitFlag32::set(u32 m) { v |= m; } void BitFlag32::reset(u32 m) { v &= ~m; }
-#endif
 
 struct En;
 struct Timeline { void func_00352210(bool b, f32 frame); };
