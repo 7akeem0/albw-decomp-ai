@@ -70,3 +70,16 @@ They do **not** reveal the exact source form of inlined helpers: constructors, s
 parameters, temporary objects, conversion operators. Each site leaves 2-3 plausible forms, and the sites interact.
 The best lever is therefore a correct, shared header library of the game's small inline helpers and classes. Each
 helper recovered correctly helps every function that uses it.
+
+## Misses and open problems (current agents)
+
+- func_00691F18 (16B): `vmov s0,r0; vcvt.u32.f32 s2,s0; vmov r0,s2; bx lr` — a
+  softfp float->u32 conversion helper that uses s2 as the conversion scratch.
+  armcc 4.1 b1049 emits `vcvt.u32.f32 s0,s0` from every C shape we tried
+  (plain cast; forced temp; --Ospace; -O2; #pragma O2; ternary; sizeof; second
+  int/pointer arg; two-float signature with either arg converted). It never
+  allocates a second VFP register for this. Plausible explanations: a different
+  armcc 4.1 build (b561+), or one of ARM's EABI conversion helpers
+  (__aeabi_f2uiz-style) compiled from runtime source with a different
+  toolchain or hand-written. Revisit if a build other than b1049 is pinned or
+  a neighboring helper family (f2iz/d2iz/f2iz) shows the same s2 pattern.
