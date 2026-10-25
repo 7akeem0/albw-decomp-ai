@@ -46,6 +46,13 @@ All numbers below were measured with the byte-exact checker on this game.
   removing the release call without weak makes the diff worse. Do not re-test these; remaining hypotheses are
   (a) the original headers genuinely declared these callees weak (CTR-SDK hookables), which would make `weak`
   a faithful reconstruction, or (b) an unguessed build-system property (per-TU --via files, post-link patching).
+- armcc 4.1 has **no coprocessor intrinsic**: `__mrc(15, 0, 13, 0, 3)` is treated as an implicit function
+  (warning #223-D, emits `IMPORT __mrc`), and the shipped include tree has no mrc/mcr intrinsic header.
+  The 82 `asm` hacks are all `mrc/mcr p15, …, c13/c0` TLS thread-pointer reads/writes (69+ are exactly
+  `mrc p15, 0, t, c13, c0, 3`); the instruction is semantically required by the target bytes, so these cannot
+  be de-hacked by construct substitution. The plausible honest resolution is that the original SDK headers
+  used inline asm for TLS access — a project-level reclassification with evidence, not a per-function fix.
+  No honest-matched source in the repo contains `__asm`.
 - Temporaries and named locals give different code (store pairing, slot reuse). Stack frame offsets follow the
   declaration order.
 - Constructors and destructors return `this`, and chains reuse the returned register. An inlined member destructor
