@@ -133,3 +133,13 @@ helper recovered correctly helps every function that uses it.
     value-returning — all predicate (>=4-op bodies branch but then the copy
     chunk-splits at 8). 001150B8 unproducible; likely another build. `bxeq lr`
     normally means early-return guard with a prologue after it.
+
+- 001150CC (15w) and 00115234 (4w): both need a **merged 12-float WB load
+  (vldmia r1!,{s0-s11}) with NO subsequent use of the advanced pointer**.
+  b1049 folds writeback only when the advanced pointer is used again (matched
+  00115224/00115AC8: p += 12 between reads, or return of advanced dst).
+  Contiguous p[0..11] reads + dead p += 12 gives NO WB; 3x4 row reads with
+  p += 4 walks give 3 separate WB loads; per-element *p++ gives 12 single WB
+  loads; loops split. 001150CC is otherwise 14/15 exact (scattered reversed
+  stores + str r2 tag store at dst[1] all match). `--no_remove` does not exist
+  in armcc 4.1. Revisit only with a new WB mechanism.
