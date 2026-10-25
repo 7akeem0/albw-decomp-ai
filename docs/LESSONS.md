@@ -71,7 +71,13 @@ parameters, temporary objects, conversion operators. Each site leaves 2-3 plausi
 The best lever is therefore a correct, shared header library of the game's small inline helpers and classes. Each
 helper recovered correctly helps every function that uses it.
 
-## Misses and open problems (current agents)
+## Misses and open problems
+
+- `svc #N; bx lr` syscall stubs (e.g. 00100B88 svc#3, 0010D0EC svc#0x3c, five unindexed): armcc's
+  documented `__svc(N)` construct is call-shaped — any wrapper compiles to `push {r4,lr}; svc #N;
+  pop {r4,pc}` — never the frameless 2-word form the targets have. No known pure-C producer;
+  likely SDK assembly or header inline-asm. Same for `ldr pc,[pc,#-4]; .word thumb_target`
+  thunks (003C90C8 family): linker-generated ARM→Thumb veneers, not source functions. (current agents)
 
 - func_00691F18 (16B): `vmov s0,r0; vcvt.u32.f32 s2,s0; vmov r0,s2; bx lr` — a
   softfp float->u32 conversion helper that uses s2 as the conversion scratch.
@@ -95,3 +101,35 @@ helper recovered correctly helps every function that uses it.
   The target's exact form (STRD at [#4] + MOV r2/ADD r3 allocation) was not
   reproduced; revisit with a C++-specific shape (e.g. out-of-line ctor, this
   pointer offset) or a different field-type hypothesis.
+
+- VFP bulk-copy family in 0x115xxx (001151D8 getRot, 00115234, 001150B8, 001150CC,
+  00115AC8): the codegen rules for b1049 VFP struct/array copies, established
+  empirically (all with --cpu=MPCore, flags -O3 -Otime and -O2/-O3 +-Ospace/-Otime
+  tested):
+  * Bulk VLDM/VSTM of N regs comes from the **all-used float locals pattern**
+    (v0..vN-1 = src[i]; dst[i] = vi) — see matched 001151EC (12/12) and 00115224.
+  * Struct copies (direct or via tmp) always chunk at **8 regs max** ({s0-s7}
+    twice); via-tmp 16-float copies give one merged {s0-s15} pair. C++ operator=
+    memberwise goes **core regs** (LDR/STR), never VFP.
+  * **Writeback (vldmia/vstmia rX!) only appears when a pointer variable is
+    advanced between reads and used again** (p += 12; then read p[0..3] folds the
+    WB into the first load), or **when the advanced pointer is returned** (return
+    dst+16 folds vstmia r0!). Proof: matched 00115224. A dead advance is DCE'd
+    (no WB); a second load from a *different* base never triggers WB on the
+    first — 00115234 (`vldmia r1!,{s0-s11}; vldmia r2,{s12-s15}; vstmia r0`) is
+    1 bit (W) away from the plain-locals form and no C shape produced that WB
+    (indexed locals; p+=8/-index re-read; per-element *p++ — splits into 11
+    single WB loads; b-loads-first; Ospace/Otime/O2 variants). Revisit only with
+    a new WB mechanism idea.
+  * **Dead loads are always eliminated**: unused floats (translation column of
+    Mtx34 in getRot 001151D8) are never loaded at -O1/-O2/-O3 (-O1 keeps VLDR
+    pairs only for *used* floats; -O0 goes core-regs + stack). The target's
+    `vldmia r1,{s0-s11}` with s3/s7/s11 dead + 3 separate WB vstmia groups has
+    **no honest C producer found**; likely hand-written asm or another armcc
+    build. Do not brute-force again.
+  * A **guarded 2-op VFP body is always predicated** (CMP; VLDMNE/VSTMNE; BX) —
+    never the target's `CMP r1,r0; BXEQ LR; vldmia; vstmia; BX` branch form.
+    Guard forms tried: if==return, if!=body, guard-in-loop, tmp vs direct copy,
+    value-returning — all predicate (>=4-op bodies branch but then the copy
+    chunk-splits at 8). 001150B8 unproducible; likely another build. `bxeq lr`
+    normally means early-return guard with a prologue after it.

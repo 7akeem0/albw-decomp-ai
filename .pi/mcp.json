@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "rea": {
+      "command": "npx",
+      "args": ["-y", "rea-agents@6.7.0", "mcp"],
+      "description": "REA: Reverse Engineer Anything - MCP for reverse engineering binaries, applications, and runtime behavior"
+    }
+  }
+}

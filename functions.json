@@ -2451,6 +2451,13 @@
 "path": "src/work7/gpt15/func_001151EC.cpp",
 "status": "honest"
 },
+"00115224": {
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_00115224.c",
+"status": "honest"
+},
 "0011638C": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
