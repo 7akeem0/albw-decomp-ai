@@ -56878,7 +56878,11 @@
 "status": "honest"
 },
 "0040F538": {
-"status": "no_source"
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_0040F538.c",
+"status": "honest"
 },
 "0040F5CC": {
 "cc": "4.1/b1049",
@@ -56916,7 +56920,11 @@
 "status": "honest"
 },
 "0040FAB0": {
-"status": "no_source"
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_0040FAB0.c",
+"status": "honest"
 },
 "00410238": {
 "cc": "4.1/b1049",

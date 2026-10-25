@@ -83,3 +83,15 @@ helper recovered correctly helps every function that uses it.
   (__aeabi_f2uiz-style) compiled from runtime source with a different
   toolchain or hand-written. Revisit if a build other than b1049 is pinned or
   a neighboring helper family (f2iz/d2iz/f2iz) shows the same s2 pattern.
+
+- func_0041DCF4 (24B): `mov r2,#0; add r3,r0,#8; str r2,[r0]; strd r2,r3,[r0,#4];
+  str r3,[r0,#0xc]; bx lr` — empty-list head init (count=cap=0, next=prev=&next).
+  ~15 C source shapes tried (field order permutations, chained assignments, node
+  temp, struct-copy of an 8-byte sub-struct, u64 shifted value, C++ ctor init
+  list — inlines to nothing). armcc b1049 emits STRD for two adjacent u32 stores
+  only when both values are already in registers with no intervening address
+  computation (verified in matched 00102FB4: strd r0,r4,[r4,#4] for two in-reg
+  args); otherwise it prefers STM+ADD or STR writeback tricks and never merges.
+  The target's exact form (STRD at [#4] + MOV r2/ADD r3 allocation) was not
+  reproduced; revisit with a C++-specific shape (e.g. out-of-line ctor, this
+  pointer offset) or a different field-type hypothesis.
