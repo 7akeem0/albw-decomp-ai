@@ -143,3 +143,18 @@ helper recovered correctly helps every function that uses it.
   loads; loops split. 001150CC is otherwise 14/15 exact (scattered reversed
   stores + str r2 tag store at dst[1] all match). `--no_remove` does not exist
   in armcc 4.1. Revisit only with a new WB mechanism.
+
+- Transform family 00115074 / 00115CA8 / 00115D18 (Mtx34 x Vec3, ~15-30w):
+  targets bulk-load **all 12 matrix floats upfront** (vldmia r1,{s0-s11}) plus
+  the 3-vector (vldmia r2,{s12-s14}), then 9 vmla/vmul + 3 scattered vstr —
+  register allocation exactly follows declaration order (m->s0-s11, v->s12-s14,
+  accumulators = the loaded translation regs s3/s7/s11). b1049 **rematerializes
+  single-use float loads**: every source form tried (expression form; explicit
+  chained +=; all-locals; struct-copy tmp M34 a = *m; loop over 3 rows; decl
+  order m-first/v-after) and every flag combo (-O3/-O2/-O1, -Otime/-Ospace,
+  --vectorize) interleaves 12 per-element VLDRs with the FMAs instead of one
+  bulk VLDM. No matched function in the corpus combines bulk VLDM with
+  VMLA/VMUL compute. This TU's style (upfront bulk load) may come from a
+  different armcc build. The near-miss shape is: same FMA order (v-component
+  outer, row inner), same accumulate-onto-translation semantics — only the
+  load grouping differs.

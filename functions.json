@@ -2458,6 +2458,13 @@
 "path": "src/work8/nosrc/func_00115224.c",
 "status": "honest"
 },
+"00115AC8": {
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_00115AC8.c",
+"status": "honest"
+},
 "0011638C": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
