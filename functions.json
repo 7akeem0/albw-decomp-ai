@@ -1,4 +1,11 @@
 {
+"00100024": {
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Ospace --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_00100024.c",
+"status": "honest"
+},
 "00100B84": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
@@ -1591,6 +1598,13 @@
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
 "path": "src/work8/opus_tiny/f10B368.cpp",
+"status": "honest"
+},
+"0010B380": {
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_0010B380.c",
 "status": "honest"
 },
 "0010B3C0": {

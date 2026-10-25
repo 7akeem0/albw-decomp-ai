@@ -158,3 +158,73 @@ helper recovered correctly helps every function that uses it.
   different armcc build. The near-miss shape is: same FMA order (v-component
   outer, row inner), same accumulate-onto-translation semantics — only the
   load grouping differs.
+
+- 0x100000-0x100B84 front block = CRT/startup (likely hand-asm or GCC): 
+  - 00100000 (init chain, 9 words): bl x8 + bare `b` tail with NO lr save — the tail
+    call to the svc stub with lr clobbered by the 8 bls is semantically broken, so
+    it's not compiler-generated C. armcc's shape for the same source is either
+    push{r4,lr}; bl x8; pop{r4,lr}; b (tail call needs the saved lr) or, with
+    __declspec(noreturn) on caller or last callee, bl x9 with no saves (bl, not b).
+  - 0010818C / 0010BFD4 (ldrex/strex sync primitives): 0010BFD4's else path runs
+    clrex then FALLS THROUGH the section pad into the next function 0010BFFC —
+    a linker-layout fall-through no compiler emits; 0010818C uses strex status
+    ip with a dead ldrex dest r2, while armcc b1049 always reuses r2 for the
+    status when ldrex's result is dead (status=ip only when ldrex value is live
+    at the strex, e.g. matched 0010AE00). Both = kernel asm, skip.
+- armcc b1049 loop transformation: `u32* p=start; while(p<end) *p++ = 0;` at
+  -O3 -Otime becomes a counted unrolled loop (diff/8, str pairs, [r0,#8]!); at
+  -O3 -Ospace it emits the naive `mov r2,#0; cmp r0,r1; strcc r2,[r0],#4; bcc`
+  (this matched 00100024 — first -Ospace match in the project).
+- fn.py comparator facts: BL->BLX by linker accepted when my word is bl with a
+  call relocation ((tw>>25)==0x7D detects target blx-imm); tail `b` to next
+  function turned into NOP (mov r0,r0) also tolerated via R_ARM_THM_JUMP24.
+
+- 0010FC34 (strcmp-like, 13w): shape cracked but the range includes a trailing
+  orphan data word 0x01010101 (no PC-relative load points at it from anywhere;
+  linker-placed pool/constant). 12/13 words exact — the loop is
+  `c1=*a++;c2=*b++; if (c1!=c2||c1==0) break;` x2 manually unrolled with armcc's
+  flag fusion cmp r2,#1 / cmphs r2,r3 / bne (the fusion appears for &&/-condition
+  forms; `||`-in-if compiles to separate cmp/beq pairs). Unproducible trailing
+  constant -> skip. Also: armcc at -O3 -Otime does NOT auto-unroll this while
+  loop; the unroll must be written in source.
+- 0010F924 (struct zero init + (0,-1) STM pair, 13w): 11/13 near-miss. armcc
+  -O3 -Otime allocates zero=r1, addr(+0x1c)=r3, minus1=r2; target has
+  zero=r3, addr=r2, minus1=ip. -O3 -Ospace shifts to addr=ip, minus1=r3 (still
+  zero=r1). No source form found that puts the first-materialized value in r3
+  with r1 free; both callers unindexed (no signature oracle).
+
+- 0010DA3C (64B polymorphic ctor with intrusive empty list head, near-miss, NOT
+  brute-force orders again): target = `mov r2,#0; ldr r1,poolA(vtable); ldr
+  r3,poolB(ro ptr); str r1,[r0]; strb r2,[r0,#4]; strd r2,r3,[r0,#8]; add
+  r3,r0,#0x14; add r1,r0,#0x10; stm r3,{r1,r2}; str r1,[r0,#0x10]; str x3`. 
+  Findings: (a) field x=0,y=&ro pair as plain assignments NEVER strd-merges in
+  armcc at any level/order (~12 source permutations tried: flag/x/y/vptr orders,
+  init-lists, temp-struct copy, -O2/-O3/-Otime/-Ospace); armcc always splits and
+  hoists pool loads late with base-advance store tricks. (b) u64 field assigned
+  `(u64)&ro << 32` DOES hoist both pool loads to the top (closest shape) but
+  still splits the 64-bit store into two STRs (lo r1, hi r3) and puts the vptr
+  store 6th. (c) compiler-inserted vptr store is NOT emitted first by armcc when
+  the ctor body assigns fields (it schedules with the rest). Target's strd
+  r2,r3 with lo=0/hi=pool remains unexplained (same family as 0041DCF4).
+- 0010FC34 (52B strcmp-style fused loop, 12/13 words): target fuses
+  `c1!=0 && c1==c2` into cmp r2,#1 + cmphs r2,r3 with 2x unroll (bne-exit then
+  beq-loop). Plain `while (c1 != 0 && c1 == c2)` gives separate cmp/beq pairs
+  (no fusion, no unroll); manual `if (c1 != c2 || c1 == 0) break;` unrolls but
+  does not fuse. The last word 0x01010101 is orphan linker data (no PC-relative
+  user anywhere in +-4KB) — unproducible trailing constant, function unmatchable
+  as bounded.
+
+- **Copy-variable blocks armcc's guard/copy subs-fold** (proof: matched 0010B380
+  and oracle 0010A644): a source-level guard `if ((s32)n_arg <= 0) return;` on a
+  param that stays live across a call otherwise compiles to
+  `push; subs rX,n,#0; ble` (armcc fuses the callee-saved copy with the
+  compare, placing the test INSIDE). Writing `u32 n = n_arg;` (an explicit copy
+  local used afterwards) prevents the fuse and yields the pre-prologue exit
+  `cmp rN,#0; bxle lr; push; ...; mov rS,rN`. A bare `(s32)` cast does NOT
+  prevent the fold.
+- **STM base reveals struct layout**: `stm r4,{r1,r5}` with NO base advance means
+  the stored fields are at offset 0/4 of the base register; an adjacent
+  `str r0,[r4,#8]` is a separate field at +8, NOT contiguous with the stm pair
+  (stm has no offset encoding — offsets come only from base advance). When
+  armcc instead 3-merges into one stm with `add base,#8`, your inferred layout
+  is probably wrong.
