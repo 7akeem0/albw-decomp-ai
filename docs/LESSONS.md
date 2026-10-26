@@ -79,6 +79,13 @@ helper recovered correctly helps every function that uses it.
   likely SDK assembly or header inline-asm. Same for `ldr pc,[pc,#-4]; .word thumb_target`
   thunks (003C90C8 family): linker-generated ARM→Thumb veneers, not source functions. (current agents)
 
+- `svc` write stubs (9× 24B, e.g. 00103C68, 0010EAE8): `str r0,[sp,#-4]!; svc #N; ldr r2,[sp];
+  str r1,[r2]; add sp,#4; bx lr` — the arg is pushed to the stack, the svc returns a pointer in
+  the stack slot, and r1 is stored through it. armcc's `__svc(N)` never produces stack-slot
+  round-trips; variadic C can't reach svc. Skip as SDK assembly. (b24)
+  Variant 0010BE9C (`push {r4,r5}; ldr r4,[sp,#8]; ldr r5,[sp,#0xc]; svc #0x22; pop; bx lr`)
+  reads varargs off the stack into r4/r5 before svc — same SDK-asm family, skip.
+
 - func_00691F18 (16B): `vmov s0,r0; vcvt.u32.f32 s2,s0; vmov r0,s2; bx lr` — a
   softfp float->u32 conversion helper that uses s2 as the conversion scratch.
   armcc 4.1 b1049 emits `vcvt.u32.f32 s0,s0` from every C shape we tried
@@ -128,6 +135,28 @@ helper recovered correctly helps every function that uses it.
   The target's exact form (STRD at [#4] + MOV r2/ADD r3 allocation) was not
   reproduced; revisit with a C++-specific shape (e.g. out-of-line ctor, this
   pointer offset) or a different field-type hypothesis.
+
+- func_00560E5C (24B, unindexed, relocation-table resolver; callers pass
+  (&stack_local_holding_relocated_base, idx)): `mov r2,#4; add r2,r2,r1,lsl#2;
+  ldr r1,[r0]; ldr r0,[r1,r2]; add r0,r0,r1; bx lr` = `*(u32*)(*pp + 4 + idx*4) + *pp`.
+  Unmatched after ~90 source shapes (g/m/i/j/k/n series, default flags + -O1/-O2/-O3/-Otime,
+  fpic/norwpi/no_remove, softfp, all armcc 4.1 builds b561-b1454 sweep on i31).
+  PHYSICS (b1049):
+  * Plain/struct/volatile/commuted shapes all allocate base=*pp -> r0 (the dead
+    pp's own register, same-reg load), off -> r1, value -> r1/r0 at add order.
+  * Target's reverse allocation (off->r2 via MOV r2,#4 first, base->r1 reusing
+    idx's register, value->r0) needs pp to stay live across the base load, which
+    no honest source achieved: a second *pp use forces a reload (extra LDR),
+    volatile forces base->r2 but then off->r0/r1 and order flips (base load first).
+  * Guard-on-pp shapes (m01: `if (pp) return v+base; return v;`) give the exact
+    order+regs (6/7 words) but keep `cmp r0,#0; addne` — armcc cannot fold a
+    pointer null-check; guard-on-off/on-idx does not keep off in r2.
+  * ADD commutativity is normalized in codegen (base+v == v+base identical).
+  * Ordering: -O1/-O2 keep source order only with a separate off local declared
+    first; -O3 hoists the base load first unless a condition pins pp.
+  Best honest shapes for reference: i31 (`u8* bytes = (u8*)*pp; off local;
+  *(u32*)(bytes+off) + (u32)bytes`) = same ops/op-order but base->r0;
+  m01 -O2 guard = 6/7. Likely a different build/inline-asm; do not brute-force.
 
 - VFP bulk-copy family in 0x115xxx (001151D8 getRot, 00115234, 001150B8, 001150CC,
   00115AC8): the codegen rules for b1049 VFP struct/array copies, established
