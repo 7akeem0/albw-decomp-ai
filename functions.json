@@ -58405,7 +58405,11 @@
 "status": "honest"
 },
 "0041DCF4": {
-"status": "no_source"
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_0041DCF4.c",
+"status": "honest"
 },
 "0041DD0C": {
 "cc": "4.1/b1049",
