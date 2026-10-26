@@ -52259,6 +52259,13 @@
 "path": "src/work8/nosrc/func_003C8BA4.c",
 "status": "honest"
 },
+"003C8BB8": {
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_003C8BB8.c",
+"status": "honest"
+},
 "003C8BD8": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
