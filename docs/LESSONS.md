@@ -191,13 +191,35 @@ helper recovered correctly helps every function that uses it.
     pairs only for *used* floats; -O0 goes core-regs + stack). The target's
     `vldmia r1,{s0-s11}` with s3/s7/s11 dead + 3 separate WB vstmia groups has
     **no honest C producer found**; likely hand-written asm or another armcc
-    build. Do not brute-force again.
+    build. Do not brute-force again. (2026-10-26: for the 12+4 two-base fn
+    00115234 the "another build" escape is now ruled out — the no-WB fb-locals
+    emission is **byte-identical across all nine armcc 4.1 builds we have**
+    (b561 fails to run; b713/b791/b844/b894/b921/b1049/b1440/b1454 identical),
+    and identical across -O1/-O2/-O3±Otime/--fpu=vfpv2/--fpu=vfpv3/-Ospace.
+    Dead-bump matrix: `p += N` before/between/after the loads is ALWAYS DCE'd
+    at -O3±Otime. Remaining hypotheses for the r1! bit: hand-written asm, an
+    unknown pragma, or a construct class outside the probed space.)
   * A **guarded 2-op VFP body is always predicated** (CMP; VLDMNE/VSTMNE; BX) —
     never the target's `CMP r1,r0; BXEQ LR; vldmia; vstmia; BX` branch form.
     Guard forms tried: if==return, if!=body, guard-in-loop, tmp vs direct copy,
     value-returning — all predicate (>=4-op bodies branch but then the copy
-    chunk-splits at 8). 001150B8 unproducible; likely another build. `bxeq lr`
-    normally means early-return guard with a prologue after it.
+    chunk-splits at 8). `bxeq lr` normally means early-return guard with a
+    prologue after it. (2026-10-26 refinement for 001150B8, semantics confirmed
+    by Ghidra: `if (param_2 == param_1) return;` + 16 floats):
+    `if (s == d) return;` + 16 named locals gives **one more 16-wide producer**
+    `CMP r1,r0; VLDMNE r1,{s0-s15}; VSTMNE r0,{s0-s15}; BX lr` (18B — exact cmp
+    operand order and batching, everything except the predication form). -O1
+    branches but scatters VLDRs; -O2/-O3±Otime all predicate. The BXEQ
+    branch-form DID appear at -O3 -Otime with a **second live conditional
+    return after the body** (`if (d[0]==0.f) return;`) but that pollutes the
+    body (VPUSH {d8} + split VSTM r0!,). Foldable/do-while(0)/two-return
+    variants all fold and predicate. No zero-instruction trigger found.
+    C-library note: `memcpy(d,s,64)` (real string.h or manual prototype ±
+    __declspec(__nothrow) ± __restrict) lowers to BUILTIN:
+    `cmp r1,r0; bxeq lr; mov r2,#0x40; b __aeabi_memcpy` — a *tail call*, never
+    the bl __rt_memmove_w trampoline and never VFP batches. So memcpy-sourced
+    originals are eliminated for all batched-VFP targets in this family.
+    001150B8 unproducible; likely another build or hand-written.
 
 - 001150CC (15w) and 00115234 (4w): both need a **merged 12-float WB load
   (vldmia r1!,{s0-s11}) with NO subsequent use of the advanced pointer**.
@@ -388,3 +410,21 @@ literal (pool load on the return-critical path, beq skips the loads). A pure
 fallback-object shape (`if(!c) c=&default_obj;`) folds both paths (no branch)
 and misses. When a null-return path loads a pool constant, put the constant
 on the path as the return value.
+
+## 00106FC4 (84B composite ctor) — construct settled, allocation open (2026-10-26)
+
+Target: `push {r4,lr}; bl construct; add r3,r0,#0x5c; add r1,r0,#0x58; mov r2,#0;
+stm r3,{r1,r2}; mvn r3,#0; str r1,[r0,#0x58]; str r2,[+0x68..0x70];
+add r4,r0,#0x7c; strd r2,r3,[r0,#0x74]; mvn ip,#0xff000000; stm r4,{r3,ip};
+mov r1,#1; strb r1 ×3 [0x84..0x86]; str r2,[0x64]; pop`.
+Best source (v251): `__inline setP(P*t,void*l,int z){P tmp; tmp.p=l; tmp.z=z; *t=tmp;}`
+(STM merge) + `__inline setB(B*t,int a,int b){t->a=a;t->b=b;}` (7c STM+74 STRD) +
+plain field stores; -O3 -Otime → 21/21 instructions, identical opcode ORDER,
+delta is ONLY: 2-instruction swap at +c/+10 (add r1 ↔ mov r2) and a
+4-register allocation permutation (5c-base r3↔ip, 7c-base r4↔r1, k ip↔r4,
+flag-byte-1 r1↔ip). ~600 sweep variants (stmt order × locals × flags ×
+constant forms) all land on this same plateau. Open: needs a source-level
+use-order that makes armcc's allocator pick the target's permutation.
+Helper-body physics ARE settled: tmp-copy body forces STM merge, plain body
+splits; setP/setB need opposite body styles; volatile never merges;
+aggregates const-pool; placement-new unavailable.
