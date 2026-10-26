@@ -58,6 +58,15 @@ All numbers below were measured with the byte-exact checker on this game.
 - Constructors and destructors return `this`, and chains reuse the returned register. An inlined member destructor
   that only stores a vtable pointer is removed as a dead store.
 - Floats are passed in VFP registers.
+- A `return CONSTANT` on the null path of a guard (fn 003C8BB8, verified 8/8) emits
+  `CMP r0,#0; LDREQ r0,=CONST; BEQ past_fallthrough; …; BX lr` + pool word. The
+  pool word loads into the RETURN register and the branch skips to the trailing
+  `BX lr`: i.e. the constant IS the return value. Same shape works for any
+  error-code-returning accessor in front of a virtual dispatch `(*(Fn**)c)[i](c)`
+  (emission: `LDR r1,[r0]; LDR r1,[r1,#i*4]; BX r1`).
+- A guard `if (!c) c = &default_obj;` then dispatch emits `CMP r0,#0; LDREQ r0,=addr;
+  LDR/LDR/BX` WITHOUT a BEQ (the dispatch is shared by both paths) — distinguishable
+  from the error-code shape above by the missing `BEQ`.
 
 ## The main blocker (the conclusion of a final small study)
 For the remaining functions, the bytes reveal the calling-convention level reliably:
