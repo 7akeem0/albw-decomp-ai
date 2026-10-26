@@ -171,6 +171,20 @@ helper recovered correctly helps every function that uses it.
   stores + str r2 tag store at dst[1] all match). `--no_remove` does not exist
   in armcc 4.1. Revisit only with a new WB mechanism.
 
+- 00115D70 (6w, `vldmia r1,{s1-s3}; vmul s4,s1,s0; vmul s5,s2,s0; vmul s6,s3,s0;
+  vstmia r0,{s4-s6}; bx lr`, Vec3 scale-setMul): needs FRESH result regs s4-s6
+  after a bulk 3-load, with operands s1-s3 dead after the muls. armcc b1049's
+  allocator is forward-allocated (lowest free sreg): every source form (per-op
+  stores; all-temps p/q/r; struct-copy tmp; aliasing branch guard; member fn;
+  4-float w-load; dst==src check) emits in-place muls (s1*s1, s2*s2, s0*s3) and
+  split stores (VSTR s0@8 + VSTM {s1-s2}). -O1 gives fresh s4-s6 ONLY with
+  split VLDR loads (no bulk VLDM); -O2/-O3 give bulk load + in-place muls.
+  The two mechanisms (fresh alloc + bulk load) never co-occur in b1049, and
+  NOT in any 4.1 build (b561 spills via stack; b713-b1454 identical to b1049).
+  b561 for simple shapes: 3x VLDR+VMUL in-place per-component, or all-locals
+  3x VLDR {s1,s2,s3} + in-place. Likely hand-written asm or a build we don't
+  have. Do not brute-force again. Scratch: $TMPDIR/v3/ v56-v74.
+
 - Transform family 00115074 / 00115CA8 / 00115D18 (Mtx34 x Vec3, ~15-30w):
   targets bulk-load **all 12 matrix floats upfront** (vldmia r1,{s0-s11}) plus
   the 3-vector (vldmia r2,{s12-s14}), then 9 vmla/vmul + 3 scattered vstr —
