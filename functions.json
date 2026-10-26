@@ -976,6 +976,13 @@
 "path": "src/work7/gpt15/variants/001064D0/v6.cpp",
 "status": "hack"
 },
+"001066DC": {
+"cc": "4.1/b1049",
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
+"hack_reasons": [],
+"path": "src/work8/nosrc/func_001066DC.cpp",
+"status": "honest"
+},
 "00107AE0": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
