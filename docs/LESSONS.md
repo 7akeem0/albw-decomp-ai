@@ -92,9 +92,27 @@ helper recovered correctly helps every function that uses it.
 
 - func_0041DCF4 (24B): `mov r2,#0; add r3,r0,#8; str r2,[r0]; strd r2,r3,[r0,#4];
   str r3,[r0,#0xc]; bx lr` — empty-list head init (count=cap=0, next=prev=&next).
-  [UPDATE 2026-10-26: 00169A28 (24B) matched with a SECOND live arg keeping zero in r2 —
-  see the r1-liveness lesson below. 0041DCF4 has the same `mov r2,#0` head; before more
-  shape brute-force, check whether its caller passes a live r1 too.]
+  [RESOLVED 2026-10-26, honest, commit 4f31932, src/work8/nosrc/func_0041DCF4.c:
+  `void f(struct R* s, unsigned n) { s->cap=0; s->n.next=&s->n.next; s->n.prev=0;
+  s->y=s->n.next; if(n) return; }` with `struct R { unsigned cap; N n; void* y; }`,
+  `typedef struct N { void* prev; void* next; } N;`, default flags.]
+  STRD-PHYSICS (b1049, ~200 probe compiles):
+  1. STRD at [r0,#4] with pair (0, addr) ONLY fires for a NESTED-STRUCT pair
+     `N{void* prev; void* next;}` — plain sibling fields (same layout!) never merge
+     (always 2×STR, sometimes `str [r0,#4]!` writeback).
+  2. The pair address must be the BACK- or SELF-anchor `&s->n.next` (a field of the
+     pair itself) — an address with two TEXTUAL uses (`next=&next; y=&next`)
+     DOES NOT merge; the SECOND use must be a LOAD `s->y=s->n.next` written
+     AFTER the pair statements. The load folds to the same register (no LDR),
+     but schedules its STR last — giving the target's strd-then-str(+0xc) order.
+  3. REG ALLOCATION: `mov r2,#0` first / `add r3,r0,#8` second needs a 2nd param
+     `unsigned n` PLUS a provably-dead `if(n) return;` guard at the end (void fn).
+     Without the dead branch: no STRD (STM via computed base, or writeback, or
+     DCE-order changes). The dead branch changes block-boundary store batching.
+  4. Statement order that wins: `cap=0; next=&next; prev=0; y=next-load;` —
+     y-load LAST is essential; cap FIRST puts its STR before the STRD.
+  Sizes: no return-this needed (void). Same trick family likely applies to other
+  STRD-pair targets (00169A28 already honest via live-arg r2 trick).
 - func_00169A28 RESOLVED honest (see lessons): `mov r2,#0; 4×str r2,[r0,#N]; bx lr`.
   The honest keep-producer for the r2-zero: a second parameter live across the zero-init
   (`if (n) self->m0 = 0;` — even dead) at -O2 -Otime. Context: vec-new element ctor
