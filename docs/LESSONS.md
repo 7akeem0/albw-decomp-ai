@@ -92,6 +92,15 @@ helper recovered correctly helps every function that uses it.
 
 - func_0041DCF4 (24B): `mov r2,#0; add r3,r0,#8; str r2,[r0]; strd r2,r3,[r0,#4];
   str r3,[r0,#0xc]; bx lr` — empty-list head init (count=cap=0, next=prev=&next).
+  [UPDATE 2026-10-26: 00169A28 (24B) matched with a SECOND live arg keeping zero in r2 —
+  see the r1-liveness lesson below. 0041DCF4 has the same `mov r2,#0` head; before more
+  shape brute-force, check whether its caller passes a live r1 too.]
+- func_00169A28 RESOLVED honest (see lessons): `mov r2,#0; 4×str r2,[r0,#N]; bx lr`.
+  The honest keep-producer for the r2-zero: a second parameter live across the zero-init
+  (`if (n) self->m0 = 0;` — even dead) at -O2 -Otime. Context: vec-new element ctor
+  (call site 0x16A454, element size 0x14, ctor ptr in r1, count in r3 via blx 0x100118).
+  Lesson: grep literal refs (ptr table, literal pools) for the address FIRST — the call
+  site gives the signature; brute-forcing register allocation blind wastes hours.
   ~15 C source shapes tried (field order permutations, chained assignments, node
   temp, struct-copy of an 8-byte sub-struct, u64 shifted value, C++ ctor init
   list — inlines to nothing). armcc b1049 emits STRD for two adjacent u32 stores
