@@ -248,3 +248,33 @@ helper recovered correctly helps every function that uses it.
   adjacent vptrs at +0/+4, two near-empty polymorphic bases) — not
   transferable to a most-derived vptr-pair store after a BL.
   Scratch: $TMPDIR/mitest/{t1-t5,v1,v2,w1,w2,w5,m1,m2,x4,x5,x6}.cpp.
+
+- **0010E250 MATCHED honest (17/17)** via a chain of discoveries — the recipe:
+  (a) It is NOT a ctor but an init-method `D* D::initialize()` whose source
+  literally returns `(D*)((char*)k - 0x24)` from the callee's return: that is
+  what makes armcc emit `mov r4,r0 ... sub r0,r4,#0x24` (raw retval saved,
+  this derived at the END). A C++ ctor instead remats this EARLY
+  (`sub r4,r0,#0x24` right after the ctor BL then `mov r0,r4`) — the exact
+  15/17 near-miss of the ctor interpretation.
+  (b) The callee must be a member function returning its own `this`
+  (`Key* Key::init()`), NOT a ctor: only then is the return value usable in
+  source and chainable (`k->set(v)` reuses r0 from the BL directly).
+  (c) **-O2 -Otime** is required (not -O3): at -O2, a LOCAL `u32 v = 0;`
+  passed as a call arg is kept in a callee-saved reg across a BL
+  (`mov r5,#0` early; `mov r1,r5` at the call). At -O3 the constant is
+  re-materialized (`mov r1,#0`). b1049 otherwise ALWAYS remats literal call
+  args; the local-variable-at--O2 form is the honest producer of
+  keep-across-call + mov-copy (verified: 0 corpus oracles for keeping an
+  immediate across a call).
+  (d) The empty circular list stores come from a POINTER-LOCAL in the
+  function body: `Node* p = &root; p->prev = p; count = 0; p->next = p;
+  z = 0;` — this exact source order yields the target's
+  `add r2(&root); tag-store; add r1(=prev/base, REUSING the pool reg);
+  mov r5,#0; stm r1,{r2,r5}; str r2,[r0,#0x14]!; str r5,[r0,#0xc]!`
+  sequence (stm merge + two-WB chase building &key). Every other authoring
+  order loses the stm or the writeback chase.
+  (e) push {r4,r5,r6,lr} = armcc pushes r6 (unused pad) whenever TWO
+  callee-saved values are live (proof also 0010B380); one value → push {r4,lr}.
+  (f) Pool loads for explicit `tag = (u32)ro[]` assignments hoist pre-push at
+  -O2 -Otime only in this flat/init-method shape; in ctor shapes armcc sinks
+  them late (cf. 0010DA3C open problem).
