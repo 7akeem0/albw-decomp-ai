@@ -357,3 +357,34 @@ helper recovered correctly helps every function that uses it.
   (f) Pool loads for explicit `tag = (u32)ro[]` assignments hoist pre-push at
   -O2 -Otime only in this flat/init-method shape; in ctor shapes armcc sinks
   them late (cf. 0010DA3C open problem).
+
+## tools/sweep.py — parallel variant sweeper with diff classification (2026-10-26)
+
+`python tools/sweep.py <addr> <spec.py> [--jobs N] [--sample N] [--max N] [--stop-on-match] [--top N]`
+drives variant-matrix hunts on top of permuter.check_one (killpg-safe wine).
+spec.py: TEMPLATE with @@SLOT@@ tokens (braces clash with C), GRID {slot: [texts]}
+(cartesian), GROUPS [dicts] (coupled substitutions — e.g. helper
+signature+body+call must change together), BODY (list of statements swept over
+orderings; n! > sample → seeded random sample, NEVER materializes n! — 12! =
+479M tuples OOM-killed Termux once), FLAGS (list of flag strings).
+
+Diff classifier parses fn.py check's diff table per variant:
+- OP: instruction really differs (mnemonic/immediate) — construct wrong
+- REG: same instruction modulo register names — allocation-only delta
+  (cross-TU `bl #x` target diffs from unresolved extern names count as REG,
+  fn.py prints them unmarked)
+- PERM: whole function one reordering of the same instruction multiset
+- b-pairs (bne vs beq etc.): counted once as OP; if multiset matches modulo
+  branch condition codes and n_reg==0 → PERM with OP zeroed (flip fixable
+  by swapping if/else arms)
+
+Parser pitfalls learned: diff rows can carry TWO offset columns (grouped
+table when sizes differ); bare hex offsets ("c") must not be parsed as
+mnemonics (require >=2 letters or "b"); missing-side rows count as OP.
+
+003C8BB8 (32B virtual-dispatch getter) was matched by hand with:
+`if (!c) return 0xE0E046BC; return vtbl[5](c);` — null path RETURNS the pool
+literal (pool load on the return-critical path, beq skips the loads). A pure
+fallback-object shape (`if(!c) c=&default_obj;`) folds both paths (no branch)
+and misses. When a null-return path loads a pool constant, put the constant
+on the path as the return value.
