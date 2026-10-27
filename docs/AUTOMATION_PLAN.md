@@ -31,7 +31,7 @@ knowledge moves out of the agent's head and into tools + recipe data.
 | `tools/synth.py` | done — store-init class, DEFER otherwise; class coverage grows with use |
 | `tools/refine.py` (phase 4) | done — closed-loop refiner, acceptance 5/5 reproduced from skeleton-only restart |
 | `tools/queue.py` (phase 5) | done — next/register/report/status; first auto-registered match 003E60D4 |
-| `AGENTS.md` | still written for an expert agent |
+| `AGENTS.md` + skills | done — AGENTS.md is facts+invariants; the loop is `.agents/skills/decomp-loop`, expert work `.agents/skills/decomp-manual` |
 
 ## Phases
 
