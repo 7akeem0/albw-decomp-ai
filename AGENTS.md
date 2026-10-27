@@ -5,6 +5,16 @@ The Legend of Zelda: A Link Between Worlds (3DS, USA). Your job: take
 unmatched functions and produce C/C++ source that, when compiled with
 the original compiler, matches the game's bytes **exactly**.
 
+# How to work here
+
+The workflow lives in the tools, not in this file — every tool prints a
+`NEXT:` line with the exact next command. Two skills hold the procedures:
+
+- **Matching functions** (the normal task): use the `decomp-loop` skill.
+  `python tools/queue.py next` hands out one candidate and one command.
+- **Deferred / near-miss functions** (`queue.py report` entries) and
+  **de-hack** work: use the `decomp-manual` skill.
+
 # Non-negotiable rules
 
 1. **Never claim a match you did not verify.** A function is done only
@@ -41,6 +51,8 @@ the original compiler, matches the game's bytes **exactly**.
 - `rom/` may hold a ROM of the wrong region (an EU dump is not the
   target). The project targets the **USA** binary — never extract
   `code.bin` from `rom/`.
+- One oracle check takes ~5-9 s. Never run compiler jobs in parallel on
+  this device (`--jobs 1` everywhere) — parallel wine instances OOM it.
 - Use the exact `cc` and `flags` recorded in `functions.json` for each
   function — never assume the defaults. Defaults when unspecified:
   `--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections`
@@ -54,76 +66,29 @@ the original compiler, matches the game's bytes **exactly**.
   (`"00100B84"`); `path` is repo-relative; `cc` is like `4.1/b1049`
   (under `tools/armcc/`); `status` is one of `honest`, `hack` (with
   `hack_reasons`), `no_source`, `excluded`, `excluded_library`,
-  `interior_address`.
+  `interior_address`. The file's canonical format is `json.dumps(...,
+  indent=1, sort_keys=True)` with **every line lstripped** (flat left
+  margin) — a plain dump rewrites the whole file and pollutes diffs.
 - `funcs.json` — function table. A dict with three keys — `starts`, `bl`,
   `ptr` — all plain integer addresses, no `0x` strings. Cross-checking
   `functions.json` (hex-string keys) against `funcs.json` (int addresses)
   requires explicit conversion; don't assume the formats match.
 - `shared/symbols.jsonl` — inferred function names.
+- `shared/recipes.json` + `tools/recipes.py` — machine-checkable recipe
+  corpus (positive: target shape -> winning construct; negative: hard
+  skips, checked before any compile budget is spent). `docs/LESSONS.md`
+  is the human-readable mirror of the same physics.
 - `shared/include/` — project headers written for this project.
 - `src/` — sources under `src/work{,4..8}/<agent>/...`; the layout mirrors
-  the original multi-agent workspace. Put new files in the existing
-  folder style; there is no per-module directory structure.
-- `docs/LESSONS.md` — read this first; it records what worked and what didn't.
-
-# Workflow per function
-
-1. Select an unmatched address (priority order below).
-2. Disassemble and study it:
-   `python tools/fn.py show 0x<ADDR>`
-   Note register usage, literal pools, call targets, and struct offsets.
-   Cross-reference callees/callers to infer types and names.
-3. Write the C/C++ source. Follow the existing `src/` layout and style;
-   local `#include`s are relative to each file. Reuse `shared/include/`
-   headers and existing matched sources (search for same-shape
-   functions — "twin" reuse is common in this repo).
-4. Verify:
-   `python tools/fn.py check <path> 0x<ADDR> --cc <cc> --flags "<flags>"`
-   (some C++ members need `--sym <mangled-name substring>`).
-5. Iterate on the diff until `RESULT: MATCH`. Then update
-   `functions.json` for that address: status `honest` (or `hack` with
-   explicit `hack_reasons` if truly unavoidable — this should be rare).
-
-# Priorities
-
-1. **Shared header library (highest leverage).** The main blocker is the
-   shape of small inline helpers/classes from the game's own headers:
-   inlined constructors, setters with parameters, temporary string
-   objects, conversion operators. When you correctly recover one such
-   helper and put it in `shared/include/`, many functions unlock at
-   once. After matching a function, check whether its inline helper
-   shapes generalize; promote them into shared headers.
-2. **De-hack existing hack matches.** ~880 functions match only via
-   forbidden tricks (weak 534, `__schedule_barrier` 243, asm 96).
-   `--apcs=/fpic` never emits tail calls, which made many `weak` hacks
-   honest, and about 76 barriers/dummies proved unnecessary on
-   re-check (see LESSONS.md). Re-check a hack match honestly before
-   writing any new function — it needs no reverse-engineering.
-3. Functions blocking others (call targets of many unmatched functions).
-4. Small/medium functions (higher chance of honest match; keeps
-   momentum and builds the type/name corpus).
-5. Large complex functions last.
-
-# Quality bar
-
-- Names must be meaningful and consistent with `shared/symbols.jsonl`
-  and existing sources; don't invent conflicting names for the same
-  struct or function — search the repo first.
-- Types must be consistent across functions; prefer fixing a shared
-  header over locally redefining shapes.
-- Keep the code readable: this is source reconstruction, not just
-  byte-matching. Avoid anything that compiles right but reads wrong.
-
-# Reporting
-
-For each function you finish, log: address, path, status
-(honest/hack + reasons), what the function appears to do, and any
-helper/struct recovered that could unblock others. If you abandon a
-function, log the address, your best diff, and your hypotheses, so the
-next agent doesn't repeat your work.
-
-# Reminders
-
-- One function (or one helper) at a time; verify before moving on.
-- When in doubt about a match, run `check` again. The bytes are the only
-  authority in this repository.
+  the original multi-agent workspace. New auto-registered sources go to
+  `src/work8/auto/`.
+- `tools/` — `fn.py` (show/check oracle), `queue.py` (driver:
+  next/register/report), `refine.py` (closed-loop refiner),
+  `synth.py` (skeleton synthesizer), `dna.py` (structural twin index),
+  `sweep.py` (variant sweeper), `permuter.py`, `triage.py`,
+  `recipes.py`. Each tool's docstring is its documentation.
+- `docs/LESSONS.md` — what worked and what didn't, with open problems.
+- Tool state (all gitignored, regenerable/resumable): `logs/dna.jsonl`
+  (structural index, rebuild with `dna.py index`), `logs/refine/<addr>/`,
+  `logs/autodecomp/state.json` (queue state), `logs/triage/`,
+  `logs/pseudocode/` (Ghidra dumps).
