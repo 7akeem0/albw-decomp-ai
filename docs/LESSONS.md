@@ -472,3 +472,41 @@ stores) and 003CBE60 (r3=0xff, ip=0, r1=2 interleaved) resist the
 dead-guard recipe — the guard fires the zero-pin only with the right
 guarded member/position. Sweep grid (guard slot x guarded member x
 flags) is the next move.
+
+## armlib memfunc plumbing — resolved, no linker plumbing needed (2026-10-27)
+
+**Correction of a LESSONS-adjacent claim:** fn.py check NEVER compares
+call targets. Relocated call/branch words match on opcode class only
+(rel type 1/28/29), and out-of-function branches resolve at link time.
+Any extern name links to any target address — including interior
+entries like the memset core. No special plumbing is needed for callers
+of the C-library memory functions; a plain
+`extern "C" void* memset(void*, int, unsigned);` (or a custom extern
+name) matches the call word. Game-code callers of the memfunc cores
+(4 unmatched callers of the 001164A8 memset wrapper) can match this way
+with zero plumbing.
+
+**The runtime itself is NOT C (2026-10-27):**
+- `0x001164F4` `__aeabi_memclr` (memset core fills from r2 via +4
+  entry 0x1164F8) — armlib hand-written asm, 31 direct callers.
+- `0x00110490` `__aeabi_memclr4` (87 callers): `mov lr,r2` then lr used
+  as bulk fill data in the `stm` list — a compiler never clobbers lr
+  mid-function. lr-as-bulk-data is an asm-only signature.
+- `0x001164A8` arm C library `memset` wrapper: `push {r0,lr};
+  bl core(+4); pop {r0,pc}` — this idiom occurs in exactly one function
+  of the whole 25,986; armcc emits r4-save or a tail call in every
+  construct variant tried (12 x flags x --cpu=7TDMI/ARM9TDMI/4T/
+  MPCore, void/pointer return). Verdict: compiler-runtime asm,
+  `excluded_library` for all three (names anchored by honest 001DF478:
+  `__aeabi_memclr=0x1164F4, __aeabi_memclr4=0x110490`).
+- Negative recipes added: neg-armlib-push-r0lr, neg-lr-bulk-data
+  (predicates in synth.check_negative — the loop hard-skips them).
+- Callers of these cores match with a plain extern declaration; call
+  targets are never compared (relocated words match on opcode class).
+- Scan findings: 13 unindexed functions use `mov lr,rX` — most are
+  FALSE positives (pool loads `ldr lr,[pc,#..]` misread as data);
+  the true bulk-fill user is 0x110490. Two functions are called at a
+  +4 interior entry: 00104244 (real, linker-inlined tiny-call pattern)
+  and 001164F4 (armlib).
+- Remote scratchpad: use the repo (`logs/tmptest/`), not /tmp (Termux
+  has none); rm scratch dirs when done.
