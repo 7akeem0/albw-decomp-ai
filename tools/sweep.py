@@ -88,7 +88,10 @@ def classify(out, words, total):
     n_op = n_reg = 0
     regmap = []
     for off, t, mine in rows:
-        if not t or not mine or t == mine:
+        if t == mine:
+            continue
+        if not t or not mine:
+            n_op += 1  # one side missing (sizes differ): a real instruction delta
             continue
         if t.startswith("b") and mine.startswith("b"):
             # branch-pair (target differs only by condition code or in/out-of-

@@ -48,30 +48,29 @@ def store_map(start, end):
             continue
         m, o = ins.mnemonic, ins.op_str
         cond = m.split(".")[0]
+        # NOTE: patterns match op_str only (no mnemonic); cond does that job.
         # track copies of self / offsets
-        mm = re.fullmatch(r"mov (r\d+), (r\d+)", o)
+        mm = re.fullmatch(r"(r\d+), (r\d+)", o)
         if mm and cond == "mov":
             if int(mm.group(2)[1:]) in bases:
                 bases[int(mm.group(1)[1:])] = bases[int(mm.group(2)[1:])]
             continue
-        mm = re.fullmatch(r"(add|sub) (r\d+), (r\d+), #?(0x[0-9a-f]+|\d+)", o)
-        if mm and cond == mm.group(1):
-            b = bases.get(int(mm.group(3)[1:]))
+        mm = re.fullmatch(r"(r\d+), (r\d+), #?(0x[0-9a-f]+|\d+)", o)
+        if mm and cond in ("add", "sub"):
+            b = bases.get(int(mm.group(2)[1:]))
             if b is not None:
-                d = int(mm.group(4), 0)
-                bases[int(mm.group(2)[1:])] = b + (d if cond == "add" else -d)
+                d = int(mm.group(3), 0)
+                new = b + (d if cond == "add" else -d)
+                bases[int(mm.group(1)[1:])] = new
+                vals[int(mm.group(1)[1:])] = "a%d" % new  # address of self+off
             continue
         # value kinds
-        mm = re.fullmatch(r"mov (r\d+), #?(0x[0-9a-f]+|\d+)", o)
+        mm = re.fullmatch(r"(r\d+), #?(0x[0-9a-f]+|\d+)", o)
         if mm and cond == "mov":
             v = int(mm.group(2), 0)
             vals[int(mm.group(1)[1:])] = "c0" if v == 0 else "c"
             continue
-        mm = re.fullmatch(r"add (r\d+), (r\d+), #?(0x[0-9a-f]+|\d+)", o)
-        if mm and cond == "add" and int(mm.group(2)[1:]) in bases:
-            vals[int(mm.group(1)[1:])] = "a%d" % int(mm.group(3), 0)
-            continue
-        mm = re.fullmatch(r"ldr (r\d+), \[.*", o)
+        mm = re.fullmatch(r"(r\d+), \[.*", o)
         if mm and cond == "ldr":
             vals[int(mm.group(1)[1:])] = "l"
             continue
@@ -79,21 +78,33 @@ def store_map(start, end):
             vals[0] = "x"
             continue
         # stores: str/strb/strh/strd rA, [rB, #imm]  |  stm rB, {..}
-        mm = re.fullmatch(r"str(b|h|d)? (r\d+|ip), \[(r\d+|sp|ip)(?:, #?(-?(?:0x[0-9a-f]+|\d+)))?\](!?)", o)
+        mm = re.fullmatch(r"(r\d+|ip), (r\d+|ip), \[(r\d+|sp|ip)(?:, #?(-?(?:0x[0-9a-f]+|\d+)))?\](!?)", o)
+        if mm and cond == "strd":
+            b = bases.get(int(mm.group(3)[1:])) if mm.group(3) not in ("sp", "ip") else None
+            if b is not None:
+                off = b + (int(mm.group(4), 0) if mm.group(4) else 0)
+                for k in (0, 1):
+                    kind = "?" if mm.group(1 + k) == "ip" else vals.get(int(mm.group(1 + k)[1:]), "?")
+                    stores.append([off + 4 * k, 4, kind])
+            continue
+        mm = re.fullmatch(r"(b|h|d)? ?(r\d+|ip), \[(r\d+|sp|ip)(?:, #?(-?(?:0x[0-9a-f]+|\d+)))?\](!?)", o)
         if mm and cond == "str" + (mm.group(1) or ""):
             b = bases.get(int(mm.group(3)[1:])) if mm.group(3) not in ("sp", "ip") else None
             if b is not None:
-                off = b + (int(mm.group(4) or 0, 0))
+                off = b + (int(mm.group(4), 0) if mm.group(4) else 0)
                 size = {"b": 1, "h": 2, "d": 8}.get(mm.group(1), 4)
                 kind = vals.get(int(mm.group(2)[1:]), "?") if mm.group(2) != "ip" else "?"
                 stores.append([off, size, kind])
             continue
-        mm = re.fullmatch(r"stm (r\d+|sp|ip)(?:!)?, \{(.+)\}", o)
+        mm = re.fullmatch(r"(r\d+|sp|ip)(!)?, \{(.+)\}", o)
         if mm and cond == "stm" and mm.group(1) not in ("sp", "ip"):
             b = bases.get(int(mm.group(1)[1:]))
             if b is not None:
-                for k, r in enumerate(re.findall(r"r(\d+)", mm.group(2))):
+                regs = re.findall(r"r(\d+)", mm.group(3))
+                for k, r in enumerate(regs):
                     stores.append([b + 4 * k, 4, vals.get(int(r), "?")])
+                if mm.group(2):  # writeback: the base advances for later stores
+                    bases[int(mm.group(1)[1:])] = b + 4 * len(regs)
             continue
     return stores
 

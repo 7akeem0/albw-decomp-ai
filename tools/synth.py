@@ -40,7 +40,7 @@ def view(addr):
             ins.append((m, "POOL %08X" % fn.rd32(la & ~3)))
             continue
         if m in ("bl", "blx") and i.op_str.startswith("#"):
-            ins.append((m, "CALL %08X" % int(i.op_str[1:], 0)))
+            ins.append(("CALL", "CALL %08X" % int(i.op_str[1:], 0)))
             continue
         if m == "svc":
             ins.append((m, i.op_str))
@@ -68,13 +68,11 @@ def classify(ins):
     if "ldrex" in ms or "strex" in ms:
         return None
     calls = [o for m, o in ins if m == "CALL"]
-    if len(calls) == 1 and ms[0] == "push" and ms[-2:] == ["pop", "bx"] is False:
-        pass
     # single-call wrapper: push {r4,lr}; mov r4,r0; bl; ... pop {r4,pc}
-    if len(calls) == 1 and ms[0] == "push" and ms[-1] == "pop":
+    if len(calls) == 1 and ms and ms[0] == "push" and ms[-1] == "pop":
         return "wrapper"
     # single tail call: b target
-    if len(calls) == 0 and "b" in ms and ms[-2] == "b":
+    if len(calls) == 0 and len(ms) >= 2 and ms[-2] == "b":
         return "thunk"
     # pure store/init/setter bodies
     if calls == [] and set(ms) - {"mov", "add", "str", "strb", "strh", "strd", "stm", "ldr", "ldm", "cmp", "rsb", "mul", "orr", "and", "lsl", "lsr", "asr", "b", "bx", "bxeq", "bxne", "sub", "eor"} == set():
@@ -122,7 +120,8 @@ def skeleton_from_stores(addr, ins):
             b = bases.get(int(mm.group(1)[1:]))
             if b is None:
                 continue
-            for k, r in enumerate(re.findall(r"r(\d+)", mm.group(3))):
+            regs = re.findall(r"r(\d+)", mm.group(3))
+            for k, r in enumerate(regs):
                 off = b + 4 * k
                 if r == "0":
                     val = "self"
@@ -131,6 +130,8 @@ def skeleton_from_stores(addr, ins):
                 else:
                     val = "v_r" + r
                 body.append("    *(u32*)((char*)self + 0x%x) = %s;" % (off, val))
+            if mm.group(2):  # writeback: the base advances for later stores
+                bases[int(mm.group(1)[1:])] = b + 4 * len(regs)
     return body
 
 
