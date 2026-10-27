@@ -76,6 +76,8 @@ def classify(ins):
         return "thunk"
     # pure store/init/setter bodies
     if calls == [] and set(ms) - {"mov", "add", "str", "strb", "strh", "strd", "stm", "ldr", "ldm", "cmp", "rsb", "mul", "orr", "and", "lsl", "lsr", "asr", "b", "bx", "bxeq", "bxne", "sub", "eor"} == set():
+        if not any(m.startswith("st") for m in ms):
+            return None  # pure loads: a getter/table-lookup, no skeleton form yet
         return "stores"
     if len(calls) == 1:
         return "call+stores"
@@ -98,21 +100,32 @@ def skeleton_from_stores(addr, ins):
         if m == "add" and mm and int(mm.group(2)[1:]) in bases:
             bases[int(mm.group(1)[1:])] = bases[int(mm.group(2)[1:])] + int(mm.group(3), 0)
             continue
-        mm = re.fullmatch(r"(b|h|d)? ?(r\d+|ip), \[(r\d+|sp|ip)(?:, #?(-?(?:0x[0-9a-f]+|\d+)))?\](!?)", o)
-        if m.startswith("str") and mm and mm.group(3) not in ("sp", "ip"):
+        mm = re.fullmatch(r"(r\d+|ip), (r\d+|ip), \[(r\d+|sp|ip)(?:, #?(-?(?:0x[0-9a-f]+|\d+)))?\](!?)", o)
+        if m == "strd" and mm and mm.group(3) not in ("sp", "ip"):
             b = bases.get(int(mm.group(3)[1:]))
             if b is None:
                 continue
-            off = b + (int(mm.group(4) or "0", 0))
-            v = mm.group(2)
-            cast = {None: "u32*", "b": "u8*", "h": "u16*", "d": "u32*"}[mm.group(1)]
+            off = b + int(mm.group(4) or "0", 0)
+            for k in (0, 1):
+                v = mm.group(1 + k)
+                val = "self" if v == "r0" else ("p" + v[1] if v in ("r1", "r2", "r3") else "p1")
+                body.append("    *(u32*)((char*)self + 0x%x) = %s;" % (off + 4 * k, val))
+            continue
+        mm = re.fullmatch(r"(r\d+|ip), \[(r\d+|sp|ip)(?:, #?(-?(?:0x[0-9a-f]+|\d+)))?\](!?)", o)
+        if m.startswith("str") and m != "stm" and mm and mm.group(2) not in ("sp", "ip"):
+            b = bases.get(int(mm.group(2)[1:]))
+            if b is None:
+                continue
+            off = b + (int(mm.group(3) or "0", 0))
+            v = mm.group(1)
+            cast = {"strb": "u8*", "strh": "u16*"}.get(m, "u32*")
             # value guess: r0=r0 (self), r1/r2/r3 = params, immediate seen earlier?
             if v == "r0":
                 val = "self"
             elif v in ("r1", "r2", "r3"):
                 val = "p" + v[1]
             else:
-                val = "v_" + v  # unknown; refiner resolves
+                val = "p1"  # placeholder; the refiner's VALUES wave substitutes
             body.append("    *(%s)((char*)self + 0x%x) = %s;" % (cast, off, val))
             continue
         mm = re.fullmatch(r"(r\d+|sp|ip)(!)?, \{(.+)\}", o)
@@ -128,7 +141,7 @@ def skeleton_from_stores(addr, ins):
                 elif r in ("1", "2", "3"):
                     val = "p" + r
                 else:
-                    val = "v_r" + r
+                    val = "p1"  # placeholder; the refiner's VALUES wave substitutes
                 body.append("    *(u32*)((char*)self + 0x%x) = %s;" % (off, val))
             if mm.group(2):  # writeback: the base advances for later stores
                 bases[int(mm.group(1)[1:])] = b + 4 * len(regs)
@@ -181,12 +194,32 @@ extern void helper(void*);
 # ------------------------------------------------------------------- main
 
 def check_negative(ins):
+    """Hard-skip shapes from the negative recipes (ids mirror
+    shared/recipes.json; keep both in sync — these are checked before any
+    compile budget is spent)."""
     text = "; ".join(m + " " + o for m, o in ins).lower()
+    ms = [m for m, _ in ins]
+
+    def vfp_wb_dead():
+        # neg-vfp-wb-unconditional: vldmia rN! writeback whose pointer is
+        # never reused afterwards (00115234: unproducible from C)
+        for i, (m, o) in enumerate(ins):
+            if m.startswith("vldmia") and "!" in o:
+                reg = o.split()[0]
+                later = "; ".join(o2 for _, o2 in ins[i + 1:])
+                if reg not in later:
+                    return True
+        return False
+
     NEG = {
         "neg-svc-stub":      lambda: "svc" in text,
         "neg-mrc-mcr":       lambda: any(m in ("mrc", "mcr") for m, _ in ins),
         "neg-veneer":        lambda: text.startswith("ldr") and "pc, #-4" in text and "pool" in text.split(";", 1)[0],
         "neg-f2uiz-s2":      lambda: "vmov" in text and "vcvt" in text,
+        "neg-vfp-wb-unconditional": vfp_wb_dead,
+        "neg-guarded-vfp-branch": lambda: (
+            len(ins) > 2 and ins[0][0] == "cmp" and ins[1][0].startswith("bx")
+            and any(m.startswith("v") for m in ms[2:])),
     }
     for rid, test in NEG.items():
         if test():

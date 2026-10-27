@@ -87,13 +87,13 @@ def store_map(start, end):
                     kind = "?" if mm.group(1 + k) == "ip" else vals.get(int(mm.group(1 + k)[1:]), "?")
                     stores.append([off + 4 * k, 4, kind])
             continue
-        mm = re.fullmatch(r"(b|h|d)? ?(r\d+|ip), \[(r\d+|sp|ip)(?:, #?(-?(?:0x[0-9a-f]+|\d+)))?\](!?)", o)
-        if mm and cond == "str" + (mm.group(1) or ""):
-            b = bases.get(int(mm.group(3)[1:])) if mm.group(3) not in ("sp", "ip") else None
+        mm = re.fullmatch(r"(r\d+|ip), \[(r\d+|sp|ip)(?:, #?(-?(?:0x[0-9a-f]+|\d+)))?\](!?)", o)
+        if mm and cond.startswith("str"):  # str/strb/strh (strd handled above)
+            b = bases.get(int(mm.group(2)[1:])) if mm.group(2) not in ("sp", "ip") else None
             if b is not None:
-                off = b + (int(mm.group(4), 0) if mm.group(4) else 0)
-                size = {"b": 1, "h": 2, "d": 8}.get(mm.group(1), 4)
-                kind = vals.get(int(mm.group(2)[1:]), "?") if mm.group(2) != "ip" else "?"
+                off = b + (int(mm.group(3), 0) if mm.group(3) else 0)
+                size = {"strb": 1, "strh": 2}.get(cond, 4)
+                kind = vals.get(int(mm.group(1)[1:]), "?") if mm.group(1) != "ip" else "?"
                 stores.append([off, size, kind])
             continue
         mm = re.fullmatch(r"(r\d+|sp|ip)(!)?, \{(.+)\}", o)

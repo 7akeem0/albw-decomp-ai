@@ -17,3 +17,4 @@ logs/synth/
 logs/triage/
 logs/refine/
 logs/refine_acceptance*.log
+logs/autodecomp/

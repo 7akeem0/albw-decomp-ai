@@ -93,7 +93,7 @@ def synth_start(addr):
 def twin_start(addr):
     """Best registered structural twin (dna), with its recorded flags.
 
-    Returns (text, flags, func_name, origin) or (None, reason).
+    Returns dict(text, flags, name, origin) or None when there is no twin.
     """
     import dna
     if not os.path.exists(dna.DNA_FILE):
@@ -101,7 +101,9 @@ def twin_start(addr):
         dna.build_index()
     idx = dna.load_index()
     status = dna.load_status()
-    mine = next(r for r in idx if int(r["addr"], 16) == addr)
+    mine = next((r for r in idx if int(r["addr"], 16) == addr), None)
+    if mine is None:
+        return None  # index missing/partial: no twin evidence
     own_path = status.get("%08X" % addr, {}).get("path")
     for sim, r in dna.rank_twins(mine, idx):
         entry = status.get(r["addr"], {})
@@ -114,9 +116,10 @@ def twin_start(addr):
         if not os.path.exists(full):
             continue
         text = open(full, errors="replace").read()
-        return fix_includes(text, full), entry.get("flags") or DEFAULT_FLAGS, \
-            "func_%s" % r["addr"], "twin:%s" % path
-    return None, "no registered twin"
+        return dict(text=fix_includes(text, full),
+                    flags=entry.get("flags") or DEFAULT_FLAGS,
+                    name="func_%s" % r["addr"], origin="twin:%s" % path)
+    return None
 
 
 # ------------------------------------------------------------ body manipulation
@@ -189,7 +192,7 @@ def rhs_candidates(kind, imms):
         return ["(u32)((char*)self + 0x%x)" % int(kind[1:], 0)]
     if kind in ("l", "x"):
         return ["p1", "p2", "p3", "0"]
-    return ["0", "p1", "p2", "p3", "self"]
+    return ["0"] + ["0x%x" % v for v in imms[:3]] + ["p1", "p2", "p3", "self"]
 
 
 def immediates(start, end):
@@ -310,21 +313,18 @@ def run(addr, budget=60, start="auto", src=None, fresh=False,
             origin, ext, flags, name = "src:%s" % src, os.path.splitext(src)[1] or ".cpp", \
                 DEFAULT_FLAGS, None
         else:
-            if start in ("auto", "twin"):
-                t = twin_start(addr)
-                if t:
-                    text, flags, name, origin = t
-                    ext = os.path.splitext(t[3].split(":")[-1])[1] or ".cpp"
-                elif start == "twin":
-                    sys.exit("no registered twin for 0x%08X: %s" % (addr, t))
-                else:
-                    t = None
-            if origin is None:
-                text, otag = synth_start(addr)
-                if text is None:
-                    _report(addr, "DEFER", otag, as_json)
-                    return {"addr": addr, "status": "DEFER", "reason": otag}
-                origin, ext, flags, name = otag, ".c", DEFAULT_FLAGS, "func_%08X" % addr
+            t = twin_start(addr) if start in ("auto", "twin") else None
+            if t:
+                text, flags, name, origin = t["text"], t["flags"], t["name"], t["origin"]
+                ext = os.path.splitext(origin.split(":")[-1])[1] or ".cpp"
+            elif start == "twin":
+                sys.exit("no usable registered twin for 0x%08X" % addr)
+        if origin is None:
+            text, otag = synth_start(addr)
+            if text is None:
+                _report(addr, "DEFER", otag, as_json)
+                return {"addr": addr, "status": "DEFER", "reason": otag}
+            origin, ext, flags, name = otag, ".c", DEFAULT_FLAGS, "func_%08X" % addr
         open(os.path.join(sd, "start" + ext), "w").write(text)
         state = {"addr": "%08X" % addr, "used": 0, "iter": 0, "tried": [],
                  "origin": origin, "ext": ext, "name": name,
@@ -379,6 +379,8 @@ def run(addr, budget=60, start="auto", src=None, fresh=False,
                 if not quiet:
                     _print_rec("baseline-synth", rec)
     if state["best"]["match"]:
+        state["status"] = "MATCH"
+        _save(state_path, state)
         return _finish(addr, state, "MATCH", as_json, quiet)
 
     tried = set(state["tried"])
@@ -433,9 +435,10 @@ def run(addr, budget=60, start="auto", src=None, fresh=False,
         _save(state_path, state)
 
     state["tried"] = sorted(tried)
-    _save(state_path, state)
     status = "MATCH" if state["best"]["match"] else \
         ("BUDGET" if state["used"] >= budget else "DEFER")
+    state["status"] = status
+    _save(state_path, state)
     return _finish(addr, state, status, as_json, quiet)
 
 
