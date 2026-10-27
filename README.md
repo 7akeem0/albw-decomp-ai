@@ -11,17 +11,19 @@ not included either.
 
 | | Functions | Share of 25,986 |
 |---|---:|---:|
-| Matched, source included | 16,544 | 63.7% |
-| of which honest (no hack, see below) | 15,662 | 60.3% |
-| of which matched only with a hack | 882 | 3.4% |
-| Matched earlier, source not included | 127 | 0.5% |
+| Matched, source included | 16,581 | 63.8% |
+| of which honest (no hack, see below) | 15,703 | 60.4% |
+| of which matched only with a hack | 878 | 3.4% |
+| Matched earlier, source not included | 111 | 0.4% |
 
-The 127 functions without source break down as follows:
-- **92:** sources lost over time.
+The 111 functions without source break down as follows:
+- **72:** sources lost over time.
 - **26:** matched only with third-party library sources that cannot be redistributed.
-- **6:** prebuilt middleware/SDK library code, built with other compiler builds. This is not game code and is
+- **9:** prebuilt middleware/SDK library code, built with other compiler builds. This is not game code and is
   deliberately excluded.
-- **3:** interior addresses that duplicate their enclosing function.
+- **4:** interior addresses that duplicate their enclosing function.
+
+(Counts are recomputed from `functions.json` with `python tools/audit.py stats`.)
 
 **What "honest" means here.** The source compiles to the exact bytes **without** any of these tricks:
 - `__attribute__((weak))` / `__weak` used only to stop a tail call;
@@ -33,8 +35,9 @@ The 127 functions without source break down as follows:
 - if/else blocks whose two arms are identical;
 - permuter-only `perm_t` types.
 
-`functions.json` marks every function `honest` or `hack` and lists the hack reasons. Hack counts: weak 534,
-`__schedule_barrier` 243, asm 96, identical arms 29, perm_t 24, dummy locals 16, volatile dummies 9, others 2.
+`functions.json` marks every function `honest` or `hack` and lists the hack reasons. Hack counts: weak 528,
+`__schedule_barrier` 244, asm 96, identical arms 29, perm_t 24, dummy locals 16, volatile dummies 11, no-op mask 1,
+out-of-bounds dummy 1.
 
 ## Layout
 
@@ -47,6 +50,7 @@ The 127 functions without source break down as follows:
 | `shared/extra_starts.txt`, `shared/not_starts.txt` | Corrections to the function table |
 | `funcs.json` | The function table: start addresses, call targets, pointers. Addresses only, no code |
 | `tools/fn.py` | Disassembly, cross-references, and the byte-exact checker |
+| `tools/audit.py` | Offline invariant audit of `functions.json` + status-table stats |
 
 ## Requirements
 

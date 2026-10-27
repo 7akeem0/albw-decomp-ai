@@ -86,7 +86,9 @@ The workflow lives in the tools, not in this file — every tool prints a
   next/register/report), `refine.py` (closed-loop refiner),
   `synth.py` (skeleton synthesizer), `dna.py` (structural twin index),
   `sweep.py` (variant sweeper), `permuter.py`, `triage.py`,
-  `recipes.py`. Each tool's docstring is its documentation.
+  `recipes.py`, `audit.py` (offline invariant audit of functions.json;
+  needs neither code.bin nor armcc — run it before committing index
+  changes). Each tool's docstring is its documentation.
 - `docs/LESSONS.md` — what worked and what didn't, with open problems.
 - Tool state (all gitignored, regenerable/resumable): `logs/dna.jsonl`
   (structural index, rebuild with `dna.py index`), `logs/refine/<addr>/`,
