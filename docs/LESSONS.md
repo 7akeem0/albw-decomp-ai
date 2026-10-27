@@ -456,3 +456,19 @@ calls __aeabi_memclr via a plain memset extern. Game callers of
 0x1164A8 (001BBDFC, 0023EA70, 004AEA18, 00689144, all unmatched) can
 match the same way: declare `extern void* memset(...)`, call it.
 Earlier claim "interior callee -> no symbol -> can't link" was wrong.
+
+## 003E60D4 recipe confirmation + generalization (2026-10-27)
+
+`003E60D4` (mixed u32/u8/u16 zero-init, 44B) matched honestly with the
+zero-loop-r2 recipe at -O2 -Otime: dead-eliminated `if (n) self->a = 0;`
+keeps arg n live, zero pins in r2, and the struct needs `u8 pad[2]` after
+the two u8 members so the u16s start at 0x10 (natural alignment put them
+at 0xe -> 4 OP diffs). Struct-padding alignment is now a confirmed recipe
+ingredient: when a strh lands at a non-halfword-multiple offset in the
+target, the C struct has an explicit padding member.
+
+Open (same family, still open): 00328938 (1->r1, 0->r2, 19 scalar
+stores) and 003CBE60 (r3=0xff, ip=0, r1=2 interleaved) resist the
+dead-guard recipe — the guard fires the zero-pin only with the right
+guarded member/position. Sweep grid (guard slot x guarded member x
+flags) is the next move.

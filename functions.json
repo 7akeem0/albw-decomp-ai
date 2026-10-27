@@ -30100,6 +30100,9 @@
 "path": "src/work7/gpt24/func_00258778.cpp",
 "status": "honest"
 },
+"002589D8": {
+"status": "interior_address"
+},
 "00258B2C": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
