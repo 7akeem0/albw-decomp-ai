@@ -1,24 +1,24 @@
 ---
 name: decomp-loop
-description: "Use this skill for the standard ALBW decomp matching loop: continuing function matching via the queue — run queue.py next, execute the suggested refine command, register verified matches, commit, repeat. This is the default way to 'match functions' or 'continue the decomp'."
+description: "Use this skill for the standard ALBW decomp matching loop: continuing function matching via the worklist — run worklist.py next, execute the suggested refine command, register verified matches, commit, repeat. This is the default way to 'match functions' or 'continue the decomp'."
 ---
 
 # Standard loop (one function at a time)
 
-1. `python tools/queue.py next --budget 60`
+1. `python tools/worklist.py next --budget 60`
    → prints one CANDIDATE and the ONE command to run.
 2. Run the printed command (normally
    `python tools/refine.py 0xADDR --budget 60`; one check ≈ 5-9 s, so a
    full budget is ~7-9 min).
 3. Read refine's STATUS line:
-   - **MATCH** → `python tools/queue.py register 0xADDR`
+   - **MATCH** → `python tools/worklist.py register 0xADDR`
      (re-verifies the source at its final registered path; refuses
      unless fn.py check prints `RESULT: MATCH`)
      → then commit exactly what register prints (source +
      functions.json), e.g. `git add src/work8/auto/func_<addr>.c
      functions.json && git commit -m "Match <addr> (honest, N/N): ..."`.
    - **DEFER / BUDGET** → the function is already recorded in
-     `queue.py report`; do not thrash it. Go back to step 1.
+     `worklist.py report`; do not thrash it. Go back to step 1.
 4. Repeat. Register is the *only* path into functions.json for loop
    work — never hand-edit it for a new match.
 
@@ -41,10 +41,10 @@ description: "Use this skill for the standard ALBW decomp matching loop: continu
 
 | command | what it does | what to read |
 |---|---|---|
-| `python tools/queue.py next` | fresh candidate + next command | `CANDIDATE`, `NEXT` |
+| `python tools/worklist.py next` | fresh candidate + next command | `CANDIDATE`, `NEXT` |
 | `python tools/refine.py 0xADDR --budget 60` | closed-loop refine (twin or synth skeleton, values/flags/order waves) | `STATUS` line |
-| `python tools/queue.py register 0xADDR` | verify at final path + update functions.json | `REFUSED` vs `functions.json:` line |
-| `python tools/queue.py report` | near-miss backlog, closest first | `hypothesis` column |
-| `python tools/queue.py status` | queue counts | — |
+| `python tools/worklist.py register 0xADDR` | verify at final path + update functions.json | `REFUSED` vs `functions.json:` line |
+| `python tools/worklist.py report` | near-miss backlog, closest first | `hypothesis` column |
+| `python tools/worklist.py status` | worklist counts | — |
 
 All commands take `--json`. Machine-readable, one decision per command.

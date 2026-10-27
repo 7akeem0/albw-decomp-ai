@@ -1,9 +1,9 @@
-"""Queue driver (automation phase 5): the small-agent loop in one command.
+"""Worklist driver (automation phase 5): the small-agent loop in one command.
 
-  python tools/queue.py next [--budget 60] [--region LO-HI] [--json]
-  python tools/queue.py register <addr> [--src PATH] [--json]
-  python tools/queue.py report [--json]
-  python tools/queue.py status [--json]
+  python tools/worklist.py next [--budget 60] [--region LO-HI] [--json]
+  python tools/worklist.py register <addr> [--src PATH] [--json]
+  python tools/worklist.py report [--json]
+  python tools/worklist.py status [--json]
 
 `next` pulls the smallest unindexed candidate (triage, refreshed), skips
 negative recipes and already-attempted shapes, and prints the ONE command to
@@ -163,12 +163,12 @@ def next_candidate(budget, region, scan_cap=60, as_json=False):
         print(json.dumps({"chosen": chosen, "skipped": skipped[:12]}))
     if chosen is None:
         print("QUEUE EMPTY within scan cap %d (%d skipped this pass)" % (scan_cap, len(skipped)))
-        print("NEXT  python tools/queue.py report  # manual review backlog")
+        print("NEXT  python tools/worklist.py report  # manual review backlog")
         return
     if chosen["outcome"] == "MATCH-unregistered":
         print("CANDIDATE 0x%s (%dB) refined to MATCH but not registered yet" % (
             chosen["addr"], chosen["size"]))
-        print("NEXT  python tools/queue.py register 0x%s" % chosen["addr"])
+        print("NEXT  python tools/worklist.py register 0x%s" % chosen["addr"])
     else:
         print("CANDIDATE 0x%s (%dB, %s, no negative recipe)" % (
             chosen["addr"], chosen["size"], chosen["cls"]))
@@ -268,7 +268,7 @@ def report(as_json=False):
         b = rstate["best"]
         if b.get("match"):
             rows.append(dict(addr=key, kind="MATCH-unregistered", frac=1.0,
-                             hypothesis="run: python tools/queue.py register 0x%s" % key))
+                             hypothesis="run: python tools/worklist.py register 0x%s" % key))
             continue
         frac = b["words"] / b["total"] if b["total"] else 0.0
         if b["n_op"] == 0 and b["n_reg"] > 0:
@@ -306,7 +306,7 @@ def status_summary(as_json=False):
     if as_json:
         print(json.dumps(s))
     else:
-        print("queue: %s candidates, %d attempted, %d registered, %d waiting to register" % (
+        print("worklist: %s candidates, %d attempted, %d registered, %d waiting to register" % (
             s["candidates"], s["attempted"], s["registered"], s["match_waiting"]))
 
 

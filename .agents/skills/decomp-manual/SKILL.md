@@ -1,12 +1,12 @@
 ---
 name: decomp-manual
-description: "Use this skill for manual ALBW decomp work beyond the standard loop: attacking deferred or near-miss functions (queue.py report entries), specific hard functions named by the user, sweep/permuter work on stubborn shapes, and de-hacking existing hack matches."
+description: "Use this skill for manual ALBW decomp work beyond the standard loop: attacking deferred or near-miss functions (worklist.py report entries), specific hard functions named by the user, sweep/permuter work on stubborn shapes, and de-hacking existing hack matches."
 
 ---
 
 # When to use this skill
 
-- A `queue.py report` near-miss entry worth attacking (the loop defers
+- A `worklist.py report` near-miss entry worth attacking (the loop defers
   these; here you pick them up with expert techniques).
 - A specific function the user names, however hard.
 - De-hack re-checks of existing `hack` matches.
@@ -66,7 +66,7 @@ description: "Use this skill for manual ALBW decomp work beyond the standard loo
 7. Register: update `functions.json` for that address — status `honest`
    (or `hack` with explicit `hack_reasons` if truly unavoidable — this
    should be rare). Keep the canonical flat format (see AGENTS.md).
-   The queue's register command does this safely for new matches;
+   The worklist register command does this safely for new matches;
    hand-edits are acceptable for de-hacks and fixes of existing entries.
 
 # Known hard shapes (what the loop defers, and the leads)

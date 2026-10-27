@@ -30,7 +30,7 @@ knowledge moves out of the agent's head and into tools + recipe data.
 | `tools/recipes.py` + `shared/recipes.json` | done — 13 entries (7 positive, 6 negative) |
 | `tools/synth.py` | done — store-init class, DEFER otherwise; class coverage grows with use |
 | `tools/refine.py` (phase 4) | done — closed-loop refiner, acceptance 5/5 reproduced from skeleton-only restart |
-| `tools/queue.py` (phase 5) | done — next/register/report/status; first auto-registered match 003E60D4 |
+| `tools/worklist.py` (phase 5) | done — next/register/report/status; first auto-registered match 003E60D4 |
 | `AGENTS.md` + skills | done — AGENTS.md is facts+invariants; the loop is `.agents/skills/decomp-loop`, expert work `.agents/skills/decomp-manual` |
 
 ## Phases
@@ -114,10 +114,10 @@ restart (drop the original source, regenerate, refine to MATCH).
 
 ### Phase 5 — Queue driver (tools/queue.py)
 
-`python tools/queue.py next` — the *only* command a small agent needs:
+`python tools/worklist.py next` — the *only* command a small agent needs:
 
 ```
-$ python tools/queue.py next
+$ python tools/worklist.py next
 CANDIDATE 0x0049F6DC (24B, list-splice, no negative recipe)
 STATUS    synth: skeleton written src/work8/synth/func_0049F6DC.c
 NEXT      python tools/refine.py 0x0049F6DC --budget 60
@@ -139,7 +139,7 @@ NEXT      python tools/refine.py 0x0049F6DC --budget 60
 Restructure so the expert workflow becomes a reference appendix and the
 **default loop is the tool loop**:
 
-- **"Standard loop (use this)":** `queue.py next` → run the suggested
+- **"Standard loop (use this)":** `worklist.py next` → run the suggested
   command → on MATCH: `queue.py register` → `git commit` → repeat; on
   budget-exhaust: `queue.py report` entry, move on. ~15 lines.
 - **"When to go manual":** functions the queue marks `defer` (large, weird

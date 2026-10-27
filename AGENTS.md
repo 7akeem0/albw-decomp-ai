@@ -11,8 +11,8 @@ The workflow lives in the tools, not in this file — every tool prints a
 `NEXT:` line with the exact next command. Two skills hold the procedures:
 
 - **Matching functions** (the normal task): use the `decomp-loop` skill.
-  `python tools/queue.py next` hands out one candidate and one command.
-- **Deferred / near-miss functions** (`queue.py report` entries) and
+  `python tools/worklist.py next` hands out one candidate and one command.
+- **Deferred / near-miss functions** (`worklist.py report` entries) and
   **de-hack** work: use the `decomp-manual` skill.
 
 # Non-negotiable rules
@@ -82,7 +82,7 @@ The workflow lives in the tools, not in this file — every tool prints a
 - `src/` — sources under `src/work{,4..8}/<agent>/...`; the layout mirrors
   the original multi-agent workspace. New auto-registered sources go to
   `src/work8/auto/`.
-- `tools/` — `fn.py` (show/check oracle), `queue.py` (driver:
+- `tools/` — `fn.py` (show/check oracle), `worklist.py` (driver:
   next/register/report), `refine.py` (closed-loop refiner),
   `synth.py` (skeleton synthesizer), `dna.py` (structural twin index),
   `sweep.py` (variant sweeper), `permuter.py`, `triage.py`,
@@ -90,5 +90,5 @@ The workflow lives in the tools, not in this file — every tool prints a
 - `docs/LESSONS.md` — what worked and what didn't, with open problems.
 - Tool state (all gitignored, regenerable/resumable): `logs/dna.jsonl`
   (structural index, rebuild with `dna.py index`), `logs/refine/<addr>/`,
-  `logs/autodecomp/state.json` (queue state), `logs/triage/`,
+  `logs/autodecomp/state.json` (worklist state), `logs/triage/`,
   `logs/pseudocode/` (Ghidra dumps).
