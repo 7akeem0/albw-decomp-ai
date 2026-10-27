@@ -510,3 +510,68 @@ with zero plumbing.
   and 001164F4 (armlib).
 - Remote scratchpad: use the repo (`logs/tmptest/`), not /tmp (Termux
   has none); rm scratch dirs when done.
+
+## stm r0! zero-batch family (00115570/0011591C/0011593C/00115B14/00115B3C) — partial physics (2026-10-27)
+
+Five unmatched functions (28-44B, 0x115xxx vec-new ctor zone, no callers,
+no data refs — orphans) share the shape:
+`mov r1,#0; mov r2,#0; mov r3,#0; stm r0!,{r1,r2,r3} ×N; [str/stm r0
+without writeback]; bx lr`.
+
+18 construct probes established:
+- **WB batches reproduce ONLY as param-copy + advanced-pointer reuse**:
+  `u32* f(void* self, u32 a, u32 b, u32 c){ u32* p=(u32*)self;
+  *p++=a; *p++=b; *p++=c; ...; *p++=a; return p; }` at -O3 -Otime emits
+  `stm r0!,{r1,r2,r3}` ×5 + `str r1,[r0],#4` + bx (7/10 words on
+  00115B14; the ONLY construct producing WB batches).
+- All-constant zero stores NEVER batch (armcc folds them to one
+  register; scalar str chains) — regardless of *p++, p+=3, struct
+  tmp-copy, local array, inline helper, loop (unrolls to scalar),
+  -Ospace (loop, not unrolled), memset/__aeabi_memclr (tail calls),
+  dead-guard, live-n ctor forms. Local reassignment `a=0` on params
+  folds too. No honest match in the corpus contains 0xE8A0000E.
+- The missing piece: what makes armcc keep THREE DISTINCT zero
+  registers and batch them. `return p-1` explains the plain final str
+  (r0 = last slot, no post-inc) — combined with the param-copy form
+  that would be 10/10 except the three movs.
+- Hypothesis (unproven): compiler-generated vec-new ctor artifacts,
+  not C source; if the family is confirmed unproducible it becomes a
+  negative recipe (like the VFP-WB family).
+
+## 004E015C — struct copy from returned pointer + AREA-POOL reproduction (2026-10-27)
+
+9/10 words (only a trailing 0x00000000 pool word missing). Two recipes:
+
+1. **The function** (8 words, matched exactly):
+   `push {r4,lr}; add r4,r0,#0x3dc; bl get; ldm r0,{r1,r2};
+   ldr r0,[r0,#8]; str r0,[r4,#8]; stm r4,{r1,r2}; pop {r4,pc}`
+   Source: callee RETURNS A POINTER; the 12-byte struct copy is
+   `T12* dst = (T12*)((char*)self + 0x3dc); *dst = *get();`
+   The dst pointer must be hoisted into a local BEFORE the call (armcc
+   schedules `add r4,r0,#0x3dc` pre-call only then; a direct
+   `*(T12*)(self+0x3dc) = *get();` computes the address after the copy).
+   NOT sret: `T12 x = make()` armcc copies through a stack temp
+   (sub sp/mov r0,sp), wrong shape.
+
+2. **The unreferenced literal pool**: the target section continues with
+   {0x0000042C, 0x00000000} — no loader inside the function. 0x42C is
+   NOT a valid ARM immediate (11 significant bits, no rotation form) —
+   it MUST come from a literal pool. Reproduced the 0x42C word by
+   compiling a SIBLING function in the same TU WITHOUT --split_sections:
+   `extern unsigned long long g() { return 1068; }` pools 1068's low
+   word; the area pool lands after the last function (f), exactly where
+   the target has it. (armcc materializes 1068ULL as mov r0,#0 +
+   ldr r1,[pc,#pool].) With --split_sections the pool would be
+   per-function and f (no constants) gets none — so this TU was
+   compiled WITHOUT --split_sections, unlike its neighbors.
+   OPEN: the trailing 0 word. Not any pooled constant (armcc never
+   pools 0; denormals flush under fpmode=fast; ldrd pairs were not
+   chosen for u64 1068 in any use tried: return, by-value arg, store).
+   Hypothesis: 8-byte pool/section alignment padding emitted by the
+   original TU's pool (armcc pads some pools to 8; the mechanism that
+   triggers the pad is not identified).
+
+Other physics this session (00115B14 stm-batch family, 18 probes):
+WB stm batches reproduce ONLY via `*p++ = <distinct param values>` with
+the advanced pointer returned (see the full write-up above). The
+5-function zero-batch family (00115570..00115B3C) remains open.
