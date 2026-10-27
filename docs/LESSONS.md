@@ -586,3 +586,13 @@ the advanced pointer returned (see the full write-up above). The
   candidate; refine can't express "no function here".
   Action: worklist should skip false starts (branch-target-only
   candidates with no bl/data refs). Recorded: 002589D8.
+
+Follow-up (same day): the 0x42C pool word did NOT actually come from the
+u64-1068 sibling's area pool in a reproducible way — with
+--split_sections it disappears, without it the whole-TU pool lands after
+the last function but the trailing 0x00000000 still won't reproduce
+(tried: u64 return/arg/store, static const u64/double/float, ldrd
+forcing). 9/10 stands: the 8-word function body is fully explained, the
+trailing {0x42C, 0} pool block needs either the original TU's other
+functions or an armcc pool-padding trigger that hasn't been identified.
+The function body itself (8 words) is RESOLVED physics — see above.
