@@ -428,3 +428,31 @@ use-order that makes armcc's allocator pick the target's permutation.
 Helper-body physics ARE settled: tmp-copy body forces STM merge, plain body
 splits; setP/setB need opposite body styles; volatile never merges;
 aggregates const-pool; placement-new unavailable.
+
+## armlib memfunc cluster — identified and disposed (2026-10-27)
+
+The binary's C-library memory functions are ARM's hand-written runtime
+asm, not compiled C, and are now `excluded_library`:
+
+- `0x1164F4` = `__aeabi_memclr` (bzero core; +4 interior entry at
+  0x1164F8 = the "fill with r2" memset-core ABI), 31 callers.
+- `0x110490` = `__aeabi_memclr4` (big aligned zero loop; `mov lr,r2` then
+  lr in the `stm` fill list — a compiler never clobbers lr mid-body), 87
+  callers. Anchor: honest 001DF478's header names both.
+- `0x1164A8` = the arm C library `memset` wrapper: byte-broadcast via
+  `and/orr lsl`, then `push {r0,lr}; bl core(+4); pop {r0,pc}`. The
+  push/pop idiom appears in exactly ONE function of the whole binary;
+  armcc C never emits it — tried 12 construct variants (return dst /
+  callee-result / void, local vs inline broadcast) x {-O3,-O2}±Otime,
+  plus --cpu=ARM9TDMI/4T (library-build flags): always r4 or a tail
+  call. Negative recipes neg-armlib-push-r0lr and neg-lr-bulk-data now
+  hard-skip these shapes before any compile budget.
+
+**The extern-call abstraction needs no plumbing for callers** — fn.py
+check never compares call targets (relocated words match on opcode
+class; out-of-function branches resolve at link time). Any declared
+extern name works, even for bl into interior entries: honest 001DF478
+calls __aeabi_memclr via a plain memset extern. Game callers of
+0x1164A8 (001BBDFC, 0023EA70, 004AEA18, 00689144, all unmatched) can
+match the same way: declare `extern void* memset(...)`, call it.
+Earlier claim "interior callee -> no symbol -> can't link" was wrong.

@@ -82,6 +82,11 @@ description: "Use this skill for manual ALBW decomp work beyond the standard loo
 - Register-allocation-only deltas (OP=0 REG>0): statement order, local
   declaration order, and flags grid; full BODY permutation when the
   multiset already matches.
+- Memfunc callers need no callee symbols: call targets are never
+  compared (relocated words match on opcode class) — any extern name
+  works, even into armlib asm (`__aeabi_memclr=0x1164F4`,
+  `__aeabi_memclr4=0x110490`, memset wrapper `0x1164A8`, all
+  `excluded_library`). See LESSONS.md#armlib.
 
 # Quality bar
 

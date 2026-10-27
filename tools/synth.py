@@ -200,6 +200,20 @@ def check_negative(ins):
     text = "; ".join(m + " " + o for m, o in ins).lower()
     ms = [m for m, _ in ins]
 
+    def push_r0_lr():
+        # neg-armlib-push-r0lr: push {r0,lr} ... pop {r0,pc} — armlib asm
+        # idiom; armcc C never emits it (r4 or tail-call in every variant)
+        texts = [o for m, o in ins]
+        return any(m == "push" and "r0" in o and "lr" in o for m, o in ins) \
+            and any(m == "pop" and "r0" in o and "pc" in o for m, o in ins)
+
+    def lr_bulk_data():
+        # neg-lr-bulk-data: lr as fill data (mov lr,rX then lr in a stm list)
+        for i, (m, o) in enumerate(ins):
+            if m == "mov" and re.fullmatch(r"lr, r\d+", o):
+                return any(m2.startswith("stm") and "lr" in o2 for m2, o2 in ins[i + 1:])
+        return False
+
     def vfp_wb_dead():
         # neg-vfp-wb-unconditional: vldmia rN! writeback whose pointer is
         # never reused afterwards (00115234: unproducible from C)
@@ -220,6 +234,8 @@ def check_negative(ins):
         "neg-guarded-vfp-branch": lambda: (
             len(ins) > 2 and ins[0][0] == "cmp" and ins[1][0].startswith("bx")
             and any(m.startswith("v") for m in ms[2:])),
+        "neg-armlib-push-r0lr": push_r0_lr,
+        "neg-lr-bulk-data": lr_bulk_data,
     }
     for rid, test in NEG.items():
         if test():

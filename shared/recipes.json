@@ -136,5 +136,24 @@
 "001150B8"
 ],
 "shape": "cmp rX,rY; bxeq lr; vldmia; vstmia; bx lr (2-op guarded VFP body in BRANCH form)"
+},
+{
+"id": "neg-armlib-push-r0lr",
+"kind": "negative",
+"refs": [
+"LESSONS.md#armlib",
+"001164A8"
+],
+"shape": "push {r0,lr} ... pop {r0,pc} wrapper: arm C-library asm idiom (armlib memset family); armcc C never emits it (always r4 or tail-call, across -O3/-O2/Otime and --cpu variants)"
+},
+{
+"id": "neg-lr-bulk-data",
+"kind": "negative",
+"refs": [
+"LESSONS.md#armlib",
+"00110490",
+"001164F4"
+],
+"shape": "lr used as bulk-fill data: mov lr,rX then lr in a stm register list (armlib __aeabi_memclr4 style); a compiler never clobbers lr mid-body"
 }
 ]

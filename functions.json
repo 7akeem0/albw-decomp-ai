@@ -2252,6 +2252,9 @@
 "path": "src/work7/gpt15/variants/00110470/v1.cpp",
 "status": "honest"
 },
+"00110490": {
+"status": "excluded_library"
+},
 "00110740": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
@@ -2500,6 +2503,9 @@
 "path": "src/work7/gpt15/func_0011638C.cpp",
 "status": "honest"
 },
+"001164A8": {
+"status": "excluded_library"
+},
 "001164C4": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
@@ -2513,6 +2519,9 @@
 "hack_reasons": [],
 "path": "src/work8/opus_tiny/f1164D4.cpp",
 "status": "honest"
+},
+"001164F4": {
+"status": "excluded_library"
 },
 "00116534": {
 "cc": "4.1/b1049",
