@@ -10,7 +10,14 @@ import bisect, difflib, json, os, re, struct, subprocess, sys, time
 from capstone import Cs, CS_ARCH_ARM, CS_MODE_ARM
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CODE = open(os.path.join(ROOT, "code.bin"), "rb").read()
+_code_path = os.path.join(ROOT, "code.bin")
+if not os.path.isfile(_code_path):
+    sys.stderr.write(
+        "fn.py: code.bin not found at %s\n"
+        "Supply the USA dump (6,455,296 bytes, SHA-1 e6ab7d66ee62e879248b0660aaf38d22202e604b)\n"
+        "in the repository root; see README.md 'Requirements'.\n" % _code_path)
+    raise SystemExit(2)
+CODE = open(_code_path, "rb").read()
 TA, TS = 0x100000, 5841180
 RA, RS = 0x693000, 439800
 DA, DS = 0x6FF000, 166384
@@ -373,6 +380,10 @@ def cmd_check(src, addr, sym=None, cc=DEFAULT_CC, flags=DEFAULT_FLAGS, prebuilt=
         fast = os.path.join(ROOT, "tools", "armcc", "4.1", "b1049ns", "bin", "armcc.exe")
         if cc == "4.1/b1049" and os.name == "nt" and os.path.exists(fast):
             exe = fast
+        if not os.path.exists(exe):
+            print("COMPILE ERROR\narmcc not found at %s\n"
+                  "Place ARM Compiler 4.1 (build 1049) under tools/armcc/; see README.md 'Requirements'." % exe)
+            return
         lang = "--cpp" if src.endswith((".cpp", ".cc")) else "--c99"
         inc = os.path.join(ROOT, "shared", "include")
         args = [exe, "-c", lang] + flags.split() + ["-I", inc, "-o", obj, src]
