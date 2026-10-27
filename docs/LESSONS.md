@@ -596,3 +596,15 @@ forcing). 9/10 stands: the 8-word function body is fully explained, the
 trailing {0x42C, 0} pool block needs either the original TU's other
 functions or an armcc pool-padding trigger that hasn't been identified.
 The function body itself (8 words) is RESOLVED physics — see above.
+
+## 003CBE60 (36B byte-field setter) — regalloc puzzle (2026-10-27)
+
+Target: `mov r3,#0xff; strb r3,[r0,#2]; mov ip,#0; strb r3,[r0,#3];
+str ip,[r0,#4]; mov r1,#2; strb ip,[r0]; strb r1,[r0,#1]; bx lr`.
+~10 probes: locals-first-declaration, named locals (z/ff/two), guard
+liveness (t+u), -O2/-O3. armcc always assigns 0xff→r1/r2/ip, never
+r3-first / ip-second / r1-third as the target does. r3-first implies
+params 1-2 live at the first computation; r1=2 implies param1 dead by
+the third value — contradictory lifetime order under any single-pass
+model. Likely needs a two-block structure (the zero/0xff stores in a
+different basic block than the 2-store). PARKED.
