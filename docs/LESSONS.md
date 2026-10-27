@@ -575,3 +575,14 @@ Other physics this session (00115B14 stm-batch family, 18 probes):
 WB stm batches reproduce ONLY via `*p++ = <distinct param values>` with
 the advanced pointer returned (see the full write-up above). The
 5-function zero-batch family (00115570..00115B3C) remains open.
+
+## stm-batch family follow-ups (2026-10-27, session 2)
+
+- 001164A8-wrappers in the 0x258xxx zone: `002589D8`'s mystery is
+  its 3-word trailing pool (0x70A210/0x712468/0x711F50, data ptrs of
+  the 0x258998 parent function, whose bne tail lands in 0x2589D8 —
+  candidate is a FALSE START: the push/bl/pop block is 0x258998's
+  bne-tail path, not a function). Disposition: interior_address
+  candidate; refine can't express "no function here".
+  Action: worklist should skip false starts (branch-target-only
+  candidates with no bl/data refs). Recorded: 002589D8.
