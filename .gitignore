@@ -9,3 +9,9 @@ __pycache__/
 *.pyc
 # local secrets, never committed
 .env*
+# generated automation state (regenerable: dna.py index / ghidra_dump.py / synth.py / triage.py)
+logs/dna.jsonl
+logs/dna_build.log
+logs/pseudocode/
+logs/synth/
+logs/triage/

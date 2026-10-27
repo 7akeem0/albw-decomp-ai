@@ -1,0 +1,140 @@
+[
+{
+"flags": "default",
+"id": "strd-pair",
+"kind": "positive",
+"refs": [
+"LESSONS.md#strd",
+"00102FB4",
+"0041DCF4"
+],
+"requires": [
+"second value is an address of a member pair",
+"first value is 0 or a plain value already in a register"
+],
+"shape": "strd rV,rA,[rX,#k] merging two adjacent u32 stores",
+"source": "nested struct pair { prev, next } with back-anchor &self->member.next; both values already computed in registers, no address computation between stores"
+},
+{
+"flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O2 -Otime --split_sections",
+"id": "zero-loop-r2",
+"kind": "positive",
+"refs": [
+"00169A28",
+"LESSONS.md#liveness"
+],
+"shape": "mov r2,#0 then 4x str r2,[r0,#k] with zero pinned in r2",
+"source": "void f(S* self, u32 n){ ...4 zero stores...; if(n) self->m=0; } at -O2 -Otime (live 2nd arg keeps zero in r2; -O3 rematerializes into r1)"
+},
+{
+"flags": "default",
+"id": "vldm-batch",
+"kind": "positive",
+"refs": [
+"LESSONS.md#vfp",
+"001151CC"
+],
+"shape": "vldmia rX,{s0-sN} + vstmia rY,{s0-sN} batched float copy",
+"source": "load ALL floats into named locals first (every one used), then store all; unused locals are DCE'd so no dead loads"
+},
+{
+"flags": "default",
+"id": "vldm-wb",
+"kind": "positive",
+"refs": [
+"LESSONS.md#vfp"
+],
+"shape": "vldmia/vstmia rX!,{...} writeback",
+"source": "pointer advanced and REUSED afterwards (returned or stored); dead p+=N bumps are always DCE'd"
+},
+{
+"flags": "default",
+"id": "wrapper-returns-self",
+"kind": "positive",
+"refs": [
+"001520B0",
+"003D231C",
+"003E6D50",
+"0040F538",
+"0040FAB0"
+],
+"shape": "mov rN,r0; bl helper; mov r0,rN; bx lr",
+"source": "void* f(void* self){ helper(self); return self; } or C++ method returning this"
+},
+{
+"flags": "default",
+"id": "tail-thunk",
+"kind": "positive",
+"refs": [
+"00602140"
+],
+"shape": "b target (tail jump, args preserved)",
+"source": "void f(a,b,c,d){ return g(a,b,c,d); } with matching arity"
+},
+{
+"flags": "default",
+"id": "byteswap16",
+"kind": "positive",
+"refs": [
+"00429F6C"
+],
+"shape": "orr/orr/and byteswap pair for u16",
+"source": "u16 f(u16 v){ return (u16)((v<<8)|(v>>8)); }"
+},
+{
+"id": "neg-svc-stub",
+"kind": "negative",
+"refs": [
+"LESSONS.md#svc",
+"00100B88",
+"00115ED4",
+"00115F28",
+"0010D0EC"
+],
+"shape": "svc #N; bx lr or svc #N; mov r2,[sp]; str r1,[r2]; add sp; bx lr frameless"
+},
+{
+"id": "neg-mrc-mcr",
+"kind": "negative",
+"refs": [
+"LESSONS.md#tls"
+],
+"shape": "mrc/mcr p15 TLS access"
+},
+{
+"id": "neg-veneer",
+"kind": "negative",
+"refs": [
+"LESSONS.md#veneer",
+"003C90C8"
+],
+"shape": "ldr pc,[pc,#-4]; .word target (ARM-Thumb veneer)"
+},
+{
+"id": "neg-f2uiz-s2",
+"kind": "negative",
+"refs": [
+"LESSONS.md#f2uiz",
+"00691F18"
+],
+"shape": "vmov s0,r0; vcvt.u32.f32 s2,s0; vmov r0,s2 (s2 scratch instead of s0)"
+},
+{
+"id": "neg-vfp-wb-unconditional",
+"kind": "negative",
+"refs": [
+"LESSONS.md#vfp",
+"00115234"
+],
+"shape": "vldmia r1!,{s0-s11} first-op writeback with pointer NOT reused"
+},
+{
+"id": "neg-guarded-vfp-branch",
+"kind": "negative",
+"refs": [
+"LESSONS.md#vfp",
+"001150B8"
+],
+"shape": "cmp rX,rY; bxeq lr; vldmia; vstmia; bx lr (2-op guarded VFP body in BRANCH form)"
+}
+]
