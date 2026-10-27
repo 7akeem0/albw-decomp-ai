@@ -29,7 +29,8 @@ knowledge moves out of the agent's head and into tools + recipe data.
 | `tools/dna.py` | done — index built (25,986), acceptance 20/20 + 7/7, `--json` everywhere |
 | `tools/recipes.py` + `shared/recipes.json` | done — 13 entries (7 positive, 6 negative) |
 | `tools/synth.py` | done — store-init class, DEFER otherwise; class coverage grows with use |
-| Refiner (phase 4) / queue (phase 5) | not started |
+| `tools/refine.py` (phase 4) | done — closed-loop refiner, acceptance 5/5 reproduced from skeleton-only restart |
+| Queue driver (phase 5) | not started |
 | `AGENTS.md` | still written for an expert agent |
 
 ## Phases
