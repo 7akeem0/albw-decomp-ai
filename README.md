@@ -11,17 +11,22 @@ not included either.
 
 | | Functions | Share of 25,986 |
 |---|---:|---:|
-| Matched, source included | 16,581 | 63.8% |
-| of which honest (no hack, see below) | 15,703 | 60.4% |
-| of which matched only with a hack | 878 | 3.4% |
-| Matched earlier, source not included | 111 | 0.4% |
+| Matched, source included | 16,660 | 64.1% |
+| of which honest (no hack, see below) | 15,871 | 61.1% |
+| of which matched only with a hack | 789 | 3.0% |
+| Matched earlier, source not included | 131 | 0.5% |
 
-The 111 functions without source break down as follows:
-- **72:** sources lost over time.
-- **26:** matched only with third-party library sources that cannot be redistributed.
-- **9:** prebuilt middleware/SDK library code, built with other compiler builds. This is not game code and is
+The 131 functions without source break down as follows:
+- **114:** sources lost over time.
+- **14:** prebuilt middleware/SDK library code, built with other compiler builds. This is not game code and is
   deliberately excluded.
-- **4:** interior addresses that duplicate their enclosing function.
+- **3:** interior addresses that duplicate their enclosing function.
+
+**Correction to the first publication.** 419 entries of the first publication (2026-10-15) were removed after a
+relocation audit. `tools/fn.py` masks relocated words (call targets, global addresses), so it printed `RESULT: MATCH`
+for sources that call the wrong function, use the wrong global, or were accepted against the wrong padding. Those
+entries are no longer listed as matched unless a source also passes the relocation identity check; 18 of them came
+back that way in this update.
 
 (Counts are recomputed from `functions.json` with `python tools/audit.py stats`.)
 
@@ -35,9 +40,8 @@ The 111 functions without source break down as follows:
 - if/else blocks whose two arms are identical;
 - permuter-only `perm_t` types.
 
-`functions.json` marks every function `honest` or `hack` and lists the hack reasons. Hack counts: weak 528,
-`__schedule_barrier` 244, asm 96, identical arms 29, perm_t 24, dummy locals 16, volatile dummies 11, no-op mask 1,
-out-of-bounds dummy 1.
+`functions.json` marks every function `honest` or `hack` and lists the hack reasons. Hack counts: weak 527,
+`__schedule_barrier` 165, asm 94, identical arms 24, perm_t 15, dummy locals 13, volatile dummies 6.
 
 ## Layout
 
@@ -64,7 +68,7 @@ Default flags:
 ```
 --cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections
 ```
-853 functions also need `--apcs=/fpic`, and a few use `--fpu` variants. `functions.json` has the exact `cc` and `flags`
+867 functions also need `--apcs=/fpic`, and a few use `--fpu` variants. `functions.json` has the exact `cc` and `flags`
 of each function.
 
 ## Usage
@@ -101,6 +105,15 @@ helpers and classes from the game's own headers**:
 The bytes show *that* a helper was inlined at a site, but not its exact source form. A shared, correct header library
 of these helpers would unlock many functions at once. This is how other large decompilation projects grew.
 
+## Contributors
+
+- **matthis** ([mmaupas/albw-decomp-ai](https://github.com/mmaupas/albw-decomp-ai)) added the automation tools in
+  `tools/` (worklist, refine, synth, dna, sweep, permuter, triage, twins, dehack, recipes, audit and others), the
+  shared headers `shared/include/albw_types.h` and `albw_common.h`, `shared/recipes.json`, `AGENTS.md` and the agent
+  skills, new matches (twin harvesting, de-hacked sources, functions that had lost their source), and many entries in
+  `docs/LESSONS.md`. Their matches were re-checked with the same gate as ours (byte match, hack scan, relocation
+  identity) before being listed here.
+
 ## Legal
 
 This project contains no Nintendo binaries, data files or assets, and no compiler files.
@@ -115,6 +128,6 @@ decides.
 
 ### ملخص بالعربي
 - **وش هذا المشروع:** تفكيك مطابق للعبة Zelda: A Link Between Worlds على 3DS. كل ملف هنا لما يترجَم بمترجم armcc 4.1 يعطي نفس بايتات الدالة في اللعبة بالضبط.
-- **وين وصلنا:** 63.7% من الدوال مطابقة، و60.3% منها نظيفة بدون حيل.
+- **وين وصلنا:** 64.1% من الدوال مطابقة، و61.1% منها نظيفة بدون حيل.
 - **وش ما يشمل:** ما فيه أي ملفات من اللعبة (ملف الكود أو ملفات البيانات) ولا المترجم. كل واحد يجيب نسخته بنفسه.
 - **ليش منشور:** الشغل منشور عشان أي أحد يبي يكمّل.
