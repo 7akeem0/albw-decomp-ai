@@ -15,6 +15,10 @@ not included either.
 | of which honest (no hack, see below) | 15,871 | 61.1% |
 | of which matched only with a hack | 789 | 3.0% |
 | Matched earlier, source not included | 131 | 0.5% |
+| Not matched yet | 9,195 | 35.4% |
+
+Still to do for a fully honest decomp: **10,115** functions (38.9%) = 9,195 never matched + 789 hack matches that
+need an honest source + 131 without a published source.
 
 The 131 functions without source break down as follows:
 - **114:** sources lost over time.
@@ -95,7 +99,7 @@ See `docs/LESSONS.md` for what worked, what did not, and the measured numbers.
 
 ## Where to go next
 
-The remaining ~9,300 functions are the hard tail. Our tests show the main blocker is **the shape of small inline
+The remaining 9,195 unmatched functions are the hard tail. Our tests show the main blocker is **the shape of small inline
 helpers and classes from the game's own headers**:
 - inlined constructors;
 - setters with parameters;
@@ -128,6 +132,7 @@ decides.
 
 ### ملخص بالعربي
 - **وش هذا المشروع:** تفكيك مطابق للعبة Zelda: A Link Between Worlds على 3DS. كل ملف هنا لما يترجَم بمترجم armcc 4.1 يعطي نفس بايتات الدالة في اللعبة بالضبط.
-- **وين وصلنا:** 64.1% من الدوال مطابقة، و61.1% منها نظيفة بدون حيل.
+- **وين وصلنا:** 64.1% من دوال اللعبة مطابقة (16,660 دالة). النظيف منها بدون حيل 15,871 دالة، يعني 61.1% من كل الدوال.
+- **وش باقي:** 9,195 دالة ما طابقت أبداً (35.4%). والمجموع الباقي عشان يصير التفكيك كله نظيف 10,115 دالة (38.9%).
 - **وش ما يشمل:** ما فيه أي ملفات من اللعبة (ملف الكود أو ملفات البيانات) ولا المترجم. كل واحد يجيب نسخته بنفسه.
 - **ليش منشور:** الشغل منشور عشان أي أحد يبي يكمّل.
