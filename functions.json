@@ -750,7 +750,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/reach/pass/00105374.cpp",
+"path": "src/work8/game_re2/reach/pass/00105374.cpp",
 "status": "honest"
 },
 "001057A0": {
@@ -1356,7 +1356,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/dehack/0010A574_from_0010A644.c",
+"path": "src/work8/game_re2/families/src/dehack/0010A574_from_0010A644.c",
 "status": "honest"
 },
 "0010A644": {
@@ -2345,7 +2345,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0011307C.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0011307C.cpp",
 "status": "honest"
 },
 "001132C0": {
@@ -10931,7 +10931,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/00121DF8.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/00121DF8.cpp",
 "status": "honest"
 },
 "00121E74": {
@@ -10994,7 +10994,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00122E08.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00122E08.cpp",
 "status": "honest"
 },
 "00122E64": {
@@ -12069,7 +12069,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/00136624.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/00136624.cpp",
 "status": "honest"
 },
 "00136718": {
@@ -12766,7 +12766,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/00143E80_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/00143E80_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "00143EF8": {
@@ -12931,7 +12931,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/reach/pass/0014921C.cpp",
+"path": "src/work8/game_re2/reach/pass/0014921C.cpp",
 "status": "honest"
 },
 "0014938C": {
@@ -13851,7 +13851,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/dehack/001533B8_from_0026562C.cpp",
+"path": "src/work8/game_re2/families/src/dehack/001533B8_from_0026562C.cpp",
 "status": "honest"
 },
 "0015358C": {
@@ -14505,7 +14505,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/reach/pass/0015C6A8.cpp",
+"path": "src/work8/game_re2/reach/pass/0015C6A8.cpp",
 "status": "honest"
 },
 "0015CB98": {
@@ -15156,7 +15156,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/001660D0.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/001660D0.cpp",
 "status": "honest"
 },
 "00166150": {
@@ -15233,7 +15233,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/00168E00_from_00286FF8.cpp",
+"path": "src/work8/game_re2/families/src/rm/00168E00_from_00286FF8.cpp",
 "status": "honest"
 },
 "001695F8": {
@@ -15338,7 +15338,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/0016B880.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/0016B880.cpp",
 "status": "honest"
 },
 "0016C3C8": {
@@ -15439,7 +15439,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/solve/16EC48/v7.cpp",
+"path": "src/work8/game_re2/families/solve/16EC48/v7.cpp",
 "status": "honest"
 },
 "0016F13C": {
@@ -15931,7 +15931,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/00174EB0_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/00174EB0_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "00175690": {
@@ -16029,7 +16029,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/00176760_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/00176760_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "001768A0": {
@@ -17780,7 +17780,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/001989F8_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/001989F8_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "00198A6C": {
@@ -18129,7 +18129,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0019C608_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0019C608_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0019C720": {
@@ -18374,7 +18374,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/001A2E2C.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/001A2E2C.c",
 "status": "honest"
 },
 "001A302C": {
@@ -18395,7 +18395,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/001A32C0.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/001A32C0.c",
 "status": "honest"
 },
 "001A3314": {
@@ -19114,7 +19114,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/001AE5E4.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/001AE5E4.cpp",
 "status": "honest"
 },
 "001AE638": {
@@ -19304,7 +19304,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/001B2734.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/001B2734.cpp",
 "status": "honest"
 },
 "001B2A50": {
@@ -19907,7 +19907,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/001BE3C8_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/001BE3C8_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "001BED08": {
@@ -19928,7 +19928,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/001BED10_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/001BED10_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "001BED88": {
@@ -20240,7 +20240,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/001C21A4_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/001C21A4_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "001C221C": {
@@ -20320,7 +20320,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/001C3348_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/001C3348_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "001C3C2C": {
@@ -20507,7 +20507,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/001C70E4_from_0019BAF0.cpp",
+"path": "src/work8/game_re2/families/src/rm/001C70E4_from_0019BAF0.cpp",
 "status": "honest"
 },
 "001C71BC": {
@@ -22793,7 +22793,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/001E28B8_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/001E28B8_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "001E2930": {
@@ -23577,7 +23577,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/001E6F84_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/001E6F84_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "001E6FFC": {
@@ -25074,7 +25074,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/0020C500_from_0020B614.cpp",
+"path": "src/work8/game_re2/families/src/rm/0020C500_from_0020B614.cpp",
 "status": "honest"
 },
 "0020C59C": {
@@ -29260,7 +29260,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0024F49C_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0024F49C_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0024F510": {
@@ -29370,7 +29370,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0025195C_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0025195C_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "00251E48": {
@@ -29547,7 +29547,7 @@
 "hack_reasons": [
 "weak"
 ],
-"path": "src/work8/armcc_re2/float/nm/002538C8/a5.cpp",
+"path": "src/work8/game_re2/float/nm/002538C8/a5.cpp",
 "status": "hack"
 },
 "00253924": {
@@ -29680,7 +29680,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0025520C.c",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0025520C.c",
 "status": "honest"
 },
 "002552A0": {
@@ -30558,7 +30558,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/0025B84C.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/0025B84C.c",
 "status": "honest"
 },
 "0025B88C": {
@@ -31570,14 +31570,14 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/00267914.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/00267914.cpp",
 "status": "honest"
 },
 "00267968": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/00267968.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/00267968.cpp",
 "status": "honest"
 },
 "002679BC": {
@@ -33192,7 +33192,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00288224.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00288224.cpp",
 "status": "honest"
 },
 "0028848C": {
@@ -33297,7 +33297,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/0028A790_from_00289F10.c",
+"path": "src/work8/game_re2/families/src/rm/0028A790_from_00289F10.c",
 "status": "honest"
 },
 "0028AA34": {
@@ -34016,7 +34016,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/002915C0.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/002915C0.c",
 "status": "honest"
 },
 "002916D0": {
@@ -34830,7 +34830,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/reach/pass/002978FC.cpp",
+"path": "src/work8/game_re2/reach/pass/002978FC.cpp",
 "status": "honest"
 },
 "00297934": {
@@ -34921,7 +34921,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/00299458_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/00299458_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0029993C": {
@@ -35089,7 +35089,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0029AB48_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0029AB48_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0029B158": {
@@ -35131,7 +35131,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0029B1EC_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0029B1EC_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0029B264": {
@@ -35599,7 +35599,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0029F288_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0029F288_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0029F300": {
@@ -35641,7 +35641,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/0029F9D0.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/0029F9D0.c",
 "status": "honest"
 },
 "0029FAA4": {
@@ -36342,7 +36342,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/002B0514.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/002B0514.cpp",
 "status": "honest"
 },
 "002B0584": {
@@ -37745,7 +37745,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/002C66FC_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/002C66FC_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "002C6770": {
@@ -38420,7 +38420,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/002CF09C_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/002CF09C_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "002CF114": {
@@ -38469,7 +38469,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/002D04E4.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/002D04E4.cpp",
 "status": "honest"
 },
 "002D0618": {
@@ -39047,7 +39047,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/002DED00.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/002DED00.cpp",
 "status": "honest"
 },
 "002DED58": {
@@ -39402,7 +39402,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/002E0B68_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/002E0B68_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "002E0BE0": {
@@ -40363,7 +40363,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections --apcs=/fpic",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/002FBDAC.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/002FBDAC.cpp",
 "status": "honest"
 },
 "002FBE10": {
@@ -41643,7 +41643,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/003179A0_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/003179A0_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "00317EC4": {
@@ -41692,7 +41692,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/00318348_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/00318348_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "00318B98": {
@@ -41844,7 +41844,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/0031A110.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/0031A110.cpp",
 "status": "honest"
 },
 "0031A164": {
@@ -41935,7 +41935,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0031B348.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0031B348.cpp",
 "status": "honest"
 },
 "0031B7D0": {
@@ -42963,7 +42963,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/0032C384.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/0032C384.cpp",
 "status": "honest"
 },
 "0032C3DC": {
@@ -43313,7 +43313,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm4/003326C8_from_00332680_v4.cpp",
+"path": "src/work8/game_re2/families/src/rm4/003326C8_from_00332680_v4.cpp",
 "status": "honest"
 },
 "00332768": {
@@ -43963,7 +43963,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0033DC60_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0033DC60_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0033E544": {
@@ -44005,7 +44005,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0033E56C_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0033E56C_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0033EBE8": {
@@ -44325,7 +44325,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0034CA24.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0034CA24.cpp",
 "status": "honest"
 },
 "0034CC3C": {
@@ -44750,7 +44750,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/0035AD7C.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/0035AD7C.c",
 "status": "honest"
 },
 "0035ADBC": {
@@ -44778,7 +44778,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/nm/0035AF74/lv2.c",
+"path": "src/work8/game_re2/float/nm/0035AF74/lv2.c",
 "status": "honest"
 },
 "0035B004": {
@@ -44892,7 +44892,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0035BD94_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0035BD94_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0035BE0C": {
@@ -46217,7 +46217,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/0036F42C.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/0036F42C.cpp",
 "status": "honest"
 },
 "0036F488": {
@@ -46399,7 +46399,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00371D6C.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00371D6C.cpp",
 "status": "honest"
 },
 "003725B4": {
@@ -46895,7 +46895,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/0037AE48_from_0029D9FC.cpp",
+"path": "src/work8/game_re2/families/src/rm/0037AE48_from_0029D9FC.cpp",
 "status": "honest"
 },
 "0037AED0": {
@@ -47569,7 +47569,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00386368.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00386368.cpp",
 "status": "honest"
 },
 "00386B28": {
@@ -47681,7 +47681,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00388254.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00388254.cpp",
 "status": "honest"
 },
 "00388318": {
@@ -47885,7 +47885,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/00389820_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/00389820_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "00389898": {
@@ -47948,7 +47948,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0038AF14.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0038AF14.cpp",
 "status": "honest"
 },
 "0038AF5C": {
@@ -49070,7 +49070,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0039F9D4.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0039F9D4.cpp",
 "status": "honest"
 },
 "0039FA3C": {
@@ -49502,7 +49502,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/003A47AC_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/003A47AC_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "003A4820": {
@@ -50026,7 +50026,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/003ADDE0_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/003ADDE0_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "003ADE58": {
@@ -51393,7 +51393,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/003BD3FC.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/003BD3FC.cpp",
 "status": "honest"
 },
 "003BD478": {
@@ -51494,7 +51494,7 @@
 "__schedule_barrier",
 "volatile_dummy"
 ],
-"path": "src/work8/armcc_re2/families/src/rm/003BDDE8_from_003C080C.cpp",
+"path": "src/work8/game_re2/families/src/rm/003BDDE8_from_003C080C.cpp",
 "status": "hack"
 },
 "003BDE4C": {
@@ -51788,7 +51788,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/003C080C.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/003C080C.cpp",
 "status": "honest"
 },
 "003C0870": {
@@ -51898,7 +51898,7 @@
 "__schedule_barrier",
 "volatile_dummy"
 ],
-"path": "src/work8/armcc_re2/families/src/rm/003C1384_from_003C080C.cpp",
+"path": "src/work8/game_re2/families/src/rm/003C1384_from_003C080C.cpp",
 "status": "hack"
 },
 "003C13E8": {
@@ -51968,7 +51968,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/nm/003C1C74/sa1.c",
+"path": "src/work8/game_re2/float/nm/003C1C74/sa1.c",
 "status": "honest"
 },
 "003C1EEC": {
@@ -52174,7 +52174,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/003C3E38.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/003C3E38.cpp",
 "status": "honest"
 },
 "003C3E9C": {
@@ -52314,7 +52314,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/003C4E94.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/003C4E94.cpp",
 "status": "honest"
 },
 "003C4EF8": {
@@ -54115,7 +54115,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/003DAE18.c",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/003DAE18.c",
 "status": "honest"
 },
 "003DAE68": {
@@ -55120,7 +55120,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/003E2230.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/003E2230.cpp",
 "status": "honest"
 },
 "003E22CC": {
@@ -55706,7 +55706,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/003F3500.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/003F3500.cpp",
 "status": "honest"
 },
 "003F3544": {
@@ -56479,7 +56479,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00408368.c",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00408368.c",
 "status": "honest"
 },
 "004083B0": {
@@ -56496,7 +56496,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/004083F8.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/004083F8.c",
 "status": "honest"
 },
 "00408458": {
@@ -57224,7 +57224,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/00410260.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/00410260.cpp",
 "status": "honest"
 },
 "004102B0": {
@@ -57922,7 +57922,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/00417134.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/00417134.c",
 "status": "honest"
 },
 "00417188": {
@@ -58111,7 +58111,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00418F7C.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00418F7C.cpp",
 "status": "honest"
 },
 "00418FBC": {
@@ -58536,7 +58536,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0041D3F8.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0041D3F8.cpp",
 "status": "honest"
 },
 "0041D5C0": {
@@ -59944,7 +59944,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00435BE8.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00435BE8.cpp",
 "status": "honest"
 },
 "0043625C": {
@@ -62764,7 +62764,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections --apcs=/fpic",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0046185C.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0046185C.cpp",
 "status": "honest"
 },
 "00461A0C": {
@@ -62836,14 +62836,14 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00462C50.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00462C50.cpp",
 "status": "honest"
 },
 "00463920": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00463920.c",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00463920.c",
 "status": "honest"
 },
 "00463B34": {
@@ -63014,7 +63014,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00469B14.c",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00469B14.c",
 "status": "honest"
 },
 "00469BA0": {
@@ -63496,7 +63496,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/00470544.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/00470544.c",
 "status": "honest"
 },
 "004705FC": {
@@ -64063,7 +64063,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00475F78.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00475F78.cpp",
 "status": "honest"
 },
 "00475FD4": {
@@ -64551,7 +64551,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/0047BF1C_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/0047BF1C_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "0047D440": {
@@ -66704,7 +66704,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/004937B0.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/004937B0.cpp",
 "status": "honest"
 },
 "004937F0": {
@@ -67422,7 +67422,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/0049B88C_from_0049B800.cpp",
+"path": "src/work8/game_re2/families/src/rm/0049B88C_from_0049B800.cpp",
 "status": "honest"
 },
 "0049B918": {
@@ -69461,7 +69461,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/004C38B0.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/004C38B0.cpp",
 "status": "honest"
 },
 "004C3914": {
@@ -69510,7 +69510,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/004C457C.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/004C457C.c",
 "status": "honest"
 },
 "004C4808": {
@@ -70857,7 +70857,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/004E422C.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/004E422C.cpp",
 "status": "honest"
 },
 "004E4760": {
@@ -71901,7 +71901,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections -g",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/004EF004.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/004EF004.cpp",
 "status": "honest"
 },
 "004EF408": {
@@ -72456,7 +72456,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/004FA0B8.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/004FA0B8.cpp",
 "status": "honest"
 },
 "004FA10C": {
@@ -73456,7 +73456,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00502768.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00502768.cpp",
 "status": "honest"
 },
 "005027C4": {
@@ -73799,7 +73799,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm2/0050C638_from_001C64C4_c0.cpp",
+"path": "src/work8/game_re2/families/src/rm2/0050C638_from_001C64C4_c0.cpp",
 "status": "honest"
 },
 "0050D450": {
@@ -74028,7 +74028,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/s16/005115AC_from_0016EC48_s16ec48.cpp",
+"path": "src/work8/game_re2/families/src/s16/005115AC_from_0016EC48_s16ec48.cpp",
 "status": "honest"
 },
 "00511A14": {
@@ -74324,7 +74324,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm2/00516218_from_001C64C4_c0.cpp",
+"path": "src/work8/game_re2/families/src/rm2/00516218_from_001C64C4_c0.cpp",
 "status": "honest"
 },
 "00516258": {
@@ -75032,7 +75032,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/0051BC64.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/0051BC64.cpp",
 "status": "honest"
 },
 "0051BD54": {
@@ -78108,7 +78108,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/new/00533644.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/new/00533644.cpp",
 "status": "honest"
 },
 "00533684": {
@@ -84487,7 +84487,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0055C470.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0055C470.cpp",
 "status": "honest"
 },
 "0055C4AC": {
@@ -85529,7 +85529,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/00563BFC.cpp",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/00563BFC.cpp",
 "status": "honest"
 },
 "00563D10": {
@@ -86603,7 +86603,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/0056B678.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/0056B678.cpp",
 "status": "honest"
 },
 "0056B6D8": {
@@ -90426,7 +90426,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/00588054.cpp",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/00588054.cpp",
 "status": "honest"
 },
 "00588078": {
@@ -99027,7 +99027,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpu=none --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/005FF2A8_from_00601934.cpp",
+"path": "src/work8/game_re2/families/src/rm/005FF2A8_from_00601934.cpp",
 "status": "honest"
 },
 "005FF2C8": {
@@ -99209,14 +99209,14 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpu=none --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/00601954_from_00601934.cpp",
+"path": "src/work8/game_re2/families/src/rm/00601954_from_00601934.cpp",
 "status": "honest"
 },
 "00601974": {
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpu=softvfp --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/00601974_from_00601994.cpp",
+"path": "src/work8/game_re2/families/src/rm/00601974_from_00601994.cpp",
 "status": "honest"
 },
 "00601994": {
@@ -101143,7 +101143,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/hacks/pass/dehacked/00606680.c",
+"path": "src/work8/game_re2/float/hacks/pass/dehacked/00606680.c",
 "status": "honest"
 },
 "006066D4": {
@@ -101878,7 +101878,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpu=softvfp --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/families/src/rm/006088A8_from_00608F10.cpp",
+"path": "src/work8/game_re2/families/src/rm/006088A8_from_00608F10.cpp",
 "status": "honest"
 },
 "006088EC": {
@@ -101920,7 +101920,7 @@
 "cc": "4.1/b1049",
 "flags": "--cpu=MPCore --fpmode=fast --apcs=/interwork -O3 -Otime --split_sections",
 "hack_reasons": [],
-"path": "src/work8/armcc_re2/float/barrier/pass/dehacked/006089C8.c",
+"path": "src/work8/game_re2/float/barrier/pass/dehacked/006089C8.c",
 "status": "honest"
 },
 "00608A20": {
