@@ -1,5 +1,0 @@
-void ext_58EB3C(void*);
-struct A_58EB3C { virtual void a(); char pad[0x34]; };
-struct B_58EB3C { virtual void b(); };
-struct C_58EB3C : A_58EB3C, B_58EB3C { virtual void b(); };
-void C_58EB3C::b() { ext_58EB3C(this); }
